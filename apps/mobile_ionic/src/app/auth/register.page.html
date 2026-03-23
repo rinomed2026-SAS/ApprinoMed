@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-item>
+    <ion-label position="stacked">Nombre</ion-label>
+    <ion-input [(ngModel)]="name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Email</ion-label>
+    <ion-input [(ngModel)]="email" type="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Password</ion-label>
+    <ion-input [(ngModel)]="password" type="password"></ion-input>
+  </ion-item>
+  <p class="error" *ngIf="error">{{ error }}</p>
+  <ion-button expand="block" (click)="register()">Crear cuenta</ion-button>
+  <ion-button expand="block" fill="clear" routerLink="/login">Volver a login</ion-button>
+</ion-content>

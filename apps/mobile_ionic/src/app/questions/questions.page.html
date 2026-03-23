@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title>{{ 'QA.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-textarea
+    [placeholder]="'QA.ASK_QUESTION' | translate"
+    [(ngModel)]="text"
+  ></ion-textarea>
+  <ion-button expand="block" (click)="submit()">{{ 'QA.SUBMIT' | translate }}</ion-button>
+
+  <ion-list>
+    <ion-item *ngFor="let q of questions">
+      <ion-label>
+        <p>{{ q.text }}</p>
+        <small>{{ q.createdAt | date: 'short' }}</small>
+      </ion-label>
+      <ion-button fill="clear" (click)="remove(q.id)">{{ 'COMMON.DELETE' | translate }}</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

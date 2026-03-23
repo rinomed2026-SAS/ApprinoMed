@@ -1,0 +1,141 @@
+.page-shell {
+  padding: 18px 16px 40px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.page-head .eyebrow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.page-head h1 {
+  margin: 4px 0 0;
+  font-size: 22px;
+}
+
+.tier {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tier-title {
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sponsor-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  text-align: left;
+  color: #ffffff;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.sponsor-card:hover {
+  border-color: rgba(192, 122, 184, 0.5);
+  transform: translateY(-2px);
+}
+
+.logo-wrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 10px;
+}
+
+.logo-fallback {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #c07ab8 0%, #d499c9 100%);
+  color: #111;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.name {
+  margin: 0;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.badge {
+  --background: rgba(192, 122, 184, 0.16);
+  --color: #c07ab8;
+  border-radius: 10px;
+  padding: 4px 8px;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.desc {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.5;
+}
+
+ion-icon[name='chevron-forward-outline'] {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.empty {
+  padding: 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+}
+
+@media (max-width: 480px) {
+  .sponsor-card {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px;
+  }
+}

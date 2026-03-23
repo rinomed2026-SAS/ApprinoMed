@@ -1,0 +1,110 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title>Certificate</ion-title>
+    <p slot="end" class="header-subtitle">Academic participation</p>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="certificate-content bg-detail">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <ion-spinner name="circular" color="primary"></ion-spinner>
+    <p class="loading-text">Generating certificate…</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="hasError && !isLoading" class="error-state">
+    <ion-icon name="informationCircleOutline" class="error-icon"></ion-icon>
+    <h3>Certificate could not be generated</h3>
+    <p>{{ errorMessage }}</p>
+    <ion-button expand="block" class="glass-button retry" (click)="retry()">
+      <ion-icon slot="start" name="refreshOutline"></ion-icon>
+      Try Again
+    </ion-button>
+  </div>
+
+  <!-- Success State -->
+  <div *ngIf="certificate && !isLoading && !hasError" class="certificate-container">
+    <!-- Availability Badge -->
+    <div class="availability-badge">
+      <ion-icon name="checkmarkCircleOutline"></ion-icon>
+      <span>Certificate available</span>
+    </div>
+
+    <!-- Certificate Preview Card -->
+    <div class="certificate-preview">
+      <div class="certificate-inner">
+        <!-- Decorative Header Line -->
+        <div class="certificate-decoration"></div>
+
+        <!-- RINOMED Logo / Event Identifier -->
+        <div class="certificate-header">
+          <p class="event-identifier">RINOMED 2026</p>
+        </div>
+
+        <!-- Main Certificate Content -->
+        <div class="certificate-body">
+          <!-- Title -->
+          <h1 class="certificate-title">Certificate of Academic Participation</h1>
+
+          <!-- Recipient Name -->
+          <div class="recipient-section">
+            <p class="recipient-label">This certificate is awarded to</p>
+            <h2 class="recipient-name">{{ certificate.userName }}</h2>
+          </div>
+
+          <!-- Achievement Text -->
+          <div class="achievement-section">
+            <p class="achievement-text">
+              for having successfully participated in
+            </p>
+            <p class="event-name">
+              {{ certificate.eventName }}
+            </p>
+          </div>
+
+          <!-- Event Details -->
+          <div class="details-section">
+            <div class="detail-item">
+              <span class="detail-label">Event Dates</span>
+              <span class="detail-value">{{ certificate.eventDates }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Academic Hours</span>
+              <span class="detail-value">{{ certificate.academicHours }} hours</span>
+            </div>
+          </div>
+
+          <!-- Certificate ID -->
+          <div class="certificate-id-section">
+            <p class="id-label">Certificate ID</p>
+            <p class="id-value">{{ certificate.certificateId }}</p>
+          </div>
+
+          <!-- Issue Date -->
+          <div class="issue-date">
+            <p>Issued on {{ getFormattedDate(certificate.issuedAt) }}</p>
+          </div>
+
+          <!-- Footer Line -->
+          <div class="certificate-footer-line"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Information Note -->
+    <div class="info-note">
+      <p>This is a preview of your digital certificate. The PDF download contains your official document with signature and validation codes.</p>
+    </div>
+
+    <!-- Download Button -->
+    <ion-button 
+      expand="block" 
+      class="download-button glass-button primary"
+      (click)="downloadCertificate()"
+      [disabled]="isDownloading">
+      <ion-icon slot="start" name="downloadOutline"></ion-icon>
+      {{ isDownloading ? 'Downloading…' : 'Download Certificate (PDF)' }}
+    </ion-button>
+  </div>
+</ion-content>

@@ -1,0 +1,124 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// RINOMED 2026 – BACKGROUNDS OFICIALES
+// Estilos de fondos predefinidos para cada pantalla
+// ═══════════════════════════════════════════════════════════════════════════════
+
+@import './design-tokens.scss';
+
+// LOGIN BACKGROUND
+// ═══════════════════════════════════════════════════════════════════════════════
+// Uso: <ion-content class="bg-login">
+// Características: Inmersivo, gradientes magenta intensos, sensación futurista
+
+ion-content.bg-login {
+  --background: none;
+  background-image:
+    radial-gradient(
+      1200px 900px at 50% 20%,
+      rgba(192, 122, 184, 0.28),
+      rgba(192, 122, 184, 0.12) 35%,
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      #1a151d 0%,
+      #1c1c1c 55%,
+      #0f0f12 100%
+    );
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+// HOME BACKGROUND
+// ═══════════════════════════════════════════════════════════════════════════════
+// Uso: <ion-content class="bg-home">
+// Características: Oscuro equilibrado, dashboard profesional
+
+ion-content.bg-home {
+  --background: none;
+  background-image:
+    radial-gradient(
+      1000px 800px at 50% 10%,
+      rgba(192, 122, 184, 0.15),
+      rgba(192, 122, 184, 0.05) 40%,
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      #1a151d 0%,
+      #1c1c1c 50%,
+      #0f0f12 100%
+    );
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+// DETAIL BACKGROUND
+// ═══════════════════════════════════════════════════════════════════════════════
+// Uso: <ion-content class="bg-detail">
+// Características: Sobrio y limpio para lectura cómoda
+
+ion-content.bg-detail {
+  --background: none;
+  background-image:
+    linear-gradient(
+      135deg,
+      #1a151d 0%,
+      #1c1c1c 50%,
+      #0f0f12 100%
+    );
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+// UTILITY CLASSES
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// Añadir efecto glassmorphism al contenido si es necesario
+.glass-effect {
+  background: $glass-background;
+  backdrop-filter: blur($glass-blur);
+  border: $glass-border;
+  box-shadow: $glass-box-shadow;
+}
+
+// Overlay oscuro para modal/drawer
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 400;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// NOTAS IMPORTANTES
+// ═══════════════════════════════════════════════════════════════════════════════
+//
+// 1. APLICACIÓN:
+//    <ion-content class="bg-login">   // Para pantalla de login
+//    <ion-content class="bg-home">    // Para dashboard/home
+//    <ion-content class="bg-detail">  // Para pantallas de detalle
+//
+// 2. REGLAS OBLIGATORIAS:
+//    - Nunca cambiar estos fondos sin aprobación de diseño
+//    - Mantener consistencia entre todas las pantallas
+//    - No añadir ruido visual fuera del login
+//
+// 3. COLORES PERMITIDOS:
+//    - Fondos: #0F0F12, #1C1C1C
+//    - Magenta: #C07AB8 (CTAs)
+//    - Textos: #FFFFFF, rgba(255,255,255,0.65)
+//
+// 4. FUTURO:
+//    - Si necesitas nuevo background, comunicar a Design Team
+//    - Usar design-tokens.scss como referencia
+//    - Mantener la paleta y estética médica
+//
+// ═══════════════════════════════════════════════════════════════════════════════

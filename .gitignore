@@ -1,0 +1,131 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Production builds
+dist/
+dist-ssr/
+build/
+*.local
+out/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# IDE and Editor
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+*.launch
+.settings/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Testing
+/coverage
+testem.log
+
+# Temporary files
+.tmp/
+tmp/
+*.tmp
+*.tmp.*
+$RECYCLE.BIN/
+
+# OS files
+.DS_Store
+Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Xcode (iOS)
+build/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcworkspace/xcuserdata/
+*.xcworkspace/xcshareddata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/xcshareddata/
+DerivedData/
+.ipa
+*.dSYM.zip
+*.dSYM
+xcuserdata/
+UserInterfaceState.xcuserstate
+
+# Android
+android/.gradle
+android/.idea
+android/app/build
+android/local.properties
+*.apk
+*.ap_
+
+# Ionic/Capacitor
+.ionic/
+www/
+platforms/
+plugins/
+.sourcemaps/
+.versions/
+out-tsc/
+bazel-out/
+connect.lock
+
+# Node version managers
+.nvm
+.nvmrc
+
+# Package managers
+pnpm-store/
+
+# Certificates and keys
+*.pfx
+*.p12
+*.key
+*.pem
+*.crt
+*.cer
+
+# API related
+.prettierignore
+.eslintcache
+
+# Misc
+/.angular
+/.angular/cache
+/.nx
+/.nx/cache
+/libpeerconnection.log
+.sass-cache/
+/typings
+*.sln
+*.ntvs*
+*.njsproj
+*.suo

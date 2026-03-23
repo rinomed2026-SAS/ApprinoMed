@@ -1,0 +1,100 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title>{{ 'PROFILE.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="profile-content bg-detail">
+  <div class="profile-container" *ngIf="profile && !isLoading">
+    <!-- Hero Card - User Identity -->
+    <div class="hero-card glass-card">
+      <div class="avatar-container">
+        <div class="avatar-circle">
+          <span class="avatar-initial">{{ getAvatarInitial() }}</span>
+        </div>
+      </div>
+
+      <div class="user-info">
+        <h1 class="user-name">{{ profile.name }}</h1>
+        <p class="user-email">{{ profile.email }}</p>
+
+        <div class="role-badge" [style.background-color]="getRoleColor(profile.role) + '20'" [style.border-color]="getRoleColor(profile.role)">
+          <ion-icon name="checkmarkCircleOutline" [style.color]="getRoleColor(profile.role)"></ion-icon>
+          <span [style.color]="getRoleColor(profile.role)">{{ getRoleLabel(profile.role) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="stats-section">
+      <h2 class="section-title">{{ 'PROFILE.ACTIVITY_SUMMARY' | translate }}</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">{{ stats.favorites }}</div>
+          <div class="stat-label">{{ 'PROFILE.SESSIONS_IN_AGENDA' | translate }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ stats.questions }}</div>
+          <div class="stat-label">{{ 'PROFILE.QUESTIONS_SENT' | translate }}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-status" *ngIf="stats.certificateAvailable">
+            <ion-icon name="checkmarkCircleOutline"></ion-icon>
+          </div>
+          <div class="stat-label">{{ 'PROFILE.CERTIFICATE' | translate }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Actions -->
+    <div class="actions-section">
+      <h2 class="section-title">{{ 'PROFILE.ACTIONS' | translate }}</h2>
+
+      <ion-list class="actions-list">
+          <!-- Language Selector -->
+          <ion-item button class="action-item glass-item" (click)="changeLanguage()">
+            <ion-icon slot="start" name="globeOutline" class="action-icon"></ion-icon>
+            <ion-label class="action-label">
+              <h3>{{ 'PROFILE.LANGUAGE' | translate }}</h3>
+              <p>{{ languageService.getLanguageName(languageService.getCurrentLanguage()) }}</p>
+            </ion-label>
+            <ion-icon slot="end" name="chevronForwardOutline" class="chevron-icon"></ion-icon>
+          </ion-item>
+
+        <!-- View Certificate -->
+        <ion-item button class="action-item glass-item" (click)="viewCertificate()">
+          <ion-icon slot="start" name="documentTextOutline" class="action-icon"></ion-icon>
+          <ion-label class="action-label">
+            <h3>{{ 'PROFILE.VIEW_CERTIFICATE' | translate }}</h3>
+            <p>{{ 'PROFILE.CERT_SUBTEXT' | translate }}</p>
+          </ion-label>
+          <ion-icon slot="end" name="chevronForwardOutline" class="chevron-icon"></ion-icon>
+        </ion-item>
+
+        <!-- Privacy Policy -->
+        <ion-item button class="action-item glass-item" (click)="openPrivacy()">
+          <ion-icon slot="start" name="informationCircleOutline" class="action-icon"></ion-icon>
+          <ion-label class="action-label">
+            <h3>{{ 'PROFILE.PRIVACY_POLICY' | translate }}</h3>
+            <p>{{ 'PROFILE.PRIVACY_SUBTEXT' | translate }}</p>
+          </ion-label>
+          <ion-icon slot="end" name="chevronForwardOutline" class="chevron-icon"></ion-icon>
+        </ion-item>
+
+        <!-- Logout -->
+        <ion-item button class="action-item glass-item logout-item" (click)="logout()">
+          <ion-icon slot="start" name="logOutOutline" class="action-icon logout-icon"></ion-icon>
+          <ion-label class="action-label logout-label">
+            <h3>{{ 'PROFILE.LOGOUT' | translate }}</h3>
+            <p>{{ 'PROFILE.LOGOUT_SUBTEXT' | translate }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="isLoading">
+    <p class="loading-text">{{ 'PROFILE.LOADING_PROFILE' | translate }}</p>
+  </div>
+</ion-content>

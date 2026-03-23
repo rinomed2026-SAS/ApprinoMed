@@ -1,0 +1,109 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/agenda"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ session?.title || ('SESSION_DETAIL.TITLE' | translate) }}</ion-title>
+    <ion-buttons slot="end" *ngIf="session">
+      <ion-button fill="clear" (click)="toggleFavorite($event)">
+        <ion-icon [name]="session.isFavorite ? 'star' : 'star-outline'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-detail" [fullscreen]="true">
+  <div class="session-container" *ngIf="session; else notFoundTpl">
+    <section class="hero-card">
+      <div class="hero-top">
+        <div class="hero-text">
+          <p class="eyebrow">{{ 'SESSION_DETAIL.EYEBROW' | translate }}</p>
+          <h1>{{ session.title }}</h1>
+        </div>
+        <button class="favorite-circle" (click)="toggleFavorite($event)">
+          <ion-icon [name]="session.isFavorite ? 'star' : 'star-outline'"></ion-icon>
+        </button>
+      </div>
+
+      <div class="meta-chips">
+        <ion-chip>
+          <ion-icon name="time-outline"></ion-icon>
+          <span>{{ session.startTime }}–{{ session.endTime }}</span>
+        </ion-chip>
+        <ion-chip>
+          <ion-icon name="location-outline"></ion-icon>
+          <span>{{ session.room }}</span>
+        </ion-chip>
+        <ion-chip>{{ session.level }}</ion-chip>
+        <ion-chip>{{ session.topic }}</ion-chip>
+      </div>
+
+      <p class="description">{{ session.description }}</p>
+    </section>
+
+    <section class="speakers-section" *ngIf="session.speakers?.length">
+      <div class="section-header">
+        <h3>{{ 'SPEAKERS.TITLE' | translate }}</h3>
+      </div>
+      <div class="speaker-list">
+        <button class="speaker-card" *ngFor="let sp of session.speakers" (click)="openSpeaker(sp)">
+          <ion-avatar>
+            <div class="avatar-fallback">{{ sp.name.charAt(0) }}</div>
+          </ion-avatar>
+          <div class="speaker-info">
+            <p class="speaker-name">{{ sp.name }}</p>
+            <p class="speaker-meta">{{ (sp.specialty || ('SESSION_DETAIL.SPEAKER_FALLBACK' | translate)) + ' · ' + (sp.country || '') }}</p>
+          </div>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
+      </div>
+    </section>
+
+    <section class="favorite-cta">
+      <ion-button expand="block" shape="round" (click)="toggleFavorite($event)" [fill]="session.isFavorite ? 'outline' : 'solid'">
+        <ion-icon slot="start" [name]="session.isFavorite ? 'star' : 'star-outline'"></ion-icon>
+        {{ session.isFavorite ? ('AGENDA.REMOVED_FROM_AGENDA' | translate) : ('AGENDA.ADDED_TO_AGENDA' | translate) }}
+      </ion-button>
+    </section>
+
+    <section class="qa-section">
+      <div class="section-header">
+        <h3>{{ 'QA.TITLE' | translate }}</h3>
+      </div>
+
+      <div class="qa-input">
+        <ion-textarea
+          autoGrow="true"
+          [placeholder]="'SESSION_DETAIL.QA_PLACEHOLDER' | translate"
+          [maxlength]="280"
+          [counter]="true"
+          [counterFormatter]="counterFormatter"
+          [(ngModel)]="questionText"
+        ></ion-textarea>
+        <ion-button expand="block" shape="round" (click)="sendQuestion()">{{ 'SESSION_DETAIL.SEND_QUESTION' | translate }}</ion-button>
+      </div>
+
+      <div class="qa-list" *ngIf="questions.length; else emptyQuestions">
+        <div class="qa-card" *ngFor="let q of questions; trackBy: trackByQuestionId">
+          <div class="qa-text">{{ q.text }}</div>
+          <div class="qa-meta">
+            <span>{{ q.createdAt | date:'MMM d · HH:mm' }}</span>
+            <button class="qa-delete" (click)="confirmDelete(q, $event)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <ng-template #emptyQuestions>
+        <div class="empty-state">{{ 'SESSION_DETAIL.NO_QUESTIONS' | translate }}</div>
+      </ng-template>
+    </section>
+  </div>
+
+  <ng-template #notFoundTpl>
+    <div class="empty-state">
+      {{ 'SESSION_DETAIL.NOT_FOUND' | translate }}
+      <ion-button fill="clear" size="small" routerLink="/tabs/agenda">{{ 'SESSION_DETAIL.BACK_TO_AGENDA' | translate }}</ion-button>
+    </div>
+  </ng-template>
+</ion-content>

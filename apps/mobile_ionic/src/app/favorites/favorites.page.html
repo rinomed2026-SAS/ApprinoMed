@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title>{{ 'FAVORITES.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="bg-detail">
+  <div class="page-shell">
+    <div class="page-head">
+      <p class="eyebrow">{{ 'FAVORITES.EYEBROW' | translate }}</p>
+      <h1>{{ 'FAVORITES.TITLE' | translate }}</h1>
+      <p class="summary">{{ 'FAVORITES.SUMMARY' | translate:{ count: sessions.length } }}</p>
+    </div>
+
+    <ng-container *ngIf="!notFound; else emptyState">
+      <div class="day-group" *ngFor="let group of grouped; trackBy: trackByDay">
+        <div class="day-label">{{ group.day }}</div>
+
+        <div class="session-list">
+          <div
+            class="session-card"
+            *ngFor="let session of group.items; trackBy: trackBySession"
+            (click)="openSession(session)"
+            role="button"
+          >
+            <div class="card-body">
+              <div class="time">{{ session.startTime }}–{{ session.endTime }}</div>
+              <div class="title-row">
+                <p class="title">{{ session.title }}</p>
+                <button class="fav" (click)="toggleFavorite($event, session)">
+                  <ion-icon name="star"></ion-icon>
+                </button>
+              </div>
+              <div class="chips">
+                <ion-chip>{{ session.topic }}</ion-chip>
+                <ion-chip>{{ session.level }}</ion-chip>
+              </div>
+              <div class="room-row">
+                <ion-icon name="location-outline"></ion-icon>
+                <span>{{ session.room }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #emptyState>
+      <div class="empty">
+        <ion-icon name="star-outline"></ion-icon>
+        <p class="empty-title">{{ 'FAVORITES.EMPTY_TITLE' | translate }}</p>
+        <p class="empty-copy">{{ 'FAVORITES.EMPTY_COPY' | translate }}</p>
+        <ion-button fill="solid" shape="round" routerLink="/tabs/agenda">{{ 'FAVORITES.EMPTY_CTA' | translate }}</ion-button>
+      </div>
+    </ng-template>
+  </div>
+</ion-content>

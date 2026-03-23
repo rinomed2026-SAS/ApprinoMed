@@ -1,0 +1,136 @@
+<!-- ═══════════════════════════════════════════════════════════════════════════════
+     HOME PAGE - RINOMED 2026 DASHBOARD
+     Dashboard principal del usuario - Premium Medical Congress
+     ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<ion-content class="bg-home" [fullscreen]="true">
+  <div class="home-container">
+    <!-- ═══════════════════════════════════════════════════════════════════════════════
+         HEADER SUPERIOR
+         ═══════════════════════════════════════════════════════════════════════════════ -->
+    <header class="home-header">
+      <div class="user-strip">
+        <button class="profile-button" (click)="navigateToProfile()">
+          <div class="profile-avatar">
+            <span class="avatar-initial">{{ getUserInitial() }}</span>
+          </div>
+        </button>
+        <div class="user-greeting user-greeting--center">
+           <span class="hello">{{ 'COMMON.HELLO' | translate }},</span>
+          <span class="user-name">{{ userName }}</span>
+        </div>
+        <div class="user-strip__spacer" aria-hidden="true"></div>
+      </div>
+
+      <div class="header-title">
+        <img src="/assets/logo-rinomed.svg" alt="RinoMed 2026" class="header-logo" />
+        <h1 class="sr-only">RINOMED 2026</h1>
+        <p class="rinomed-sub">{{ 'HOME.SUBTITLE' | translate }}</p>
+        <p class="subtitle">{{ 'HOME.EVENT_META' | translate }}</p>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════════
+         BLOQUE DE ESTADÍSTICAS
+         ═══════════════════════════════════════════════════════════════════════════════ -->
+    <section class="statistics-section">
+      <div class="stats-container">
+        <!-- Total Sesiones -->
+        <div class="stat-card" [class.active]="activeTab === 'sessions'">
+          <div class="stat-number">{{ statistics.totalSessions }}</div>
+            <div class="stat-label">{{ 'HOME.TOTAL_SESSIONS' | translate }}</div>
+        </div>
+
+        <!-- Sesiones en Mi Agenda -->
+        <div class="stat-card" [class.active]="activeTab === 'favorites'">
+          <div class="stat-number">{{ statistics.favoriteCount }}</div>
+            <div class="stat-label">{{ 'HOME.MY_FAVORITES' | translate }}</div>
+        </div>
+
+        <!-- Preguntas Enviadas -->
+        <div class="stat-card" [class.active]="activeTab === 'questions'">
+          <div class="stat-number">{{ statistics.questionCount }}</div>
+            <div class="stat-label">{{ 'HOME.MY_QUESTIONS' | translate }}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════════
+         ACCESOS RÁPIDOS (GRID)
+         ═══════════════════════════════════════════════════════════════════════════════ -->
+    <section class="quick-access-section">
+      <h2 class="section-title">{{ 'HOME.QUICK_ACCESS' | translate }}</h2>
+      <div class="quick-access-grid">
+        <button class="quick-access-button" (click)="navigateTab('agenda')">
+          <ion-icon mode="ios" name="calendar-outline"></ion-icon>
+          <span class="button-label">{{ 'TABS.AGENDA' | translate }}</span>
+        </button>
+
+        <button class="quick-access-button" (click)="navigateTab('speakers')">
+          <ion-icon mode="ios" name="people-outline"></ion-icon>
+          <span class="button-label">{{ 'TABS.SPEAKERS' | translate }}</span>
+        </button>
+
+        <button class="quick-access-button" (click)="navigateTab('favorites')">
+          <ion-icon mode="ios" name="star-outline"></ion-icon>
+          <span class="button-label">{{ 'AGENDA.MY_AGENDA' | translate }}</span>
+        </button>
+
+        <button class="quick-access-button" (click)="viewCertificate()">
+          <ion-icon mode="ios" name="document-text-outline"></ion-icon>
+          <span class="button-label">{{ 'PROFILE.CERTIFICATE' | translate }}</span>
+        </button>
+
+        <button class="quick-access-button" (click)="navigateTab('sponsors')">
+          <ion-icon mode="ios" name="briefcase-outline"></ion-icon>
+          <span class="button-label">{{ 'HOME.SPONSORS' | translate }}</span>
+        </button>
+
+        <button class="quick-access-button" (click)="navigateTab('info')">
+          <ion-icon mode="ios" name="information-circle-outline"></ion-icon>
+          <span class="button-label">{{ 'HOME.INFO' | translate }}</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════════
+         SECCIÓN INFORMATIVA DEL EVENTO
+         ═══════════════════════════════════════════════════════════════════════════════ -->
+    <section class="event-info-section">
+      <div class="event-card">
+        <h3 class="event-title">{{ 'HOME.EVENT_TITLE' | translate }}</h3>
+
+        <div class="event-detail">
+          <div class="detail-icon">
+            <ion-icon name="location-outline"></ion-icon>
+          </div>
+          <div class="detail-text">
+            <p class="detail-label">{{ 'HOME.VENUE_LABEL' | translate }}</p>
+            <p class="detail-value">{{ 'HOME.VENUE_VALUE' | translate }}</p>
+          </div>
+        </div>
+
+        <div class="event-detail">
+          <div class="detail-icon">
+            <ion-icon name="globe-outline"></ion-icon>
+          </div>
+          <div class="detail-text">
+            <p class="detail-label">{{ 'HOME.CITY_LABEL' | translate }}</p>
+            <p class="detail-value">{{ 'HOME.CITY_VALUE' | translate }}</p>
+          </div>
+        </div>
+
+        <div class="event-detail">
+          <div class="detail-icon">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+          <div class="detail-text">
+            <p class="detail-label">{{ 'HOME.DATES_LABEL' | translate }}</p>
+            <p class="detail-value">{{ 'HOME.DATES_VALUE' | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</ion-content>

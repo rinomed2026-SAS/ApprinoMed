@@ -1,0 +1,138 @@
+.page-shell {
+  padding: 16px 16px 32px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.page-head .eyebrow {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.page-head h1 {
+  margin: 4px 0 0;
+  font-size: 22px;
+}
+
+ion-searchbar {
+  --background: rgba(255, 255, 255, 0.06);
+  --color: #ffffff;
+  --placeholder-color: rgba(255, 255, 255, 0.7);
+  --icon-color: rgba(255, 255, 255, 0.75);
+  --border-radius: 14px;
+  --box-shadow: none;
+  --cancel-button-color: #c07ab8;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  backdrop-filter: blur(12px);
+}
+
+.speaker-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  color: #ffffff;
+  text-align: left;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  transition: border-color 120ms ease, transform 120ms ease, box-shadow 120ms ease;
+}
+
+.speaker-card:hover {
+  border-color: rgba(192, 122, 184, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.avatar-wrap ion-avatar,
+.avatar-fallback {
+  width: 52px;
+  height: 52px;
+}
+
+.avatar-fallback {
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #c07ab8 0%, #d499c9 100%);
+  color: #111;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.speaker-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.name {
+  margin: 0;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.badge {
+  --background: rgba(192, 122, 184, 0.14);
+  --color: #c07ab8;
+  border-radius: 10px;
+  padding: 4px 8px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.meta {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}
+
+.country {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+ion-icon[name='chevron-forward-outline'] {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 18px;
+}
+
+.empty {
+  padding: 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+}
+
+@media (max-width: 480px) {
+  .speaker-card {
+    grid-template-columns: auto 1fr auto;
+    padding: 12px;
+  }
+}

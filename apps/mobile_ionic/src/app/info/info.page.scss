@@ -1,0 +1,838 @@
+$bg-detail: #1c1c1c;
+$bg-darker: #0f0f12;
+$text-primary: #ffffff;
+$text-secondary: #b0b0b0;
+$accent-primary: #c07ab8;
+$accent-secondary: #8a4a8a;
+$glass-bg: rgba(255, 255, 255, 0.04);
+$glass-border: 1px solid rgba(255, 255, 255, 0.10);
+$glass-blur: blur(12px);
+
+.info-content {
+  --background: #{$bg-detail};
+  color: #{$text-primary};
+  padding-bottom: 24px;
+}
+
+/* Segment Wrapper & Glass Styling */
+.segment-wrapper {
+  padding: 20px 16px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(
+    to bottom,
+    rgba(28, 28, 28, 0.95) 0%,
+    rgba(28, 28, 28, 0.85) 100%
+  );
+  backdrop-filter: blur(10px);
+}
+
+.glass-segment {
+  --background: #{$bg-darker};
+  --border-radius: 20px;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: $glass-bg;
+  border: $glass-border;
+  border-radius: 20px;
+
+  ion-segment-button {
+    --color: #{$text-secondary};
+    --color-checked: #{$text-primary};
+    --indicator-color: #{$accent-primary};
+    border-radius: 16px;
+    padding: 8px 16px;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 13px;
+    gap: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+      font-size: 18px;
+    }
+
+    &.segment-button-checked {
+      background: rgba($accent-primary, 0.15);
+      border: 1px solid $accent-primary;
+    }
+  }
+}
+
+/* Tab Content */
+.tab-content {
+  padding: 12px 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Glass Card Base Style */
+.glass-card {
+  --background: #{$glass-bg};
+  --border-radius: 20px;
+  border: $glass-border;
+  border-radius: 20px;
+  overflow: hidden;
+  backdrop-filter: $glass-blur;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+  margin: 0;
+  transition: all 0.3s ease;
+
+  &:hover,
+  &:focus {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.12);
+    transform: translateY(-2px);
+  }
+
+  ion-card-header {
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: transparent;
+  }
+
+  ion-card-content {
+    padding: 16px;
+    background: transparent;
+    color: #{$text-primary};
+  }
+
+  .card-title {
+    color: #{$text-primary};
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .card-subtitle {
+    color: #{$text-primary};
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+
+    ion-icon {
+      color: #{$accent-primary};
+      font-size: 18px;
+    }
+  }
+}
+
+/* EVENT SECTION */
+.event-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.event-header {
+  background: linear-gradient(
+    135deg,
+    rgba($accent-primary, 0.1) 0%,
+    rgba(255, 255, 255, 0.03) 100%
+  ) !important;
+
+  .card-title {
+    font-size: 22px;
+    background: linear-gradient(135deg, #{$accent-primary} 0%, #d8a3d8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.event-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    color: #{$text-secondary};
+    font-size: 14px;
+
+    ion-icon {
+      color: #{$accent-primary};
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+.venue-info {
+  margin-bottom: 12px;
+
+  h3 {
+    margin: 0 0 8px;
+    color: #{$text-primary};
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .address {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: #{$text-secondary};
+    font-size: 13px;
+    margin: 0;
+
+    ion-icon {
+      color: #{$accent-primary};
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+  }
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
+
+    &:hover {
+      background: rgba(192, 122, 184, 0.1);
+      border-color: $accent-primary;
+      color: #{$text-primary};
+    }
+
+    ion-icon {
+      color: #{$accent-primary};
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    span {
+      flex: 1;
+      word-break: break-word;
+    }
+  }
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* HOTELS SECTION */
+.hotels-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hotel-card {
+  ion-card-header {
+    padding-bottom: 12px;
+  }
+
+  .hotel-title {
+    font-size: 16px;
+  }
+
+  .hotel-rating {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #{$text-secondary};
+
+    .stars {
+      color: #ffc107;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .distance {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #{$accent-primary};
+
+      ion-icon {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.hotel-pricing {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 12px;
+
+  .price-label {
+    font-size: 12px;
+    color: #{$text-secondary};
+    margin-bottom: 4px;
+  }
+
+  .price-range {
+    font-size: 16px;
+    font-weight: 600;
+    color: #{$accent-primary};
+  }
+}
+
+.amenities-section {
+  margin-bottom: 12px;
+
+  .amenities-label {
+    font-size: 12px;
+    color: #{$text-secondary};
+    margin-bottom: 4px;
+  }
+
+  .amenities {
+    font-size: 13px;
+    color: #{$text-primary};
+    line-height: 1.5;
+  }
+}
+
+.promo-code {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  background: rgba(192, 122, 184, 0.08);
+  border: 1px solid rgba(192, 122, 184, 0.3);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: #{$text-primary};
+
+  ion-icon {
+    color: #{$accent-primary};
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  strong {
+    color: #{$accent-primary};
+    font-weight: 600;
+  }
+}
+
+.hotel-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* TOURISM SECTION */
+.tourism-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tourism-card {
+  ion-card-header {
+    padding-bottom: 12px;
+  }
+
+  .tourism-title {
+    font-size: 16px;
+  }
+
+  .activity-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+
+    .category-chip {
+      display: inline-flex;
+      padding: 4px 10px;
+      background: rgba($accent-primary, 0.15);
+      color: #{$accent-primary};
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .duration {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #{$text-secondary};
+      font-size: 12px;
+
+      ion-icon {
+        color: #{$accent-primary};
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.activity-description {
+  font-size: 13px;
+  color: #{$text-primary};
+  line-height: 1.6;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.highlights-section {
+  .highlights-label {
+    font-size: 12px;
+    color: #{$text-secondary};
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .highlights {
+    font-size: 12px;
+    color: #{$text-primary};
+    line-height: 1.6;
+  }
+}
+
+/* GLASS BUTTONS */
+.glass-button {
+  --color: #{$text-primary};
+  border-radius: 14px;
+  text-transform: none;
+  font-weight: 500;
+  font-size: 13px;
+  height: 44px;
+  padding: 0 16px;
+  transition: all 0.3s ease;
+
+  &.primary {
+    --background: #{$accent-primary};
+    --color: #{$bg-darker};
+
+    &:hover,
+    &:focus {
+      --background: #d8a3d8;
+      box-shadow: 0 8px 24px rgba(192, 122, 184, 0.25);
+      transform: translateY(-2px);
+    }
+  }
+
+  &.secondary {
+    --background: rgba(255, 255, 255, 0.08);
+    --border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #{$text-primary};
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    &:hover,
+    &:focus {
+      --background: rgba(255, 255, 255, 0.12);
+      border-color: #{$accent-primary};
+      color: #{$accent-primary};
+    }
+  }
+
+  ion-icon {
+    margin-right: 4px;
+  }
+}
+
+/* EMPTY STATE */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+  text-align: center;
+
+  ion-icon {
+    font-size: 56px;
+    color: #{$accent-primary};
+    margin-bottom: 16px;
+    opacity: 0.6;
+  }
+
+  h3 {
+    color: #{$text-secondary};
+    font-size: 16px;
+    margin: 0;
+  }
+}
+
+/* TABLET & DESKTOP */
+@media (min-width: 768px) {
+  .hotels-section,
+  .tourism-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  .hotel-buttons,
+  .button-group {
+    flex-direction: row;
+
+    ion-button {
+      flex: 1;
+    }
+  }
+}
+
+/* ION OVERRIDES */
+ion-segment-button {
+  &.segment-button-checked {
+    --indicator-height: 0;
+  }
+}
+
+/* PARTY SECTION STYLES */
+.party-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.party-card {
+  overflow: visible;
+}
+
+.party-banner {
+  background: linear-gradient(135deg, rgba($accent-primary, 0.3) 0%, rgba($accent-secondary, 0.2) 100%);
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba($accent-primary, 0.1) 0%, transparent 70%);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.5; transform: rotate(0deg); }
+    50% { opacity: 1; transform: rotate(180deg); }
+  }
+}
+
+.party-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 16px;
+  background: linear-gradient(135deg, $accent-primary 0%, $accent-secondary 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba($accent-primary, 0.4);
+
+  ion-icon {
+    font-size: 40px;
+    color: white;
+  }
+}
+
+.party-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: $text-primary;
+  margin: 0 0 8px;
+  position: relative;
+}
+
+.party-subtitle {
+  font-size: 14px;
+  color: $accent-primary;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.party-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.party-detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  ion-icon {
+    font-size: 24px;
+    color: $accent-primary;
+    margin-top: 2px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .detail-label {
+    font-size: 12px;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .detail-value {
+    font-size: 15px;
+    color: $text-primary;
+    font-weight: 500;
+  }
+}
+
+.party-description {
+  margin-bottom: 20px;
+
+  p {
+    color: $text-secondary;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.party-price-card {
+  background: linear-gradient(135deg, rgba($accent-primary, 0.15) 0%, rgba($accent-secondary, 0.1) 100%);
+  border: 1px solid rgba($accent-primary, 0.3);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.price-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+
+  ion-icon {
+    font-size: 20px;
+    color: $accent-primary;
+  }
+
+  span {
+    font-size: 13px;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.price-amount {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+
+  .currency {
+    font-size: 18px;
+    color: $text-secondary;
+    font-weight: 500;
+  }
+
+  .value {
+    font-size: 48px;
+    font-weight: 700;
+    color: $accent-primary;
+    line-height: 1;
+  }
+}
+
+.price-includes {
+  font-size: 12px;
+  color: $text-secondary;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.party-button {
+  margin-top: 8px;
+}
+
+/* PARTY MODAL STYLES */
+.party-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.party-modal {
+  background: $bg-darker;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0;
+  }
+
+  .close-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    ion-icon {
+      font-size: 20px;
+      color: $text-secondary;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: $text-secondary;
+    font-weight: 500;
+
+    ion-icon {
+      font-size: 18px;
+      color: $accent-primary;
+    }
+  }
+}
+
+.glass-input {
+  --background: rgba(255, 255, 255, 0.05);
+  --border-radius: 12px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --color: #{$text-primary};
+  --placeholder-color: #{$text-secondary};
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  font-size: 15px;
+
+  &:focus-within {
+    border-color: $accent-primary;
+  }
+}
+
+.price-summary {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: $text-secondary;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 16px;
+  font-weight: 600;
+  color: $accent-primary;
+}
+
+.modal-footer {
+  padding: 16px 24px 24px;
+}
+

@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title>{{ 'SPONSORS.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="bg-detail">
+  <div class="page-shell">
+    <div class="page-head">
+      <p class="eyebrow">{{ 'SPONSORS.EYEBROW' | translate }}</p>
+      <h1>{{ 'SPONSORS.TITLE' | translate }}</h1>
+    </div>
+
+    <ng-container *ngIf="!notFound; else emptyState">
+      <section class="tier" *ngFor="let group of groups; trackBy: trackByTier">
+        <div class="tier-title">{{ 'SPONSORS.TIER_HEADER' | translate:{ tier: group.tier } }}</div>
+        <div class="card-list">
+          <button class="sponsor-card" *ngFor="let sp of group.sponsors; trackBy: trackBySponsor" (click)="openSponsor(sp)">
+            <div class="logo-wrap">
+              <img *ngIf="sp.logoUrl; else initials" [src]="sp.logoUrl" alt="{{ sp.name }} logo" />
+              <ng-template #initials>
+                <div class="logo-fallback">{{ sp.name.charAt(0) }}</div>
+              </ng-template>
+            </div>
+            <div class="card-body">
+              <div class="title-row">
+                <p class="name">{{ sp.name }}</p>
+                <ion-badge class="badge" color="dark">{{ sp.tier }}</ion-badge>
+              </div>
+              <p class="desc">{{ sp.description }}</p>
+            </div>
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </button>
+        </div>
+      </section>
+    </ng-container>
+
+    <ng-template #emptyState>
+      <div class="empty">{{ 'SPONSORS.EMPTY' | translate }}</div>
+    </ng-template>
+  </div>
+</ion-content>

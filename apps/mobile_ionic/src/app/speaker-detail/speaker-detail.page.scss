@@ -1,0 +1,230 @@
+.speaker-shell {
+  padding: 18px 16px 40px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.hero-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.hero-top {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.avatar-wrap ion-avatar,
+.avatar-fallback {
+  width: 72px;
+  height: 72px;
+}
+
+.avatar-fallback {
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #c07ab8 0%, #d499c9 100%);
+  color: #111;
+  font-weight: 800;
+  font-size: 24px;
+  border: 2px solid rgba(192, 122, 184, 0.5);
+}
+
+.hero-text .eyebrow {
+  margin: 0 0 4px;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.hero-text h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.specialty {
+  margin: 4px 0 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+}
+
+.country-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.badge {
+  --background: rgba(192, 122, 184, 0.12);
+  --color: #c07ab8;
+  border-radius: 10px;
+  padding: 4px 10px;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.section-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  backdrop-filter: blur(12px);
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: 0.3px;
+}
+
+.bio {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.session-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  text-align: left;
+  color: #ffffff;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.session-card:hover {
+  border-color: rgba(192, 122, 184, 0.5);
+  transform: translateY(-2px);
+}
+
+.session-times {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+}
+
+.session-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.session-title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.session-tags ion-chip {
+  --background: rgba(255, 255, 255, 0.06);
+  --color: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+ion-icon[name='chevron-forward-outline'] {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.empty {
+  padding: 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.72);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+  min-width: 140px;
+  justify-content: center;
+  
+  ion-icon {
+    font-size: 20px;
+  }
+  
+  &.website {
+    background: linear-gradient(135deg, rgba(64, 156, 255, 0.15) 0%, rgba(64, 156, 255, 0.08) 100%);
+    color: #409cff;
+    border: 1px solid rgba(64, 156, 255, 0.3);
+    
+    &:active {
+      background: rgba(64, 156, 255, 0.25);
+      transform: scale(0.98);
+    }
+  }
+  
+  &.instagram {
+    background: linear-gradient(135deg, rgba(225, 48, 108, 0.15) 0%, rgba(131, 58, 180, 0.08) 100%);
+    color: #e1306c;
+    border: 1px solid rgba(225, 48, 108, 0.3);
+    
+    &:active {
+      background: rgba(225, 48, 108, 0.25);
+      transform: scale(0.98);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .speaker-shell {
+    padding: 16px 12px 32px;
+  }
+  
+  .social-links {
+    flex-direction: column;
+  }
+  
+  .social-btn {
+    min-width: 100%;
+  }
+}

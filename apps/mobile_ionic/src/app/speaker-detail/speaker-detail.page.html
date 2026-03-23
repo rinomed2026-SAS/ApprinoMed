@@ -1,0 +1,84 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/speakers"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ speaker?.name || ('SPEAKER_DETAIL.TITLE' | translate) }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="bg-detail">
+  <div class="speaker-shell" *ngIf="!notFound; else notFoundTpl">
+    <div class="hero-card" *ngIf="speaker">
+      <div class="hero-top">
+        <div class="avatar-wrap">
+          <ion-avatar *ngIf="speaker.photoUrl; else fallbackAvatar">
+            <img [src]="speaker.photoUrl" alt="{{ speaker.name }}" />
+          </ion-avatar>
+          <ng-template #fallbackAvatar>
+            <div class="avatar-fallback">{{ speaker.name.charAt(0) }}</div>
+          </ng-template>
+        </div>
+        <div class="hero-text">
+          <p class="eyebrow">
+            {{ speaker.isInternational ? ('SPEAKER_DETAIL.INTERNATIONAL_FACULTY' | translate) : ('SPEAKER_DETAIL.FACULTY' | translate) }}
+          </p>
+          <h1>{{ speaker.name }}</h1>
+          <p class="specialty">{{ speaker.specialty }}</p>
+          <div class="country-row">
+            <span>{{ speaker.country }}</span>
+            <ion-badge *ngIf="speaker.isInternational" class="badge">{{ 'SPEAKER_DETAIL.INTERNATIONAL_BADGE' | translate }}</ion-badge>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section-card" *ngIf="speaker">
+      <div class="section-header">
+        <h3>{{ 'SPEAKERS.BIO' | translate }}</h3>
+      </div>
+      <p class="bio">{{ speaker.bio }}</p>
+      
+      <!-- Social Links -->
+      <div class="social-links" *ngIf="speaker.websiteUrl || speaker.instagramUrl">
+        <button class="social-btn website" *ngIf="speaker.websiteUrl" (click)="openWebsite(speaker.websiteUrl!)">
+          <ion-icon name="globe-outline"></ion-icon>
+          <span>{{ 'SPEAKER_DETAIL.WEBSITE' | translate }}</span>
+        </button>
+        <button class="social-btn instagram" *ngIf="speaker.instagramUrl" (click)="openInstagram(speaker.instagramUrl!)">
+          <ion-icon name="logo-instagram"></ion-icon>
+          <span>{{ 'SPEAKER_DETAIL.INSTAGRAM' | translate }}</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="section-card" *ngIf="speaker?.sessions?.length">
+      <div class="section-header">
+        <h3>{{ 'SPEAKER_DETAIL.SESSIONS_HEADER' | translate }}</h3>
+      </div>
+      <div class="sessions-list">
+        <button class="session-card" *ngFor="let ses of speaker?.sessions || []; trackBy: trackBySession" (click)="openSession(ses.id)">
+          <div class="session-times">
+            <ion-icon name="time-outline"></ion-icon>
+            <span>{{ ses.startTime }}–{{ ses.endTime }}</span>
+          </div>
+          <div class="session-meta">
+            <p class="session-title">{{ ses.title }}</p>
+            <div class="session-tags">
+              <ion-chip>{{ ses.room }}</ion-chip>
+              <ion-chip>{{ ses.level }}</ion-chip>
+            </div>
+          </div>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <ng-template #notFoundTpl>
+    <div class="empty">
+      {{ 'SPEAKER_DETAIL.NOT_FOUND' | translate }}
+      <ion-button fill="clear" size="small" routerLink="/tabs/speakers">{{ 'SPEAKER_DETAIL.BACK' | translate }}</ion-button>
+    </div>
+  </ng-template>
+</ion-content>

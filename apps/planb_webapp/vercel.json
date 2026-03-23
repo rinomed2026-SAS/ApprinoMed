@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "buildCommand": "cd apps/planb_webapp && npm run build",
+  "outputDirectory": "apps/planb_webapp/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

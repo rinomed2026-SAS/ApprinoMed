@@ -1,0 +1,155 @@
+.page-shell {
+  padding: 18px 16px 40px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.page-head .eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+}
+
+.page-head h1 {
+  margin: 4px 0 0;
+  font-size: 22px;
+}
+
+.summary {
+  margin: 4px 0 0;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.day-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.day-label {
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.session-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.session-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 14px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.session-card:hover {
+  border-color: rgba(192, 122, 184, 0.5);
+  transform: translateY(-2px);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.time {
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 600;
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chips ion-chip {
+  --background: rgba(255, 255, 255, 0.06);
+  --color: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.room-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.fav {
+  background: rgba(192, 122, 184, 0.16);
+  border: 1px solid rgba(192, 122, 184, 0.4);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  color: #c07ab8;
+}
+
+.fav ion-icon {
+  font-size: 20px;
+}
+
+.empty {
+  padding: 30px 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.75);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.empty ion-icon {
+  font-size: 36px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.empty-title {
+  margin: 0;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.empty-copy {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 480px) {
+  .page-shell {
+    padding: 16px 12px 32px;
+  }
+
+  .session-card {
+    padding: 12px;
+  }
+}

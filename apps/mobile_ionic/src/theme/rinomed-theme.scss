@@ -1,0 +1,346 @@
+// ========================================
+// RINOMED 2026 - SHARED THEME VARIABLES
+// ========================================
+// Usa este archivo en otros componentes para mantener consistencia total
+// @import 'rinomed-theme.scss';
+
+// PALETA DE COLORES - EXACTA (NO MODIFICAR)
+$rinomed-bg-dark: #0f0f12;
+$rinomed-bg-dark-alt: #1c1c1c;
+$rinomed-magenta: #c07ab8;
+$rinomed-magenta-hover: #d08cc4;
+$rinomed-magenta-active: #b968aa;
+
+$rinomed-text-primary: #ffffff;
+$rinomed-text-secondary: rgba(255, 255, 255, 0.65);
+$rinomed-text-tertiary: rgba(255, 255, 255, 0.4);
+
+$rinomed-border: rgba(255, 255, 255, 0.08);
+$rinomed-border-hover: rgba(255, 255, 255, 0.15);
+
+$rinomed-error: #ff6b6b;
+$rinomed-success: #51cf66;
+$rinomed-warning: #ffd93d;
+$rinomed-info: #74c0fc;
+
+// ESPACIADO - ESCALA CONSISTENTE
+$rinomed-space-xs: 4px;
+$rinomed-space-sm: 8px;
+$rinomed-space-md: 12px;
+$rinomed-space-lg: 16px;
+$rinomed-space-xl: 24px;
+$rinomed-space-2xl: 32px;
+$rinomed-space-3xl: 48px;
+
+// BORDER RADIUS
+$rinomed-radius-xs: 6px;
+$rinomed-radius-sm: 12px;
+$rinomed-radius-md: 18px;
+$rinomed-radius-lg: 24px;
+
+// TIPOGRAFÍA
+$rinomed-font-family-primary: 'Inter', 'Poppins', 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+$rinomed-font-family-secondary: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+
+// TRANSICIONES
+$rinomed-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+$rinomed-transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+$rinomed-transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+// ========================================
+// MIXINS REUTILIZABLES
+// ========================================
+
+// Glassmorphism Card
+@mixin rinomed-glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  border: 1px solid $rinomed-border;
+  border-radius: $rinomed-radius-lg;
+}
+
+// Glassmorphism Card - Input
+@mixin rinomed-glass-input {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  border: 1px solid $rinomed-border;
+  border-radius: $rinomed-radius-sm;
+}
+
+// Focus State Premium
+@mixin rinomed-focus {
+  border-color: $rinomed-magenta;
+  box-shadow: 0 0 20px rgba(192, 122, 184, 0.2);
+  outline: none;
+}
+
+// Text Truncate
+@mixin rinomed-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Text Clamp (2 líneas)
+@mixin rinomed-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Flex Center
+@mixin rinomed-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Gradiente Magenta
+@mixin rinomed-gradient-magenta {
+  background: linear-gradient(135deg, $rinomed-magenta 0%, $rinomed-magenta-hover 100%);
+}
+
+// Glow Magenta
+@mixin rinomed-glow-magenta {
+  box-shadow: 0 8px 24px rgba(192, 122, 184, 0.3), 0 0 0 0 rgba(192, 122, 184, 0.2);
+}
+
+// Button Base
+@mixin rinomed-button-base {
+  font-family: $rinomed-font-family-primary;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: $rinomed-radius-sm;
+  cursor: pointer;
+  transition: all $rinomed-transition-slow;
+  
+  &:focus-visible {
+    outline: 2px solid $rinomed-magenta;
+    outline-offset: 2px;
+  }
+}
+
+// Button Primary
+@mixin rinomed-button-primary {
+  @include rinomed-button-base;
+  @include rinomed-gradient-magenta;
+  @include rinomed-glow-magenta;
+  
+  color: #111111;
+  height: 48px;
+  
+  &:hover {
+    background: linear-gradient(135deg, $rinomed-magenta-hover 0%, $rinomed-magenta 100%);
+    box-shadow: 0 12px 32px rgba(192, 122, 184, 0.4), 0 0 20px rgba(192, 122, 184, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    background: linear-gradient(135deg, $rinomed-magenta-active 0%, $rinomed-magenta 100%);
+    transform: translateY(0);
+  }
+}
+
+// Button Secondary
+@mixin rinomed-button-secondary {
+  @include rinomed-button-base;
+  
+  background: transparent;
+  color: $rinomed-magenta;
+  border: 1px solid $rinomed-magenta;
+  
+  &:hover {
+    background: rgba(192, 122, 184, 0.1);
+    color: $rinomed-magenta-hover;
+    border-color: $rinomed-magenta-hover;
+  }
+}
+
+// Button Link
+@mixin rinomed-button-link {
+  background: none;
+  border: none;
+  color: $rinomed-magenta;
+  font-family: $rinomed-font-family-secondary;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all $rinomed-transition-base;
+  padding: 4px 0;
+  
+  &:hover {
+    color: $rinomed-magenta-hover;
+    text-decoration: underline;
+  }
+  
+  &:active {
+    color: $rinomed-magenta-active;
+  }
+}
+
+// Input Base
+@mixin rinomed-input-base {
+  @include rinomed-glass-input;
+  
+  padding: 0 $rinomed-space-lg;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  transition: all $rinomed-transition-base;
+  
+  &:focus-within {
+    @include rinomed-focus;
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+// Label Premium
+@mixin rinomed-label {
+  font-family: $rinomed-font-family-secondary;
+  font-size: 14px;
+  font-weight: 500;
+  color: $rinomed-text-secondary;
+  margin-bottom: $rinomed-space-sm;
+}
+
+// Text Premium (Body)
+@mixin rinomed-text-body {
+  font-family: $rinomed-font-family-secondary;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: $rinomed-text-primary;
+}
+
+// Text Premium (Small)
+@mixin rinomed-text-small {
+  font-family: $rinomed-font-family-secondary;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $rinomed-text-secondary;
+}
+
+// Heading Premium (H1)
+@mixin rinomed-heading-1 {
+  font-family: $rinomed-font-family-primary;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: $rinomed-text-primary;
+  margin: 0;
+}
+
+// Heading Premium (H2)
+@mixin rinomed-heading-2 {
+  font-family: $rinomed-font-family-primary;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: $rinomed-text-primary;
+  margin: 0;
+}
+
+// Heading Premium (H3)
+@mixin rinomed-heading-3 {
+  font-family: $rinomed-font-family-primary;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: $rinomed-text-primary;
+  margin: 0;
+}
+
+// ========================================
+// RESPONSIVE
+// ========================================
+
+$rinomed-bp-mobile: 480px;
+$rinomed-bp-tablet: 768px;
+$rinomed-bp-desktop: 1024px;
+
+@mixin rinomed-mobile-only {
+  @media (max-width: #{$rinomed-bp-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin rinomed-tablet-up {
+  @media (min-width: $rinomed-bp-tablet) {
+    @content;
+  }
+}
+
+@mixin rinomed-tablet-only {
+  @media (min-width: $rinomed-bp-tablet) and (max-width: #{$rinomed-bp-desktop - 1px}) {
+    @content;
+  }
+}
+
+@mixin rinomed-desktop-up {
+  @media (min-width: $rinomed-bp-desktop) {
+    @content;
+  }
+}
+
+// ========================================
+// EJEMPLOS DE USO EN COMPONENTES
+// ========================================
+
+/*
+
+// En un component nuevo, por ejemplo home.page.scss:
+
+@import '../../shared/rinomed-theme.scss';
+
+.home-card {
+  @include rinomed-glass;
+  padding: $rinomed-space-xl;
+  margin: $rinomed-space-lg 0;
+  
+  .card-title {
+    @include rinomed-heading-2;
+    margin-bottom: $rinomed-space-md;
+  }
+  
+  .card-text {
+    @include rinomed-text-body;
+  }
+  
+  .card-button {
+    @include rinomed-button-primary;
+    width: 100%;
+  }
+}
+
+.home-input {
+  @include rinomed-input-base;
+  
+  input {
+    @include rinomed-text-body;
+    flex: 1;
+    background: transparent;
+    border: none;
+    
+    &::placeholder {
+      color: $rinomed-text-tertiary;
+    }
+  }
+}
+
+.home-section {
+  @include rinomed-mobile-only {
+    padding: $rinomed-space-lg;
+  }
+  
+  @include rinomed-tablet-up {
+    padding: $rinomed-space-2xl;
+  }
+}
+
+*/

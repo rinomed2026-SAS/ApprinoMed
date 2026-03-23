@@ -1,0 +1,256 @@
+.session-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 16px 40px;
+  color: #ffffff;
+}
+
+.hero-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 22px;
+  padding: 18px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.hero-text h1 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.hero-text .eyebrow {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.favorite-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  display: grid;
+  place-items: center;
+  color: #c07ab8;
+}
+
+.meta-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.meta-chips ion-chip {
+  --background: rgba(192, 122, 184, 0.12);
+  --color: #c07ab8;
+  --border-color: rgba(192, 122, 184, 0.22);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  border-radius: 12px;
+}
+
+.meta-chips ion-icon {
+  font-size: 16px;
+}
+
+.description {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: 0.3px;
+}
+
+.speakers-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.speaker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.speaker-card {
+  width: 100%;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.speaker-card:hover {
+  border-color: rgba(192, 122, 184, 0.4);
+  transform: translateY(-2px);
+}
+
+.speaker-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.speaker-name {
+  margin: 0;
+  font-weight: 600;
+}
+
+.speaker-meta {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+}
+
+ion-avatar {
+  width: 40px;
+  height: 40px;
+}
+
+.avatar-fallback {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #c07ab8 0%, #d08cc4 100%);
+  color: #111;
+  font-weight: 700;
+}
+
+.favorite-cta ion-button {
+  --background: #c07ab8;
+  --color: #111111;
+  --border-color: #c07ab8;
+}
+
+.favorite-cta ion-button[fill='outline'] {
+  --color: #c07ab8;
+  --background: transparent;
+  --border-color: rgba(192, 122, 184, 0.7);
+}
+
+.qa-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.qa-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.qa-input ion-textarea {
+  --background: rgba(255, 255, 255, 0.04);
+  --color: #ffffff;
+  --placeholder-color: rgba(255, 255, 255, 0.6);
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+}
+
+.qa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.qa-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.qa-text {
+  color: #ffffff;
+  line-height: 1.5;
+  font-size: 14px;
+  margin: 0;
+}
+
+.qa-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+}
+
+.qa-delete {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.qa-delete:hover {
+  color: #c07ab8;
+  border-color: rgba(192, 122, 184, 0.5);
+}
+
+.empty-state {
+  padding: 14px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.65);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+}
+
+@media (max-width: 480px) {
+  .session-container {
+    padding: 16px 12px 32px;
+    gap: 16px;
+  }
+
+  .hero-card {
+    padding: 16px;
+  }
+}

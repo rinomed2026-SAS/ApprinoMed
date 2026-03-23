@@ -1,0 +1,362 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title>{{ 'INFO.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="info-content">
+  <!-- Segment Tabs -->
+  <div class="segment-wrapper">
+    <ion-segment [value]="tab" (ionChange)="setTab($event.detail.value)" class="glass-segment" [scrollable]="true">
+      <ion-segment-button value="event">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <span>{{ 'INFO.TAB_EVENT' | translate }}</span>
+      </ion-segment-button>
+      <ion-segment-button value="party">
+        <ion-icon name="sparkles-outline"></ion-icon>
+        <span>{{ 'INFO.TAB_PARTY' | translate }}</span>
+      </ion-segment-button>
+      <ion-segment-button value="hotels">
+        <ion-icon name="location-outline"></ion-icon>
+        <span>{{ 'INFO.TAB_HOTELS' | translate }}</span>
+      </ion-segment-button>
+      <ion-segment-button value="tourism">
+        <ion-icon name="globe-outline"></ion-icon>
+        <span>{{ 'INFO.TAB_TOURISM' | translate }}</span>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <!-- EVENT TAB -->
+  <ng-container *ngIf="tab === 'event'">
+    <div class="tab-content">
+      <div *ngIf="eventInfo" class="event-section">
+        <!-- Event Header Card -->
+        <ion-card class="glass-card event-header">
+          <ion-card-header>
+            <ion-card-title class="card-title">{{ eventInfo.name }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="event-meta">
+              <div class="meta-item">
+                <ion-icon name="location-outline"></ion-icon>
+                <span>{{ eventInfo.city }}</span>
+              </div>
+              <div class="meta-item">
+                <ion-icon name="time-outline"></ion-icon>
+                <span>{{ eventInfo.dates }}</span>
+              </div>
+              <div class="meta-item">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                <span>{{ 'INFO.ACADEMIC_HOURS' | translate:{ hours: eventInfo.academicHours } }}</span>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Venue Card -->
+        <ion-card class="glass-card">
+          <ion-card-header>
+            <ion-card-title class="card-subtitle">
+              <ion-icon name="map-outline"></ion-icon>
+              {{ 'INFO.VENUE_CARD_TITLE' | translate }}
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="venue-info">
+              <h3>{{ eventInfo.venue }}</h3>
+              <p class="address">
+                <ion-icon name="location-outline"></ion-icon>
+                {{ eventInfo.address }}
+              </p>
+            </div>
+            <ion-button 
+              expand="block" 
+              class="glass-button primary"
+              (click)="openMaps(eventInfo?.mapsUrl)">
+              <ion-icon slot="start" name="map-outline"></ion-icon>
+              {{ 'INFO.OPEN_IN_MAPS' | translate }}
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Contact Card -->
+        <ion-card class="glass-card">
+          <ion-card-header>
+            <ion-card-title class="card-subtitle">
+              <ion-icon name="call-outline"></ion-icon>
+              {{ 'INFO.CONTACT' | translate }}
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="contact-list">
+              <div class="contact-item" (click)="openWebsite(eventInfo?.email)">
+                <ion-icon name="mail-outline"></ion-icon>
+                <span>{{ eventInfo.email }}</span>
+              </div>
+              <div class="contact-item" (click)="callPhone(eventInfo?.phone)">
+                <ion-icon name="phone-portrait-outline"></ion-icon>
+                <span>{{ eventInfo.phone }}</span>
+              </div>
+              <div class="contact-item" (click)="openWhatsApp(eventInfo?.whatsapp)">
+                <ion-icon name="logo-whatsapp"></ion-icon>
+                <span>{{ eventInfo.whatsapp }}</span>
+              </div>
+              <div class="contact-item" (click)="openWebsite(eventInfo?.website)">
+                <ion-icon name="globe-outline"></ion-icon>
+                <span>{{ eventInfo.website }}</span>
+              </div>
+            </div>
+            <div class="button-group">
+              <ion-button 
+                expand="block" 
+                class="glass-button primary"
+                (click)="openWhatsApp(eventInfo?.whatsapp)">
+                <ion-icon slot="start" name="logo-whatsapp"></ion-icon>
+                {{ 'INFO.CONTACT_WHATSAPP' | translate }}
+              </ion-button>
+              <ion-button 
+                expand="block" 
+                class="glass-button secondary"
+                (click)="openWebsite(eventInfo?.website)">
+                <ion-icon slot="start" name="globe-outline"></ion-icon>
+                {{ 'INFO.VISIT_WEBSITE' | translate }}
+              </ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- PARTY TAB -->
+  <ng-container *ngIf="tab === 'party'">
+    <div class="tab-content">
+      <div class="party-section">
+        <!-- Party Header Card -->
+        <ion-card class="glass-card party-card">
+          <div class="party-banner">
+            <div class="party-icon-wrapper">
+              <ion-icon name="sparkles-outline"></ion-icon>
+            </div>
+            <h2 class="party-title">{{ 'INFO.PARTY_TITLE' | translate }}</h2>
+            <p class="party-subtitle">{{ 'INFO.PARTY_SUBTITLE' | translate }}</p>
+          </div>
+          <ion-card-content>
+            <div class="party-details">
+              <div class="party-detail-item">
+                <ion-icon name="time-outline"></ion-icon>
+                <div>
+                  <span class="detail-label">{{ 'INFO.PARTY_DATE_LABEL' | translate }}</span>
+                  <span class="detail-value">{{ 'INFO.PARTY_DATE_VALUE' | translate }}</span>
+                </div>
+              </div>
+              <div class="party-detail-item">
+                <ion-icon name="location-outline"></ion-icon>
+                <div>
+                  <span class="detail-label">{{ 'INFO.PARTY_LOCATION_LABEL' | translate }}</span>
+                  <span class="detail-value">{{ 'INFO.PARTY_LOCATION_VALUE' | translate }}</span>
+                </div>
+              </div>
+              <div class="party-detail-item">
+                <ion-icon name="people-outline"></ion-icon>
+                <div>
+                  <span class="detail-label">{{ 'INFO.PARTY_DRESS_LABEL' | translate }}</span>
+                  <span class="detail-value">{{ 'INFO.PARTY_DRESS_VALUE' | translate }}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="party-description">
+              <p>{{ 'INFO.PARTY_DESCRIPTION' | translate }}</p>
+            </div>
+
+            <div class="party-price-card">
+              <div class="price-header">
+                <ion-icon name="card-outline"></ion-icon>
+                <span>{{ 'INFO.PARTY_PRICE_HEADER' | translate }}</span>
+              </div>
+              <div class="price-amount">
+                <span class="currency">USD</span>
+                <span class="value">{{ partyPrice }}</span>
+              </div>
+              <p class="price-includes">{{ 'INFO.PARTY_PRICE_INCLUDES' | translate }}</p>
+            </div>
+
+            <ion-button 
+              expand="block" 
+              class="glass-button primary party-button"
+              (click)="openPartyRegistration()">
+              <ion-icon slot="start" name="sparkles-outline"></ion-icon>
+              {{ 'INFO.PARTY_BUTTON' | translate }}
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Party Registration Modal -->
+  <div class="party-modal-overlay" *ngIf="showPartyModal" (click)="closePartyModal()">
+    <div class="party-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>{{ 'INFO.PARTY_MODAL_TITLE' | translate }}</h3>
+        <button class="close-btn" (click)="closePartyModal()">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="form-group">
+          <label>
+            <ion-icon name="person-outline"></ion-icon>
+            {{ 'INFO.PARTY_MODAL_MAIN' | translate }}
+          </label>
+          <ion-input 
+            [(ngModel)]="partyForm.participantName"
+            [placeholder]="'INFO.PARTY_MODAL_MAIN_PLACEHOLDER' | translate"
+            class="glass-input"
+            [readonly]="true">
+          </ion-input>
+        </div>
+
+        <div class="form-group">
+          <label>
+            <ion-icon name="people-outline"></ion-icon>
+            {{ 'INFO.PARTY_MODAL_COMPANION' | translate }}
+          </label>
+          <ion-input 
+            [(ngModel)]="partyForm.companionName"
+            [placeholder]="'INFO.PARTY_MODAL_COMPANION_PLACEHOLDER' | translate"
+            class="glass-input">
+          </ion-input>
+        </div>
+
+        <div class="price-summary">
+          <div class="summary-row">
+            <span>{{ 'INFO.PARTY_SUMMARY_MAIN' | translate }}</span>
+            <span>USD ${{ partyPrice }}</span>
+          </div>
+          <div class="summary-row" *ngIf="partyForm.companionName">
+            <span>{{ 'INFO.PARTY_SUMMARY_COMPANION' | translate }}</span>
+            <span>USD ${{ partyPrice }}</span>
+          </div>
+          <div class="summary-total">
+            <span>{{ 'INFO.PARTY_SUMMARY_TOTAL' | translate }}</span>
+            <span>USD ${{ partyForm.companionName ? partyPrice * 2 : partyPrice }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <ion-button 
+          expand="block" 
+          class="glass-button primary"
+          (click)="proceedToPayment()">
+          <ion-icon slot="start" name="card-outline"></ion-icon>
+          {{ 'INFO.PARTY_PAY' | translate }}
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOTELS TAB -->
+  <ng-container *ngIf="tab === 'hotels'">
+    <div class="tab-content">
+      <div *ngIf="hotels.length > 0; else emptyHotels" class="hotels-section">
+        <ion-card *ngFor="let hotel of hotels; trackBy: trackByHotel" class="glass-card hotel-card">
+          <ion-card-header>
+            <ion-card-title class="card-title hotel-title">
+              {{ hotel.name }}
+            </ion-card-title>
+            <div class="hotel-rating">
+              <span class="stars">{{ renderRating(hotel.rating) }}</span>
+              <span class="distance">
+                <ion-icon name="location-outline"></ion-icon>
+                {{ hotel.distanceKm }} km
+              </span>
+            </div>
+          </ion-card-header>
+          <ion-card-content>
+              <div class="hotel-pricing">
+              <div class="price-label">{{ 'INFO.HOTEL_RATE' | translate }}</div>
+              <div class="price-range">
+                {{ formatPrice(hotel.priceMinCop) }} - {{ formatPrice(hotel.priceMaxCop) }}
+              </div>
+            </div>
+
+            <div class="amenities-section">
+              <div class="amenities-label">{{ 'INFO.HOTEL_AMENITIES' | translate }}</div>
+              <div class="amenities">{{ hotel.amenities }}</div>
+            </div>
+
+            <div *ngIf="hotel.promoCode" class="promo-code">
+              <ion-icon name="information-circle-outline"></ion-icon>
+              <span>{{ 'INFO.HOTEL_PROMO' | translate }} <strong>{{ hotel.promoCode }}</strong></span>
+            </div>
+
+            <div class="hotel-buttons">
+              <ion-button 
+                expand="block" 
+                class="glass-button primary"
+                (click)="callPhone(hotel.contact)">
+                <ion-icon slot="start" name="call-outline"></ion-icon>
+                {{ 'INFO.HOTEL_CALL' | translate }}
+              </ion-button>
+              <ion-button 
+                expand="block" 
+                class="glass-button secondary"
+                (click)="openWebsite(hotel.contact)">
+                <ion-icon slot="start" name="globe-outline"></ion-icon>
+                {{ 'INFO.HOTEL_VISIT' | translate }}
+              </ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+      <ng-template #emptyHotels>
+        <div class="empty-state">
+          <ion-icon name="location-outline"></ion-icon>
+          <h3>{{ 'INFO.HOTEL_EMPTY' | translate }}</h3>
+        </div>
+      </ng-template>
+    </div>
+  </ng-container>
+
+  <!-- TOURISM TAB -->
+  <ng-container *ngIf="tab === 'tourism'">
+    <div class="tab-content">
+      <div *ngIf="tourism.length > 0; else emptyTourism" class="tourism-section">
+        <ion-card *ngFor="let activity of tourism; trackBy: trackByActivity" class="glass-card tourism-card">
+          <ion-card-header>
+            <ion-card-title class="card-title tourism-title">
+              {{ activity.name }}
+            </ion-card-title>
+            <div class="activity-meta">
+              <span class="category-chip">{{ activity.category }}</span>
+              <span class="duration">
+                <ion-icon name="time-outline"></ion-icon>
+                {{ activity.duration }}
+              </span>
+            </div>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="activity-description">
+              {{ activity.description }}
+            </div>
+            <div class="highlights-section">
+              <div class="highlights-label">{{ 'INFO.TOURISM_HIGHLIGHTS' | translate }}</div>
+              <div class="highlights">{{ activity.highlights }}</div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+      <ng-template #emptyTourism>
+        <div class="empty-state">
+          <ion-icon name="globe-outline"></ion-icon>
+          <h3>{{ 'INFO.TOURISM_EMPTY' | translate }}</h3>
+        </div>
+      </ng-template>
+    </div>
+  </ng-container>
+</ion-content>

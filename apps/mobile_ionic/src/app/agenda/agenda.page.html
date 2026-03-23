@@ -1,0 +1,73 @@
+<ion-content class="bg-detail" [fullscreen]="true">
+  <div class="agenda-container">
+    <header class="agenda-header">
+      <div class="agenda-header__text">
+        <p class="eyebrow">{{ 'AGENDA.HEADER' | translate }}</p>
+        <h1>{{ 'AGENDA.TITLE' | translate }}</h1>
+        <p class="subtitle">{{ 'AGENDA.SUBTITLE' | translate }}</p>
+      </div>
+    </header>
+
+    <ion-segment [value]="day" (ionChange)="onDayChange($event.detail.value)" class="day-segment">
+      <ion-segment-button value="2026-04-17">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <ion-label>{{ 'AGENDA.DAY1' | translate }}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="2026-04-18">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <ion-label>{{ 'AGENDA.DAY2' | translate }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-searchbar
+      class="agenda-search"
+      [placeholder]="'AGENDA.SEARCH_PLACEHOLDER' | translate"
+      debounce="300"
+      mode="ios"
+      (ionInput)="onSearch($event.detail.value)">
+    </ion-searchbar>
+
+    <div class="sessions-list">
+      <div
+        class="session-card"
+        *ngFor="let session of filteredSessions; trackBy: trackBySessionId"
+        (click)="openSession(session)">
+        <div class="session-time">
+          <ion-icon name="time-outline"></ion-icon>
+          <span>{{ session.startTime }}</span>
+        </div>
+
+        <div class="session-body">
+          <div class="session-top">
+            <div>
+              <h3>{{ session.title }}</h3>
+              <p class="session-duration">{{ session.startTime }} – {{ session.endTime }}</p>
+            </div>
+            <button class="favorite-btn" (click)="toggleFavorite(session, $event)">
+              <ion-icon [name]="session.isFavorite ? 'star' : 'star-outline'"></ion-icon>
+            </button>
+          </div>
+
+          <div class="session-chips">
+            <ion-chip>{{ session.topic }}</ion-chip>
+            <ion-chip>{{ session.level }}</ion-chip>
+          </div>
+
+          <div class="session-room">
+            <ion-icon name="location-outline"></ion-icon>
+            <span>{{ 'AGENDA.ROOM' | translate }}: {{ session.room }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="loading-state" *ngIf="isLoading">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>{{ 'AGENDA.LOADING' | translate }}</p>
+      </div>
+
+      <div class="empty-state" *ngIf="!isLoading && filteredSessions.length === 0">
+        {{ 'AGENDA.EMPTY_RESULTS' | translate }}
+      </div>
+    </div>
+  </div>
+</ion-content>

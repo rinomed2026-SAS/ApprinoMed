@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-title>{{ 'SPEAKERS.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="bg-detail">
+  <div class="page-shell">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">{{ 'SPEAKERS.FACULTY_HEADER' | translate }}</p>
+        <h1>{{ 'SPEAKERS.TITLE' | translate }}</h1>
+      </div>
+    </div>
+
+    <ion-searchbar
+      [placeholder]="'SPEAKERS.SEARCH_PLACEHOLDER' | translate"
+      mode="md"
+      [debounce]="300"
+      (ionInput)="onSearch($event.detail.value)"
+    ></ion-searchbar>
+
+    <div class="list" *ngIf="!notFound; else emptyState">
+      <button
+        class="speaker-card"
+        *ngFor="let sp of filtered; trackBy: trackBySpeaker"
+        (click)="openSpeaker(sp)"
+      >
+        <div class="avatar-wrap">
+          <ion-avatar *ngIf="sp.photoUrl; else initials">
+            <img [src]="sp.photoUrl" alt="{{ sp.name }}" />
+          </ion-avatar>
+          <ng-template #initials>
+            <div class="avatar-fallback">{{ sp.name.charAt(0) }}</div>
+          </ng-template>
+        </div>
+
+        <div class="speaker-info">
+          <div class="name-row">
+            <p class="name">{{ sp.name }}</p>
+            <ion-badge *ngIf="sp.isInternational" color="dark" class="badge">{{ 'SPEAKERS.INTERNATIONAL_BADGE' | translate }}</ion-badge>
+          </div>
+          <p class="meta">{{ sp.specialty }}</p>
+          <p class="country">{{ sp.country }}</p>
+        </div>
+
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+    </div>
+
+    <ng-template #emptyState>
+      <div class="empty">{{ 'SPEAKERS.EMPTY' | translate }}</div>
+    </ng-template>
+  </div>
+</ion-content>

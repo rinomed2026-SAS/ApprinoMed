@@ -1,0 +1,114 @@
+<ion-content [fullscreen]="true" class="bg-login">
+  <!-- Contenido principal con scroll -->
+  <div class="login-content">
+    <!-- Header: Branding -->
+    <div class="branding-section">
+      <img src="/assets/logo-rinomed.svg" alt="RinoMed 2026" class="brand-logo" />
+      <h1 class="sr-only">RINOMED 2026</h1>
+      <p class="rinomed-sub">{{ 'HOME.SUBTITLE' | translate }}</p>
+      <p class="brand-meta">{{ 'AUTH.EVENT_META' | translate }}</p>
+    </div>
+
+    <!-- Card central con glassmorphism -->
+    <div class="login-card">
+      <div class="card-header">
+        <h2 class="card-title">{{ 'AUTH.LOGIN' | translate }}</h2>
+        <p class="card-subtitle">{{ 'AUTH.ACCESS_PLATFORM' | translate }}</p>
+      </div>
+
+      <!-- Form -->
+      <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+        <!-- Email Input -->
+        <div class="input-wrapper">
+          <div class="input-container">
+            <span class="input-icon">
+              <ion-icon name="mail-outline"></ion-icon>
+            </span>
+            <input
+              formControlName="email"
+              type="email"
+              class="form-input"
+              [placeholder]="'AUTH.EMAIL' | translate"
+              autocomplete="email"
+              [class.error]="isFieldInvalid('email')"
+            />
+          </div>
+          <p class="input-error" *ngIf="isFieldInvalid('email')">
+            {{ 'AUTH.INVALID_EMAIL' | translate }}
+          </p>
+        </div>
+
+        <!-- Password Input -->
+        <div class="input-wrapper">
+          <div class="input-container">
+            <span class="input-icon">
+              <ion-icon name="lock-closed-outline"></ion-icon>
+            </span>
+            <input
+              formControlName="password"
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-input"
+              [placeholder]="'AUTH.PASSWORD' | translate"
+              autocomplete="current-password"
+              [class.error]="isFieldInvalid('password')"
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="showPassword ? ('AUTH.HIDE_PASSWORD' | translate) : ('AUTH.SHOW_PASSWORD' | translate)"
+            >
+              <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+            </button>
+          </div>
+          <p class="input-error" *ngIf="isFieldInvalid('password')">
+            {{ 'AUTH.PASSWORD_REQUIRED' | translate }}
+          </p>
+        </div>
+
+        <!-- Error general -->
+        <div class="error-message" *ngIf="error" [@fadeInOut]>
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <span>{{ error }}</span>
+        </div>
+
+        <!-- Botón CTA -->
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="loginForm.invalid || isLoading"
+          [class.loading]="isLoading"
+        >
+            <span *ngIf="!isLoading" class="btn-text">{{ 'AUTH.LOGIN' | translate }}</span>
+          <span *ngIf="isLoading" class="btn-loading">
+            <span class="spinner"></span>
+              {{ 'AUTH.AUTHENTICATING' | translate }}
+          </span>
+        </button>
+      </form>
+
+      <!-- Acciones secundarias -->
+      <div class="secondary-actions">
+        <button type="button" class="link-button" (click)="openForgotPassword()">
+          {{ 'AUTH.FORGOT_PASSWORD' | translate }}
+        </button>
+      </div>
+
+      <!-- Separador -->
+      <div class="divider"></div>
+
+      <!-- Legal -->
+      <p class="legal-text">
+        {{ 'AUTH.ACCEPT_TERMS' | translate }}
+        <button type="button" class="legal-link" routerLink="/privacy">
+          {{ 'AUTH.PRIVACY_POLICY' | translate }}
+        </button>
+      </p>
+    </div>
+
+    <!-- Footer informativo -->
+    <div class="footer-info">
+      <p class="footer-location">Centro de Eventos El Tesoro · Medellín, Colombia</p>
+    </div>
+  </div>
+</ion-content>

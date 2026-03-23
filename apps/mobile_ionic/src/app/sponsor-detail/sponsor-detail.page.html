@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/sponsors"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ sponsor?.name || ('SPONSOR_DETAIL.TITLE' | translate) }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="bg-detail">
+  <div class="detail-shell" *ngIf="!notFound; else notFoundTpl">
+    <div class="hero-card" *ngIf="sponsor">
+      <div class="hero-top">
+        <div class="logo-wrap">
+          <img *ngIf="sponsor.logoUrl; else logoFallback" [src]="sponsor.logoUrl" alt="{{ sponsor.name }} logo" />
+          <ng-template #logoFallback>
+            <div class="logo-fallback">{{ sponsor.name.charAt(0) }}</div>
+          </ng-template>
+        </div>
+        <div class="hero-text">
+          <p class="eyebrow">{{ 'SPONSOR_DETAIL.OFFICIAL_PARTNER' | translate }}</p>
+          <h1>{{ sponsor.name }}</h1>
+          <div class="badge-row">
+            <ion-badge class="badge">{{ sponsor.tier }}</ion-badge>
+          </div>
+          <p class="desc">{{ sponsor.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="section-card" *ngIf="sponsor?.productsList?.length">
+      <div class="section-header">
+        <h3>{{ 'SPONSOR_DETAIL.PRODUCTS' | translate }}</h3>
+      </div>
+      <ul class="products">
+        <li *ngFor="let item of sponsor?.productsList || []; trackBy: trackByProduct">{{ item }}</li>
+      </ul>
+    </section>
+
+    <section class="actions" *ngIf="sponsor">
+      <ion-button expand="block" shape="round" (click)="visitWebsite()">
+        <ion-icon slot="start" name="globe-outline"></ion-icon>
+        {{ 'SPONSOR_DETAIL.VISIT' | translate }}
+      </ion-button>
+      <ion-button expand="block" shape="round" fill="outline" (click)="requestInfo()">
+        <ion-icon slot="start" name="mail-outline"></ion-icon>
+        {{ 'SPONSOR_DETAIL.REQUEST_INFO' | translate }}
+      </ion-button>
+    </section>
+  </div>
+
+  <ng-template #notFoundTpl>
+    <div class="empty">
+      {{ 'SPONSOR_DETAIL.NOT_FOUND' | translate }}
+      <ion-button fill="clear" size="small" routerLink="/tabs/sponsors">{{ 'SPONSOR_DETAIL.BACK' | translate }}</ion-button>
+    </div>
+  </ng-template>
+</ion-content>

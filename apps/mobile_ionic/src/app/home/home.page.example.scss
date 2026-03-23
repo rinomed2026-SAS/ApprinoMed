@@ -1,0 +1,392 @@
+// ========================================
+// EXAMPLE: HOME PAGE using RINOMED THEME
+// ========================================
+// Este es un ejemplo de cómo usar el tema RINOMED 2026
+// en otros componentes. Copia esta estructura en tus pages.
+
+@import '../../theme/rinomed-theme.scss';
+
+// ========================================
+// CONTENEDOR PRINCIPAL
+// ========================================
+
+.home-container {
+  --background: #{$rinomed-bg-dark};
+  background: $rinomed-bg-dark;
+  color: $rinomed-text-primary;
+}
+
+// ========================================
+// HERO SECTION
+// ========================================
+
+.home-hero {
+  @include rinomed-glass;
+  
+  padding: $rinomed-space-2xl;
+  margin: $rinomed-space-xl;
+  text-align: center;
+  animation: fadeInDown 600ms ease-out;
+  
+  .hero-title {
+    @include rinomed-heading-2;
+    margin-bottom: $rinomed-space-md;
+  }
+  
+  .hero-subtitle {
+    @include rinomed-text-body;
+    color: $rinomed-text-secondary;
+    margin-bottom: $rinomed-space-lg;
+  }
+  
+  .hero-button {
+    @include rinomed-button-primary;
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+// ========================================
+// CARDS GRID
+// ========================================
+
+.cards-section {
+  padding: $rinomed-space-xl;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: $rinomed-space-lg;
+}
+
+.content-card {
+  @include rinomed-glass;
+  
+  padding: $rinomed-space-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $rinomed-space-md;
+  transition: all $rinomed-transition-base;
+  cursor: pointer;
+  
+  &:hover {
+    border-color: $rinomed-magenta;
+    box-shadow: 0 16px 40px rgba(192, 122, 184, 0.15);
+    transform: translateY(-4px);
+  }
+  
+  .card-icon {
+    font-size: 32px;
+    color: $rinomed-magenta;
+    @include rinomed-flex-center;
+    width: 48px;
+    height: 48px;
+    background: rgba(192, 122, 184, 0.1);
+    border-radius: $rinomed-radius-sm;
+  }
+  
+  .card-title {
+    @include rinomed-heading-3;
+  }
+  
+  .card-description {
+    @include rinomed-text-body;
+    color: $rinomed-text-secondary;
+    flex: 1;
+  }
+  
+  .card-link {
+    @include rinomed-button-link;
+    align-self: flex-start;
+    font-size: 13px;
+  }
+}
+
+// ========================================
+// FEATURED LIST
+// ========================================
+
+.featured-list {
+  padding: $rinomed-space-xl;
+  
+  .list-title {
+    @include rinomed-heading-2;
+    margin-bottom: $rinomed-space-lg;
+  }
+}
+
+.list-item {
+  @include rinomed-glass;
+  
+  padding: $rinomed-space-lg;
+  margin-bottom: $rinomed-space-md;
+  display: flex;
+  gap: $rinomed-space-lg;
+  align-items: flex-start;
+  transition: all $rinomed-transition-base;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: $rinomed-magenta;
+  }
+  
+  .item-number {
+    font-family: $rinomed-font-family-primary;
+    font-size: 24px;
+    font-weight: 700;
+    color: $rinomed-magenta;
+    min-width: 40px;
+  }
+  
+  .item-content {
+    flex: 1;
+  }
+  
+  .item-title {
+    @include rinomed-heading-3;
+    font-size: 16px;
+    margin-bottom: $rinomed-space-sm;
+  }
+  
+  .item-description {
+    @include rinomed-text-small;
+    line-height: 1.6;
+  }
+}
+
+// ========================================
+// CTA SECTION
+// ========================================
+
+.cta-section {
+  @include rinomed-glass;
+  @include rinomed-flex-center;
+  
+  flex-direction: column;
+  gap: $rinomed-space-lg;
+  padding: $rinomed-space-2xl;
+  margin: $rinomed-space-xl;
+  text-align: center;
+  
+  .cta-title {
+    @include rinomed-heading-2;
+  }
+  
+  .cta-text {
+    @include rinomed-text-body;
+    color: $rinomed-text-secondary;
+    max-width: 500px;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: $rinomed-space-md;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    .btn-primary {
+      @include rinomed-button-primary;
+      min-width: 200px;
+    }
+    
+    .btn-secondary {
+      @include rinomed-button-secondary;
+      min-width: 200px;
+    }
+  }
+}
+
+// ========================================
+// INPUT SECTION
+// ========================================
+
+.input-section {
+  padding: $rinomed-space-xl;
+}
+
+.form-group {
+  margin-bottom: $rinomed-space-lg;
+  
+  label {
+    @include rinomed-label;
+    display: block;
+  }
+}
+
+.form-input {
+  @include rinomed-input-base;
+  
+  input {
+    @include rinomed-text-body;
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    
+    &::placeholder {
+      color: $rinomed-text-tertiary;
+    }
+  }
+  
+  &.with-icon {
+    .input-icon {
+      margin-right: $rinomed-space-md;
+      color: $rinomed-text-secondary;
+      font-size: 20px;
+    }
+  }
+}
+
+// ========================================
+// BADGE & TAGS
+// ========================================
+
+.badge {
+  display: inline-block;
+  padding: $rinomed-space-sm $rinomed-space-md;
+  background: rgba(192, 122, 184, 0.15);
+  border: 1px solid rgba(192, 122, 184, 0.3);
+  border-radius: $rinomed-radius-sm;
+  color: $rinomed-magenta;
+  font-family: $rinomed-font-family-secondary;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all $rinomed-transition-base;
+  
+  &:hover {
+    background: rgba(192, 122, 184, 0.25);
+    border-color: $rinomed-magenta;
+  }
+}
+
+// ========================================
+// ANIMATIONS
+// ========================================
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// ========================================
+// RESPONSIVE
+// ========================================
+
+@include rinomed-mobile-only {
+  .cards-section {
+    padding: $rinomed-space-lg;
+    grid-template-columns: 1fr;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+    }
+  }
+  
+  .list-item {
+    flex-direction: column;
+    gap: $rinomed-space-md;
+    
+    .item-number {
+      min-width: auto;
+    }
+  }
+}
+
+@include rinomed-tablet-up {
+  .home-hero {
+    margin: $rinomed-space-2xl;
+  }
+  
+  .cards-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include rinomed-desktop-up {
+  .cards-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// ========================================
+// DARK MODE OVERRIDES (si fuera necesario)
+// ========================================
+
+// No es necesario porque ya estamos en dark permanente
+// pero puedes agregar ajustes específicos aquí
+
+// ========================================
+// ACCESSIBILITY
+// ========================================
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// ========================================
+// UTILITIES
+// ========================================
+
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: $rinomed-text-secondary;
+}
+
+.mt-{
+  margin-top: $rinomed-space-lg;
+}
+
+.mb-lg {
+  margin-bottom: $rinomed-space-lg;
+}
+
+.p-lg {
+  padding: $rinomed-space-lg;
+}
+
+.gap-md {
+  gap: $rinomed-space-md;
+}

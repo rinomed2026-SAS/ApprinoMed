@@ -1,0 +1,14 @@
+{
+  "name": "rinomed-planb-webapp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plan B web app fallback for RINOMED 2026",
+  "type": "module",
+  "scripts": {
+    "build:mobile": "npm --prefix ../mobile_ionic run build -- --configuration production",
+    "prepare:dist": "node ./scripts/prepare-planb.mjs",
+    "build": "npm run build:mobile && npm run prepare:dist",
+    "serve": "npx serve ./dist -l 8080",
+    "check": "node ./scripts/check-dist.mjs"
+  }
+}
