@@ -16,7 +16,19 @@ import {
   informationCircleOutline,
   personCircleOutline,
   locationOutline,
-  globeOutline
+  globeOutline,
+  // Comunidad RINOMED
+  peopleCircleOutline,
+  cloudUploadOutline,
+  downloadOutline,
+  copyOutline,
+  logoInstagram,
+  imagesOutline,
+  checkmarkCircleOutline,
+  arrowBackOutline,
+  personOutline,
+  refreshOutline,
+  arrowForward,
 } from 'ionicons/icons';
 
 import { routes } from './app/app.routes';
@@ -51,5 +63,17 @@ addIcons({
   'information-circle-outline': informationCircleOutline,
   'person-circle-outline': personCircleOutline,
   'location-outline': locationOutline,
-  'globe-outline': globeOutline
+  'globe-outline': globeOutline,
+  // Comunidad RINOMED
+  'people-circle-outline': peopleCircleOutline,
+  'cloud-upload-outline': cloudUploadOutline,
+  'download-outline': downloadOutline,
+  'copy-outline': copyOutline,
+  'logo-instagram': logoInstagram,
+  'images-outline': imagesOutline,
+  'checkmark-circle-outline': checkmarkCircleOutline,
+  'arrow-back-outline': arrowBackOutline,
+  'person-outline': personOutline,
+  'refresh-outline': refreshOutline,
+  'arrow-forward': arrowForward,
 });

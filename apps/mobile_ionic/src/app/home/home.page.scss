@@ -308,6 +308,21 @@
   line-height: 1.3;
 }
 
+// Variante destacada para acceso rápido a Comunidad
+.quick-access-button--community {
+  border-color: rgba($color-magenta-primary, 0.35);
+  background: rgba($color-magenta-primary, 0.06);
+
+  ion-icon {
+    color: $color-magenta-primary;
+  }
+
+  &:hover {
+    border-color: $color-magenta-primary;
+    box-shadow: 0 0 20px rgba($color-magenta-primary, 0.25);
+  }
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // SECCIÓN INFORMATIVA DEL EVENTO
 // ═══════════════════════════════════════════════════════════════════════════════

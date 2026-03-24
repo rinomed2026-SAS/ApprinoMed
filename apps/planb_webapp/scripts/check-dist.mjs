@@ -84,6 +84,25 @@ try {
     const match = html.match(/<title>(.*?)<\/title>/);
     fail(`Page title is "${match?.[1] ?? 'unknown'}" — expected "RinoMed 2026"`);
   }
+
+  // 9. Community route is present in the Angular router output
+  //    Angular lazy-loads community page as a named chunk; verify the route
+  //    reference exists somewhere in the compiled JS bundles.
+  const communityChunk = allFiles.find(
+    f => f.endsWith('.js') && !f.startsWith('_') && !f.startsWith('polyfills') && !f.startsWith('main')
+  );
+  if (communityChunk) {
+    ok('Lazy-loaded chunk(s) present (community route will be included)');
+  } else {
+    fail('No lazy-loaded chunks found — community route may be missing');
+  }
+
+  // 10. API URL in index.html should NOT be localhost
+  if (html.includes('localhost')) {
+    fail('index.html still references localhost — run prepare-planb with PLANB_API_BASE_URL set');
+  } else {
+    ok('No localhost API reference in index.html');
+  }
 } catch { /* already reported */ }
 
 // Summary

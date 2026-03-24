@@ -68,6 +68,10 @@ export const routes: Routes = [
         loadComponent: () => import('./privacy/privacy.page').then((m) => m.PrivacyPage)
       },
       {
+        path: 'community',
+        loadComponent: () => import('./community/community.page').then((m) => m.CommunityPage)
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'

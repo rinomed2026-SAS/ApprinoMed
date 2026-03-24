@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build mobile_ionic",
+			"type": "shell",
+			"command": "cd apps/mobile_ionic && npm run build -- --configuration production",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build"
+		},
+		{
+			"label": "PlanB: build + prepare + serve",
+			"type": "shell",
+			"command": "cd apps/mobile_ionic && npm run build -- --configuration production && cd ../planb_webapp && node scripts/prepare-planb.mjs && npm run check && npx serve ./dist -l 8080",
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}

@@ -1,0 +1,349 @@
+<!-- ═══════════════════════════════════════════════════════════════════════════════
+     COMUNIDAD RINOMED – Página principal
+     Permite al usuario subir foto, generar imagen con marco RINOMED y compartirla.
+     ═══════════════════════════════════════════════════════════════════════════════ -->
+
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark" class="community-toolbar">
+    <button
+      *ngIf="currentView !== 'hero'"
+      class="back-btn"
+      slot="start"
+      (click)="goBack()"
+      aria-label="Volver"
+    >
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </button>
+    <ion-title class="community-toolbar__title">Comunidad RINOMED</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="community-content">
+
+  <!-- ══════════════════════════════════════════
+       HERO
+       ══════════════════════════════════════════ -->
+  <div class="community-view" *ngIf="currentView === 'hero'">
+    <div class="hero">
+      <!-- Orb decorativo de fondo -->
+      <div class="hero__orb" aria-hidden="true"></div>
+
+      <div class="hero__logo-wrap">
+        <img
+          src="/assets/logo-rinomed.svg"
+          alt="RINOMED 2026"
+          class="hero__logo"
+        />
+      </div>
+
+      <div class="hero__text">
+        <h1 class="hero__title">Comunidad<br /><span class="hero__title--accent">RINOMED</span></h1>
+        <p class="hero__subtitle">
+          Comparte tu experiencia, crea tu imagen oficial<br />y publícala en Instagram.
+        </p>
+      </div>
+
+      <div class="hero__actions">
+        <button class="btn btn--primary btn--large" (click)="goTo('upload')">
+          <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+          Subir mi foto
+        </button>
+        <button class="btn btn--ghost" (click)="goTo('gallery')">
+          <ion-icon name="images-outline" slot="start"></ion-icon>
+          Ver galería
+        </button>
+      </div>
+
+      <!-- Tarjeta descriptiva -->
+      <div class="hero__card glass-card">
+        <div class="hero__card-step">
+          <span class="step-badge">1</span>
+          <span>Sube tu foto</span>
+        </div>
+        <div class="hero__card-step">
+          <span class="step-badge">2</span>
+          <span>Genera tu imagen con marco RINOMED</span>
+        </div>
+        <div class="hero__card-step">
+          <span class="step-badge">3</span>
+          <span>Descárgala y publícala en Instagram</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       UPLOAD
+       ══════════════════════════════════════════ -->
+  <div class="community-view" *ngIf="currentView === 'upload'">
+    <div class="upload-section">
+
+      <div class="section-header">
+        <h2 class="section-title">Sube tu foto</h2>
+        <p class="section-subtitle">JPG, PNG o WebP · máximo 8 MB</p>
+      </div>
+
+      <!-- Zona de carga -->
+      <div
+        class="upload-zone glass-card"
+        [class.upload-zone--has-preview]="!!previewDataUrl"
+        (click)="triggerFileInput()"
+        role="button"
+        aria-label="Seleccionar imagen"
+        tabindex="0"
+        (keydown.enter)="triggerFileInput()"
+      >
+        <ng-container *ngIf="!previewDataUrl">
+          <ion-icon name="cloud-upload-outline" class="upload-zone__icon" aria-hidden="true"></ion-icon>
+          <p class="upload-zone__text">Toca para seleccionar tu foto</p>
+          <span class="upload-zone__hint">o arrastra y suelta aquí</span>
+        </ng-container>
+
+        <img
+          *ngIf="previewDataUrl"
+          [src]="previewDataUrl"
+          alt="Vista previa de tu foto seleccionada"
+          class="upload-zone__preview"
+        />
+      </div>
+
+      <!-- Input file oculto -->
+      <input
+        #fileInput
+        type="file"
+        accept="image/jpeg,image/png,image/webp"
+        class="sr-only"
+        aria-label="Seleccionar imagen"
+        (change)="onFileSelected($event)"
+      />
+
+      <!-- Error de validación -->
+      <p class="error-msg" *ngIf="uploadError" role="alert">
+        <ion-icon name="information-circle-outline" aria-hidden="true"></ion-icon>
+        {{ uploadError }}
+      </p>
+
+      <!-- Acciones -->
+      <div class="upload-actions">
+        <button
+          class="btn btn--secondary"
+          *ngIf="previewDataUrl"
+          (click)="triggerFileInput()"
+          aria-label="Cambiar imagen seleccionada"
+        >
+          Cambiar foto
+        </button>
+        <button
+          class="btn btn--primary"
+          [disabled]="!previewDataUrl"
+          (click)="proceedToPreview()"
+          aria-label="Continuar y generar vista previa"
+        >
+          Continuar
+          <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       PREVIEW / COMPOSICIÓN
+       ══════════════════════════════════════════ -->
+  <div class="community-view" *ngIf="currentView === 'preview'">
+    <div class="preview-section">
+
+      <div class="section-header">
+        <h2 class="section-title">Tu imagen RINOMED</h2>
+        <p class="section-subtitle">Así se verá en Instagram</p>
+      </div>
+
+      <!-- Canvas oculto para la composición (no visible directamente) -->
+      <canvas
+        #compositionCanvas
+        class="sr-only"
+        aria-hidden="true"
+      ></canvas>
+
+      <!-- Vista previa del resultado compuesto -->
+      <div class="preview-frame" [class.preview-frame--loading]="isComposing">
+        <div *ngIf="isComposing" class="preview-frame__spinner" aria-live="polite" aria-label="Generando imagen…">
+          <ion-spinner name="crescent" color="primary"></ion-spinner>
+          <span>Generando tu imagen…</span>
+        </div>
+        <img
+          *ngIf="composedDataUrl && !isComposing"
+          [src]="composedDataUrl"
+          alt="Tu imagen con marco oficial de la comunidad RINOMED"
+          class="preview-frame__img"
+        />
+      </div>
+
+      <!-- Acciones principales -->
+      <div class="action-group" *ngIf="!isComposing">
+
+        <button
+          class="btn btn--primary"
+          [disabled]="!composedDataUrl"
+          (click)="downloadComposed()"
+          aria-label="Descargar imagen"
+        >
+          <ion-icon name="download-outline" aria-hidden="true"></ion-icon>
+          Descargar imagen
+        </button>
+
+        <button
+          class="btn btn--secondary"
+          (click)="copyCaption()"
+          aria-label="Copiar caption para Instagram"
+        >
+          <ion-icon name="copy-outline" aria-hidden="true"></ion-icon>
+          Copiar caption
+        </button>
+
+        <button
+          class="btn btn--instagram"
+          (click)="openInstagram()"
+          aria-label="Abrir Instagram"
+        >
+          <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
+          Abrir Instagram
+        </button>
+
+      </div>
+
+      <!-- Caption visible para referencia -->
+      <div class="caption-card glass-card" *ngIf="!isComposing">
+        <p class="caption-card__label">Caption sugerido</p>
+        <p class="caption-card__text">{{ caption }}</p>
+      </div>
+
+      <!-- Autorización para galería -->
+      <div class="consent-section glass-card" *ngIf="!isComposing && !sendSuccess">
+        <label class="consent-label" for="galleryConsent">
+          <span class="consent-label__checkbox-wrap">
+            <input
+              id="galleryConsent"
+              type="checkbox"
+              class="consent-checkbox"
+              [(ngModel)]="allowGallery"
+              aria-describedby="consentDescription"
+            />
+            <span class="consent-label__custom-checkbox" aria-hidden="true">
+              <ion-icon *ngIf="allowGallery" name="checkmark-circle-outline"></ion-icon>
+            </span>
+          </span>
+          <span class="consent-label__text" id="consentDescription">
+            Autorizo que mi imagen sea publicada en la galería de la comunidad
+          </span>
+        </label>
+
+        <!-- Error de envío -->
+        <p class="error-msg" *ngIf="sendError" role="alert">{{ sendError }}</p>
+
+        <button
+          class="btn btn--primary btn--submit"
+          [disabled]="isSending"
+          (click)="submitToGallery()"
+          aria-label="Enviar imagen a la galería"
+        >
+          <ion-spinner *ngIf="isSending" name="crescent" aria-hidden="true"></ion-spinner>
+          <span *ngIf="!isSending">
+            {{ allowGallery ? 'Enviar a galería' : 'Registrar participación' }}
+          </span>
+        </button>
+      </div>
+
+      <!-- Estado de éxito en el envío -->
+      <div class="success-card glass-card" *ngIf="sendSuccess">
+        <ion-icon name="checkmark-circle-outline" class="success-card__icon" aria-hidden="true"></ion-icon>
+        <h3 class="success-card__title">¡Listo! Eres parte de la comunidad</h3>
+        <p class="success-card__text" *ngIf="allowGallery">
+          Tu imagen será revisada y publicada en la galería pronto.
+        </p>
+        <div class="success-card__actions">
+          <button class="btn btn--ghost" (click)="goTo('gallery')">
+            Ver galería
+          </button>
+          <button class="btn btn--secondary" (click)="resetFlow()">
+            Crear otra
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       GALERÍA
+       ══════════════════════════════════════════ -->
+  <div class="community-view" *ngIf="currentView === 'gallery'">
+    <div class="gallery-section">
+
+      <div class="section-header">
+        <h2 class="section-title">Galería Comunidad</h2>
+        <p class="section-subtitle">Miembros que compartieron su experiencia RINOMED</p>
+      </div>
+
+      <!-- Cargando -->
+      <div class="gallery-loading" *ngIf="isLoadingGallery" aria-live="polite" aria-label="Cargando galería">
+        <ion-spinner name="crescent" color="primary"></ion-spinner>
+        <span>Cargando galería…</span>
+      </div>
+
+      <!-- Error -->
+      <div class="gallery-error glass-card" *ngIf="galleryError && !isLoadingGallery" role="alert">
+        <ion-icon name="information-circle-outline" aria-hidden="true"></ion-icon>
+        <p>{{ galleryError }}</p>
+        <button class="btn btn--ghost" (click)="loadGallery()">
+          <ion-icon name="refresh-outline" aria-hidden="true"></ion-icon>
+          Reintentar
+        </button>
+      </div>
+
+      <!-- Estado vacío -->
+      <div
+        class="gallery-empty"
+        *ngIf="!isLoadingGallery && !galleryError && galleryItems.length === 0"
+      >
+        <div class="gallery-empty__orb" aria-hidden="true"></div>
+        <ion-icon name="images-outline" class="gallery-empty__icon" aria-hidden="true"></ion-icon>
+        <h3 class="gallery-empty__title">Aún no hay imágenes</h3>
+        <p class="gallery-empty__text">
+          Sé el primero en compartir tu imagen de la comunidad RINOMED.
+        </p>
+        <button class="btn btn--primary" (click)="goTo('upload')">
+          <ion-icon name="cloud-upload-outline" aria-hidden="true"></ion-icon>
+          Subir mi foto
+        </button>
+      </div>
+
+      <!-- Grid de imágenes -->
+      <div
+        class="gallery-grid"
+        *ngIf="!isLoadingGallery && galleryItems.length > 0"
+        role="list"
+        aria-label="Galería de imágenes de la comunidad"
+      >
+        <div
+          class="gallery-item glass-card"
+          *ngFor="let item of galleryItems"
+          role="listitem"
+        >
+          <img
+            [src]="item.composedImageUrl"
+            [alt]="'Imagen de comunidad RINOMED de ' + item.userName"
+            class="gallery-item__img"
+            loading="lazy"
+          />
+          <div class="gallery-item__info">
+            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+            <span class="gallery-item__name">{{ item.userName }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

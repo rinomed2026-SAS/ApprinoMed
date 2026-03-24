@@ -8,6 +8,24 @@ Fallback web deployment in case iOS/Android store publication is delayed or reje
 - Copies generated `www` output into `apps/planb_webapp/dist`.
 - Adds SPA routing (`_redirects`) and cache headers (`_headers`) for static hosting.
 
+## Features included
+
+All features from the Ionic app are available in this web build, including:
+
+- Agenda, Speakers, Sponsors, Info, Certificate, Profile
+- **Comunidad RINOMED** — `/tabs/community`
+  - Photo upload with RINOMED frame composition (Canvas API)
+  - Download composed image
+  - Copy Instagram caption
+  - Open Instagram
+  - Gallery of approved community submissions
+  - Backend: `POST /v1/community/submissions`, `GET /v1/community/gallery`
+
+> The community backend requires the `CommunitySubmission` Prisma migration to be applied:
+> ```zsh
+> cd services/api && npx prisma migrate dev --name add_community_submission
+> ```
+
 ## Quick start
 
 ```zsh
