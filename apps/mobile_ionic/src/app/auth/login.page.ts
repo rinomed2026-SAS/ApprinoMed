@@ -58,14 +58,14 @@ export class LoginPage implements OnInit {
   private initializeForm() {
     this.loginForm = this.formBuilder.group({
       email: [
-        this.REVIEW_EMAIL,
+        '',
         [
           Validators.required,
           Validators.email
         ]
       ],
       password: [
-        this.REVIEW_PASSWORD,
+        '',
         [
           Validators.required,
           Validators.minLength(1)

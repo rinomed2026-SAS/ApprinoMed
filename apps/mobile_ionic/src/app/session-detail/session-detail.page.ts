@@ -59,7 +59,7 @@ export class SessionDetailPage {
   questions: Question[] = [];
   questionText = '';
   notFound = false;
-  private userId = localStorage.getItem('userEmail') || 'review@rinomed2026.com';
+  private userId = localStorage.getItem('userEmail') || 'guest@example.com';
   counterFormatter = (currentLength: number, maxLength?: number) => `${currentLength}/${maxLength ?? 280}`;
 
   constructor(

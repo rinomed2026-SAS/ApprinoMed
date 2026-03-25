@@ -4,8 +4,8 @@ import { setTokens } from '../auth';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:4000';
 
 export function Login() {
-  const [email, setEmail] = useState('review@rinomed2026.com');
-  const [password, setPassword] = useState('Rinomed2026!');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
