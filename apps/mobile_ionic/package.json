@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "RINOMED Team",
   "homepage": "https://rinomed2026.com",
-  "description": "An Ionic project",
+  "description": "RINOMED 2026 - International Congress of Rhinology and Otolaryngology",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

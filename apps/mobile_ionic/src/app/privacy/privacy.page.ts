@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton]
 })
 export class PrivacyPage {
-  url = `${environment.apiBaseUrl}/privacy`;
+  url = 'https://rinomed2026.com/privacy.html';
 
   open() {
     window.open(this.url, '_blank');

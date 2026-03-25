@@ -1,4 +1,5 @@
 import { bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -17,6 +18,7 @@ import {
   personCircleOutline,
   locationOutline,
   globeOutline,
+  alertCircleOutline,
   // Comunidad RINOMED
   peopleCircleOutline,
   cloudUploadOutline,
@@ -39,6 +41,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
+    provideAnimationsAsync(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(withInterceptors([authInterceptor])),
     importProvidersFrom(
@@ -72,6 +75,7 @@ addIcons({
   'logo-instagram': logoInstagram,
   'images-outline': imagesOutline,
   'checkmark-circle-outline': checkmarkCircleOutline,
+  'alert-circle-outline': alertCircleOutline,
   'arrow-back-outline': arrowBackOutline,
   'person-outline': personOutline,
   'refresh-outline': refreshOutline,

@@ -103,8 +103,8 @@ cd "$ROOT_DIR/apps/mobile_ionic"
 
 xcrun simctl boot "$TARGET_UDID" 2>/dev/null || true
 
-# Fresh web build (development config to hit local API) and sync iOS platform assets
-npm run build -- --configuration development
+# Build production (faster, no source maps) and sync iOS
+NODE_OPTIONS="--max-old-space-size=4096" npx ng build --configuration production --progress
 npx cap sync ios
 
 xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Debug -destination id="$TARGET_UDID" -derivedDataPath ios/DerivedDataNoSign CODE_SIGNING_ALLOWED=NO \

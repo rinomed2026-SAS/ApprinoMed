@@ -9,9 +9,22 @@ const config: CapacitorConfig = {
     allowNavigation: [
       'https://api.rinomed2026.com',
       'https://rinomed2026.com',
+      'https://adminweb-production-d7b5.up.railway.app',
       'https://maps.google.com',
       'https://wa.me'
     ]
+  },
+  plugins: {
+    SplashScreen: {
+      launchShowDuration: 2000,
+      backgroundColor: "#0F0F12",
+      androidSplashResourceName: "splash",
+      androidScaleType: "CENTER_CROP",
+      showSpinner: false
+    },
+    StatusBar: {
+      style: "DARK"
+    }
   }
 };
 

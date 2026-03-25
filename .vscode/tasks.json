@@ -16,6 +16,32 @@
 			"command": "cd apps/mobile_ionic && npm run build -- --configuration production && cd ../planb_webapp && node scripts/prepare-planb.mjs && npm run check && npx serve ./dist -l 8080",
 			"isBackground": true,
 			"problemMatcher": []
+		},
+		{
+			"label": "Run iOS Simulator",
+			"type": "shell",
+			"command": "cd /Users/gustavourzola/Documents/GitHub/ApprinoMed && START_BACKEND=0 bash run-ios-sim.sh",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "List iOS Simulators",
+			"type": "shell",
+			"command": "xcrun simctl list devices available | grep iPhone | head -10"
+		},
+		{
+			"label": "iOS Simulator Launch",
+			"type": "shell",
+			"command": "cd /Users/gustavourzola/Documents/GitHub/ApprinoMed && START_BACKEND=0 zsh run-ios-sim.sh 2>&1",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Run iOS Sim",
+			"type": "shell",
+			"command": "START_BACKEND=0 zsh /Users/gustavourzola/Documents/GitHub/ApprinoMed/run-ios-sim.sh",
+			"isBackground": false,
+			"problemMatcher": []
 		}
 	]
 }
