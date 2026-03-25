@@ -2,19 +2,31 @@
 
 Monorepo para la app del Congreso de Rinología y Otorrinolaringología (Medellín, 17–18 abril 2026).
 
+## 📚 Documentación
+
+Toda la documentación del proyecto está organizada en [`docs/`](./docs/):
+
+| Carpeta | Contenido |
+|---------|-----------|
+| [`docs/design/`](./docs/design/) | Design System, guías de estilo, login, backgrounds |
+| [`docs/deployment/`](./docs/deployment/) | Guía de deploy, submission a tiendas, notas para reviewers |
+| [`docs/development/`](./docs/development/) | Estado de implementación, integración API, testing, migración |
+| [`docs/audit/`](./docs/audit/) | Auditorías de release, patchlogs, reportes de seguridad |
+
+> 📖 **Índice completo:** [`docs/DOCUMENTATION_INDEX.md`](./docs/DOCUMENTATION_INDEX.md)
+
 ## 🎨 Design System Premium
 
 **RINOMED 2026 utiliza un Sistema de Diseño Centralizado.**
 
-**Para diseñadores y developers:**
-- 📖 **Empieza aquí:** [`DESIGN_SYSTEM_SUMMARY.md`](./DESIGN_SYSTEM_SUMMARY.md)
+- 📖 **Guía completa:** [`docs/design/DESIGN_SYSTEM_GUIDE.md`](./docs/design/DESIGN_SYSTEM_GUIDE.md)
+- 📋 **Resumen:** [`docs/design/DESIGN_SYSTEM_SUMMARY.md`](./docs/design/DESIGN_SYSTEM_SUMMARY.md)
 - 🚀 **Quick Ref:** [`apps/mobile_ionic/docs/DESIGN_QUICK_REFERENCE.md`](./apps/mobile_ionic/docs/DESIGN_QUICK_REFERENCE.md)
 
 **Características:**
 - ✅ Paleta obligatoria: Negro (#0F0F12 / #1C1C1C) + Magenta (#C07AB8)
 - ✅ Tres backgrounds predefinidos: `bg-login`, `bg-home`, `bg-detail`
 - ✅ 80+ variables SCSS centralizadas
-- ✅ Documentación exhaustiva por rol
 
 **Regla de oro:** Nunca crees backgrounds personalizados o hardcodees colores. Siempre usa variables.
 
