@@ -1,6 +1,6 @@
 [build]
   base = "apps/planb_webapp"
-  command = "npm ci --prefix ../mobile_ionic && npm run build"
+  command = "npm install --prefix ../mobile_ionic && npm run build"
   publish = "dist"
 
 [build.environment]
@@ -38,7 +38,7 @@
 
 # Context-specific: branch deploys & deploy previews
 [context.production]
-  command = "npm ci --prefix ../mobile_ionic && npm run build"
+  command = "npm install --prefix ../mobile_ionic && npm run build"
 
 [context.deploy-preview]
-  command = "npm ci --prefix ../mobile_ionic && npm run build"
+  command = "npm install --prefix ../mobile_ionic && npm run build"
