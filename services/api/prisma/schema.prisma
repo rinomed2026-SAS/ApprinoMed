@@ -27,6 +27,7 @@ model User {
   questions    Question[]
   sponsorLeads SponsorLead[]
   refreshTokens RefreshToken[]
+  surveyResponse SurveyResponse?
 }
 
 model Session {
@@ -84,6 +85,7 @@ model Question {
   userId    String
   sessionId String
   text      String
+  anonymous Boolean  @default(false)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
@@ -173,8 +175,22 @@ model CommunitySubmission {
   userName          String
   originalImageUrl  String
   composedImageUrl  String?
+  appCaption        String?
   allowGallery      Boolean                   @default(false)
   status            CommunitySubmissionStatus @default(PENDING)
   createdAt         DateTime                  @default(now())
   updatedAt         DateTime                  @updatedAt
+}
+
+model SurveyResponse {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  overallRating   Int
+  contentRating   Int
+  organizationRating Int
+  venueRating     Int
+  wouldRecommend  Boolean
+  comments        String?
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
 }

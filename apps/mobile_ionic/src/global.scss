@@ -104,3 +104,45 @@ ion-icon {
 .quick-access-button ion-icon {
 	font-size: 26px;
 }
+
+// ═════════════════════════════════════════════════════
+// Language selector alert — large flags, readable text
+// ═════════════════════════════════════════════════════
+.language-alert .alert-wrapper {
+	--background: #1c1c1c;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	border-radius: 20px;
+}
+
+.language-alert .alert-title {
+	color: #ffffff !important;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.language-alert .alert-radio-group {
+	background: transparent !important;
+}
+
+.language-alert .alert-radio-label {
+	color: #ffffff !important;
+	font-size: 18px !important;
+	padding-inline-start: 16px !important;
+}
+
+.language-alert .alert-radio-icon {
+	border-color: #c07ab8 !important;
+}
+
+.language-alert [aria-checked="true"] .alert-radio-icon {
+	border-color: #c07ab8 !important;
+}
+
+.language-alert [aria-checked="true"] .alert-radio-inner {
+	background-color: #c07ab8 !important;
+}
+
+.language-alert .alert-button {
+	color: #c07ab8 !important;
+	font-weight: 600;
+}

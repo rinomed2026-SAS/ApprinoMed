@@ -7,6 +7,7 @@ export type CommunitySubmission = {
   originalImageUrl: string;
   composedImageUrl?: string | null;
   allowGallery: boolean;
+  appCaption?: string | null;
   status: CommunitySubmissionStatus;
   createdAt: string;
   updatedAt: string;
@@ -16,6 +17,7 @@ export type CommunityGalleryItem = {
   id: string;
   userName: string;
   composedImageUrl: string;
+  appCaption?: string | null;
   createdAt: string;
 };
 
@@ -24,4 +26,5 @@ export type CreateCommunitySubmissionPayload = {
   originalImageUrl: string;
   composedImageUrl?: string;
   allowGallery: boolean;
+  appCaption?: string;
 };

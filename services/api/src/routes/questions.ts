@@ -22,13 +22,14 @@ questionsRouter.get('/questions', async (req: AuthRequest, res, next) => {
 
 questionsRouter.post('/sessions/:id/questions', async (req: AuthRequest, res, next) => {
   try {
-    const schema = z.object({ text: z.string().min(3) });
-    const { text } = schema.parse(req.body);
+    const schema = z.object({ text: z.string().min(3), anonymous: z.boolean().optional().default(false) });
+    const { text, anonymous } = schema.parse(req.body);
     const question = await prisma.question.create({
       data: {
         userId: req.user!.id,
         sessionId: req.params.id,
-        text
+        text,
+        anonymous
       }
     });
     return res.status(201).json({ data: question });

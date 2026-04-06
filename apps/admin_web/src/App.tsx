@@ -6,6 +6,7 @@ import { Dashboard } from './pages/Dashboard';
 import { Sessions, Speakers, Sponsors, Hotels, Tourism } from './pages/CrudScreens';
 import { EventInfo } from './pages/EventInfo';
 import { Questions } from './pages/Questions';
+import { SurveyResults } from './pages/SurveyResults';
 import { Leads } from './pages/Leads';
 import { Users } from './pages/Users';
 import { Community } from './pages/Community';
@@ -90,6 +91,14 @@ function App() {
           element={
             <ProtectedLayout>
               <Questions />
+            </ProtectedLayout>
+          }
+        />
+        <Route
+          path="/surveys"
+          element={
+            <ProtectedLayout>
+              <SurveyResults />
             </ProtectedLayout>
           }
         />

@@ -218,6 +218,24 @@
         <p class="caption-card__text">{{ caption }}</p>
       </div>
 
+      <!-- Caption para la app (no se incluye en la imagen de Instagram) -->
+      <div class="app-caption-section glass-card" *ngIf="!isComposing && !sendSuccess">
+        <label class="app-caption-label" for="appCaptionInput">
+          <ion-icon name="chatbubble-ellipses-outline" aria-hidden="true"></ion-icon>
+          Escribe un texto para la app
+        </label>
+        <p class="app-caption-hint">Este texto solo se verá en la galería de la app, no en Instagram.</p>
+        <textarea
+          id="appCaptionInput"
+          class="app-caption-textarea"
+          [(ngModel)]="appCaption"
+          placeholder="Ej: Mi experiencia en RINOMED 2026 fue increíble..."
+          maxlength="280"
+          rows="3"
+        ></textarea>
+        <span class="app-caption-counter">{{ appCaption.length }}/280</span>
+      </div>
+
       <!-- Autorización para galería -->
       <div class="consent-section glass-card" *ngIf="!isComposing && !sendSuccess">
         <label class="consent-label" for="galleryConsent">
@@ -340,6 +358,9 @@
             <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
             <span class="gallery-item__name">{{ item.userName }}</span>
           </div>
+          <p class="gallery-item__caption" [class.gallery-item__caption--empty]="!item.appCaption">
+            {{ item.appCaption || 'Sin comentario' }}
+          </p>
         </div>
       </div>
 

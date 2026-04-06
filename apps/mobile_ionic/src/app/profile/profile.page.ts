@@ -215,11 +215,13 @@ export class ProfilePage {
     async changeLanguage() {
       const alert = await this.alertController.create({
         header: 'Seleccionar Idioma / Select Language',
+        cssClass: 'language-alert',
         inputs: this.languageService.availableLanguages.map(lang => ({
           type: 'radio' as const,
-          label: `${lang.flag} ${lang.name}`,
+          label: `${lang.flag}  ${lang.name}`,
           value: lang.code,
-          checked: lang.code === this.languageService.getCurrentLanguage()
+          checked: lang.code === this.languageService.getCurrentLanguage(),
+          cssClass: 'language-radio-option'
         })),
         buttons: [
           {
@@ -231,8 +233,9 @@ export class ProfilePage {
             handler: async (langCode: string) => {
               if (langCode) {
                 await this.languageService.setLanguage(langCode);
+                const selected = this.languageService.availableLanguages.find(l => l.code === langCode);
                 const toast = await this.toastController.create({
-                  message: 'Idioma actualizado / Language updated',
+                  message: `${selected?.flag ?? ''} ${selected?.name ?? langCode}`,
                   duration: 2000,
                   position: 'bottom',
                   color: 'success'

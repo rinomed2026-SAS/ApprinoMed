@@ -30,13 +30,21 @@ const sessionSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   topic: z.string().min(1, 'Topic is required'),
   level: z.string().min(1, 'Level is required'),
-  description: z.string().optional().default('')
+  description: z.string().optional().default(''),
+  speakerIds: z.array(z.string()).optional()
 });
 
 adminRouter.get('/sessions', async (_req, res, next) => {
   try {
-    const sessions = await prisma.session.findMany({ orderBy: [{ day: 'asc' }, { startTime: 'asc' }] });
-    res.json({ data: sessions });
+    const sessions = await prisma.session.findMany({
+      orderBy: [{ day: 'asc' }, { startTime: 'asc' }],
+      include: { speakers: { include: { speaker: true } } }
+    });
+    const data = sessions.map((s) => ({
+      ...s,
+      speakers: s.speakers.map((link) => link.speaker)
+    }));
+    res.json({ data });
   } catch (error) {
     next(error);
   }
@@ -44,9 +52,16 @@ adminRouter.get('/sessions', async (_req, res, next) => {
 
 adminRouter.post('/sessions', async (req, res, next) => {
   try {
-    const data = sessionSchema.parse(req.body);
-    const session = await prisma.session.create({ data: { ...data, day: new Date(data.day) } });
-    res.status(201).json({ data: session });
+    const { speakerIds, ...data } = sessionSchema.parse(req.body);
+    const session = await prisma.session.create({
+      data: {
+        ...data,
+        day: new Date(data.day),
+        ...(speakerIds?.length ? { speakers: { create: speakerIds.map((id) => ({ speakerId: id })) } } : {})
+      },
+      include: { speakers: { include: { speaker: true } } }
+    });
+    res.status(201).json({ data: { ...session, speakers: session.speakers.map((l) => l.speaker) } });
   } catch (error) {
     next(error);
   }
@@ -54,12 +69,26 @@ adminRouter.post('/sessions', async (req, res, next) => {
 
 adminRouter.put('/sessions/:id', async (req, res, next) => {
   try {
-    const data = sessionSchema.parse(req.body);
+    const { speakerIds, ...data } = sessionSchema.parse(req.body);
+    // Update session fields
     const session = await prisma.session.update({
       where: { id: req.params.id },
       data: { ...data, day: new Date(data.day) }
     });
-    res.json({ data: session });
+    // Replace speaker links if provided
+    if (speakerIds) {
+      await prisma.sessionSpeaker.deleteMany({ where: { sessionId: req.params.id } });
+      if (speakerIds.length) {
+        await prisma.sessionSpeaker.createMany({
+          data: speakerIds.map((speakerId) => ({ sessionId: req.params.id, speakerId }))
+        });
+      }
+    }
+    const full = await prisma.session.findUnique({
+      where: { id: req.params.id },
+      include: { speakers: { include: { speaker: true } } }
+    });
+    res.json({ data: { ...full, speakers: full!.speakers.map((l) => l.speaker) } });
   } catch (error) {
     next(error);
   }
@@ -69,6 +98,30 @@ adminRouter.delete('/sessions/:id', async (req, res, next) => {
   try {
     await prisma.session.delete({ where: { id: req.params.id } });
     res.json({ message: 'Session deleted' });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Link a speaker to a session
+adminRouter.post('/sessions/:sessionId/speakers/:speakerId', async (req, res, next) => {
+  try {
+    await prisma.sessionSpeaker.create({
+      data: { sessionId: req.params.sessionId, speakerId: req.params.speakerId }
+    });
+    res.status(201).json({ message: 'Speaker linked to session' });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Unlink a speaker from a session
+adminRouter.delete('/sessions/:sessionId/speakers/:speakerId', async (req, res, next) => {
+  try {
+    await prisma.sessionSpeaker.delete({
+      where: { sessionId_speakerId: { sessionId: req.params.sessionId, speakerId: req.params.speakerId } }
+    });
+    res.json({ message: 'Speaker unlinked from session' });
   } catch (error) {
     next(error);
   }
@@ -299,6 +352,7 @@ adminRouter.get('/questions/export.csv', async (_req, res, next) => {
     })) as Array<{
       id: string;
       text: string;
+      anonymous: boolean;
       createdAt: Date;
       user: { email: string };
       session: { title: string };
@@ -309,6 +363,7 @@ adminRouter.get('/questions/export.csv', async (_req, res, next) => {
         user: q.user.email,
         session: q.session.title,
         text: q.text,
+        anonymous: q.anonymous ? 'Sí' : 'No',
         createdAt: q.createdAt.toISOString()
       }))
     );
@@ -328,6 +383,16 @@ adminRouter.get('/questions', async (_req, res, next) => {
       orderBy: { createdAt: 'desc' }
     });
     res.json({ data: questions });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// DELETE /v1/admin/questions/:id – admin: delete a question
+adminRouter.delete('/questions/:id', async (_req, res, next) => {
+  try {
+    await prisma.question.delete({ where: { id: _req.params.id } });
+    res.json({ message: 'Pregunta eliminada' });
   } catch (error) {
     next(error);
   }
@@ -416,6 +481,74 @@ adminRouter.delete('/users/:id', async (req, res, next) => {
   try {
     await prisma.user.delete({ where: { id: req.params.id } });
     res.json({ message: 'User deleted' });
+  } catch (error) {
+    next(error);
+  }
+});
+
+/* ─── Survey results ──────────────────────────────────────────────── */
+
+adminRouter.get('/surveys', async (_req, res, next) => {
+  try {
+    const surveys = await prisma.surveyResponse.findMany({
+      include: { user: { select: { id: true, name: true, email: true } } },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    // Compute averages
+    const count = surveys.length;
+    const avg = (field: 'overallRating' | 'contentRating' | 'organizationRating' | 'venueRating') =>
+      count > 0 ? +(surveys.reduce((sum, s) => sum + s[field], 0) / count).toFixed(1) : 0;
+
+    const recommendCount = surveys.filter((s) => s.wouldRecommend).length;
+
+    res.json({
+      data: surveys,
+      stats: {
+        total: count,
+        overallAvg: avg('overallRating'),
+        contentAvg: avg('contentRating'),
+        organizationAvg: avg('organizationRating'),
+        venueAvg: avg('venueRating'),
+        recommendPct: count > 0 ? Math.round((recommendCount / count) * 100) : 0
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+adminRouter.get('/surveys/export.csv', async (_req, res, next) => {
+  try {
+    const surveys = (await prisma.surveyResponse.findMany({
+      include: { user: true },
+      orderBy: { createdAt: 'desc' }
+    })) as Array<{
+      id: string;
+      overallRating: number;
+      contentRating: number;
+      organizationRating: number;
+      venueRating: number;
+      wouldRecommend: boolean;
+      comments: string | null;
+      createdAt: Date;
+      user: { email: string; name: string };
+    }>;
+    const csv = toCsv(
+      surveys.map((s) => ({
+        id: s.id,
+        user: s.user.email,
+        name: s.user.name,
+        overall: s.overallRating,
+        content: s.contentRating,
+        organization: s.organizationRating,
+        venue: s.venueRating,
+        recommend: s.wouldRecommend ? 'Sí' : 'No',
+        comments: s.comments ?? '',
+        createdAt: s.createdAt.toISOString()
+      }))
+    );
+    res.type('text/csv').send(csv);
   } catch (error) {
     next(error);
   }

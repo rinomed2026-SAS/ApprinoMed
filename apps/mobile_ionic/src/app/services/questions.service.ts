@@ -10,8 +10,8 @@ export class QuestionsService {
     return this.api.get<{ data: Question[] }>('/v1/questions');
   }
 
-  create(sessionId: string, text: string) {
-    return this.api.post<{ data: Question }>(`/v1/sessions/${sessionId}/questions`, { text });
+  create(sessionId: string, text: string, anonymous: boolean = false) {
+    return this.api.post<{ data: Question }>(`/v1/sessions/${sessionId}/questions`, { text, anonymous });
   }
 
   remove(questionId: string) {

@@ -10,19 +10,19 @@ export class CertificateService {
     private storage: StorageService
   ) {}
 
-  // Fetch certificate metadata
+  // Fetch certificate metadata (JSON)
   getCertificate() {
     return this.api.get<{ data: Certificate }>('/v1/certificate');
   }
 
   // Download PDF file
   downloadPdf() {
-    return this.api.getBlob('/v1/certificate');
+    return this.api.getBlob('/v1/certificate/pdf');
   }
 
   // Legacy blob method
   download() {
-    return this.api.getBlob('/v1/certificate');
+    return this.api.getBlob('/v1/certificate/pdf');
   }
 
   // Cache certificate data

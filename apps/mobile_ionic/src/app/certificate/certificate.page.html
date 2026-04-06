@@ -1,92 +1,175 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title>Certificate</ion-title>
-    <p slot="end" class="header-subtitle">Academic participation</p>
+    <ion-title>{{ showSurvey ? ('SURVEY.TITLE' | translate) : ('SURVEY.CERTIFICATE_TITLE' | translate) }}</ion-title>
+    <p slot="end" class="header-subtitle">{{ showSurvey ? ('SURVEY.SUBTITLE' | translate) : ('SURVEY.ACADEMIC' | translate) }}</p>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="certificate-content bg-detail">
-  <!-- Loading State -->
-  <div *ngIf="isLoading" class="loading-state">
+
+  <!-- ════════════════ LOADING ════════════════ -->
+  <div *ngIf="surveyLoading" class="loading-state">
     <ion-spinner name="circular" color="primary"></ion-spinner>
-    <p class="loading-text">Generating certificate…</p>
+    <p class="loading-text">{{ 'SURVEY.LOADING' | translate }}</p>
+  </div>
+
+  <!-- ════════════════ SURVEY FORM ════════════════ -->
+  <div *ngIf="showSurvey && !surveyLoading" class="survey-container">
+    <div class="survey-header">
+      <ion-icon name="star" class="survey-icon"></ion-icon>
+      <h2>{{ 'SURVEY.HEADER' | translate }}</h2>
+      <p>{{ 'SURVEY.DESCRIPTION' | translate }}</p>
+    </div>
+
+    <!-- Overall Rating -->
+    <div class="rating-group">
+      <label class="rating-label">{{ 'SURVEY.OVERALL' | translate }}</label>
+      <div class="star-row">
+        <button *ngFor="let s of ratingLabels"
+                class="star-btn"
+                (click)="setRating('overallRating', s)">
+          <ion-icon [name]="s <= survey.overallRating ? 'star' : 'star-outline'"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content Rating -->
+    <div class="rating-group">
+      <label class="rating-label">{{ 'SURVEY.CONTENT' | translate }}</label>
+      <div class="star-row">
+        <button *ngFor="let s of ratingLabels"
+                class="star-btn"
+                (click)="setRating('contentRating', s)">
+          <ion-icon [name]="s <= survey.contentRating ? 'star' : 'star-outline'"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Organization Rating -->
+    <div class="rating-group">
+      <label class="rating-label">{{ 'SURVEY.ORGANIZATION' | translate }}</label>
+      <div class="star-row">
+        <button *ngFor="let s of ratingLabels"
+                class="star-btn"
+                (click)="setRating('organizationRating', s)">
+          <ion-icon [name]="s <= survey.organizationRating ? 'star' : 'star-outline'"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Venue Rating -->
+    <div class="rating-group">
+      <label class="rating-label">{{ 'SURVEY.VENUE' | translate }}</label>
+      <div class="star-row">
+        <button *ngFor="let s of ratingLabels"
+                class="star-btn"
+                (click)="setRating('venueRating', s)">
+          <ion-icon [name]="s <= survey.venueRating ? 'star' : 'star-outline'"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Would Recommend -->
+    <div class="toggle-group">
+      <label class="rating-label">{{ 'SURVEY.RECOMMEND' | translate }}</label>
+      <ion-toggle [(ngModel)]="survey.wouldRecommend" color="tertiary" class="recommend-toggle"></ion-toggle>
+    </div>
+
+    <!-- Comments -->
+    <div class="comments-group">
+      <label class="rating-label">{{ 'SURVEY.COMMENTS' | translate }}</label>
+      <ion-textarea
+        [(ngModel)]="survey.comments"
+        [placeholder]="'SURVEY.COMMENTS_PLACEHOLDER' | translate"
+        autoGrow="true"
+        [maxlength]="500"
+        class="survey-textarea"
+      ></ion-textarea>
+    </div>
+
+    <ion-button
+      expand="block"
+      class="survey-submit-btn glass-button primary"
+      [disabled]="!canSubmitSurvey || surveySubmitting"
+      (click)="submitSurvey()">
+      <ion-icon slot="start" name="checkmarkCircleOutline"></ion-icon>
+      {{ surveySubmitting ? ('SURVEY.SUBMITTING' | translate) : ('SURVEY.SUBMIT' | translate) }}
+    </ion-button>
+  </div>
+
+  <!-- ════════════════ CERTIFICATE ════════════════ -->
+
+  <!-- Loading Certificate State -->
+  <div *ngIf="!showSurvey && !surveyLoading && isLoading" class="loading-state">
+    <ion-spinner name="circular" color="primary"></ion-spinner>
+    <p class="loading-text">{{ 'SURVEY.GENERATING' | translate }}</p>
   </div>
 
   <!-- Error State -->
-  <div *ngIf="hasError && !isLoading" class="error-state">
+  <div *ngIf="hasError && !isLoading && !showSurvey" class="error-state">
     <ion-icon name="informationCircleOutline" class="error-icon"></ion-icon>
-    <h3>Certificate could not be generated</h3>
+    <h3>{{ 'SURVEY.CERT_ERROR' | translate }}</h3>
     <p>{{ errorMessage }}</p>
     <ion-button expand="block" class="glass-button retry" (click)="retry()">
       <ion-icon slot="start" name="refreshOutline"></ion-icon>
-      Try Again
+      {{ 'SURVEY.TRY_AGAIN' | translate }}
     </ion-button>
   </div>
 
   <!-- Success State -->
-  <div *ngIf="certificate && !isLoading && !hasError" class="certificate-container">
+  <div *ngIf="certificate && !isLoading && !hasError && !showSurvey" class="certificate-container">
     <!-- Availability Badge -->
     <div class="availability-badge">
       <ion-icon name="checkmarkCircleOutline"></ion-icon>
-      <span>Certificate available</span>
+      <span>{{ 'SURVEY.CERT_AVAILABLE' | translate }}</span>
     </div>
 
     <!-- Certificate Preview Card -->
     <div class="certificate-preview">
       <div class="certificate-inner">
-        <!-- Decorative Header Line -->
         <div class="certificate-decoration"></div>
 
-        <!-- RINOMED Logo / Event Identifier -->
         <div class="certificate-header">
           <p class="event-identifier">RINOMED 2026</p>
         </div>
 
-        <!-- Main Certificate Content -->
         <div class="certificate-body">
-          <!-- Title -->
-          <h1 class="certificate-title">Certificate of Academic Participation</h1>
+          <h1 class="certificate-title">{{ certificate.certificateType || ('SURVEY.CERT_TITLE' | translate) }}</h1>
 
-          <!-- Recipient Name -->
           <div class="recipient-section">
-            <p class="recipient-label">This certificate is awarded to</p>
+            <p class="recipient-label">{{ 'SURVEY.CERT_AWARDED_TO' | translate }}</p>
             <h2 class="recipient-name">{{ certificate.userName }}</h2>
           </div>
 
-          <!-- Achievement Text -->
-          <div class="achievement-section">
-            <p class="achievement-text">
-              for having successfully participated in
-            </p>
-            <p class="event-name">
-              {{ certificate.eventName }}
-            </p>
+          <div class="role-badge" *ngIf="certificate.userRole">
+            <span class="role-tag">{{ getRoleLabel(certificate.userRole) }}</span>
           </div>
 
-          <!-- Event Details -->
+          <div class="achievement-section">
+            <p class="achievement-text">{{ 'SURVEY.CERT_PARTICIPATED' | translate }}</p>
+            <p class="event-name">{{ certificate.eventName }}</p>
+          </div>
+
           <div class="details-section">
             <div class="detail-item">
-              <span class="detail-label">Event Dates</span>
+              <span class="detail-label">{{ 'SURVEY.CERT_DATES' | translate }}</span>
               <span class="detail-value">{{ certificate.eventDates }}</span>
             </div>
             <div class="detail-item">
-              <span class="detail-label">Academic Hours</span>
-              <span class="detail-value">{{ certificate.academicHours }} hours</span>
+              <span class="detail-label">{{ 'SURVEY.CERT_HOURS' | translate }}</span>
+              <span class="detail-value">{{ certificate.academicHours }} {{ 'SURVEY.HOURS' | translate }}</span>
             </div>
           </div>
 
-          <!-- Certificate ID -->
           <div class="certificate-id-section">
-            <p class="id-label">Certificate ID</p>
+            <p class="id-label">{{ 'SURVEY.CERT_ID' | translate }}</p>
             <p class="id-value">{{ certificate.certificateId }}</p>
           </div>
 
-          <!-- Issue Date -->
           <div class="issue-date">
-            <p>Issued on {{ getFormattedDate(certificate.issuedAt) }}</p>
+            <p>{{ 'SURVEY.CERT_ISSUED' | translate }} {{ getFormattedDate(certificate.issuedAt) }}</p>
           </div>
 
-          <!-- Footer Line -->
           <div class="certificate-footer-line"></div>
         </div>
       </div>
@@ -94,17 +177,21 @@
 
     <!-- Information Note -->
     <div class="info-note">
-      <p>This is a preview of your digital certificate. The PDF download contains your official document with signature and validation codes.</p>
+      <p>{{ 'SURVEY.CERT_INFO_NOTE' | translate }}</p>
     </div>
 
     <!-- Download Button -->
-    <ion-button 
-      expand="block" 
+    <ion-button
+      expand="block"
       class="download-button glass-button primary"
       (click)="downloadCertificate()"
-      [disabled]="isDownloading">
+      [disabled]="isDownloading || !surveyCompleted">
       <ion-icon slot="start" name="downloadOutline"></ion-icon>
-      {{ isDownloading ? 'Downloading…' : 'Download Certificate (PDF)' }}
+      {{ isDownloading ? ('SURVEY.DOWNLOADING' | translate) : ('SURVEY.DOWNLOAD_CERT' | translate) }}
     </ion-button>
+    <p *ngIf="!surveyCompleted" class="survey-required-note">
+      <ion-icon name="informationCircleOutline"></ion-icon>
+      {{ 'SURVEY.COMPLETE_TO_DOWNLOAD' | translate }}
+    </p>
   </div>
 </ion-content>

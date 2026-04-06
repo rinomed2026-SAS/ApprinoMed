@@ -236,6 +236,39 @@ ion-avatar {
   border-color: rgba(192, 122, 184, 0.5);
 }
 
+.qa-anonymous-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.anonymous-toggle {
+  --track-background: rgba(255, 255, 255, 0.12);
+  --track-background-checked: rgba(192, 122, 184, 0.4);
+  --handle-background: rgba(255, 255, 255, 0.6);
+  --handle-background-checked: #c07ab8;
+}
+
+.anonymous-label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.anonymous-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  color: #c07ab8;
+  background: rgba(192, 122, 184, 0.15);
+  border: 1px solid rgba(192, 122, 184, 0.3);
+  border-radius: 8px;
+  padding: 2px 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
 .empty-state {
   padding: 14px;
   text-align: center;

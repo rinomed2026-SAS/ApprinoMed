@@ -425,6 +425,17 @@ textarea {
 .stat-card:hover {
   border-color: var(--color-accent);
   background: rgba(192, 122, 184, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(192, 122, 184, 0.15);
+}
+
+.stat-card--clickable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.stat-card--clickable:active {
+  transform: scale(0.97);
 }
 
 .stat-label {
@@ -601,6 +612,12 @@ textarea {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.qa-badge--anon {
+  background: rgba(255, 193, 7, 0.15);
+  border-color: rgba(255, 193, 7, 0.3);
+  color: #ffc107;
 }
 
 .qa-footer {
@@ -797,6 +814,14 @@ textarea {
   margin-top: 4px;
 }
 
+.community-card__caption {
+  font-size: 12px;
+  color: #b0b0b0;
+  padding: 4px 0 2px;
+  margin: 0;
+  line-height: 1.4;
+}
+
 /* Badges */
 .badge {
   display: inline-flex;
@@ -895,4 +920,69 @@ textarea {
 
 .community-lightbox__close:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════════
+   SURVEY RESULTS
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+.survey-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px 16px;
+  text-align: center;
+  transition: var(--transition-base);
+}
+
+.stat-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 20px rgba(192, 122, 184, 0.12);
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.survey-ratings {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.survey-rating-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.survey-rating-label {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  min-width: 90px;
+}
+
+.survey-stars {
+  font-size: 14px;
+  color: #ffc107;
+  letter-spacing: 1px;
 }

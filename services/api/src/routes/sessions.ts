@@ -29,7 +29,8 @@ sessionsRouter.get('/', optionalAuth, async (req: OptionalAuthRequest, res, next
       where,
       orderBy: [{ day: 'asc' }, { startTime: 'asc' }],
       skip: (page - 1) * limit,
-      take: limit
+      take: limit,
+      include: { speakers: { include: { speaker: true } } }
     });
     let favoritesSet = new Set<string>();
     if (req.user) {
@@ -41,7 +42,8 @@ sessionsRouter.get('/', optionalAuth, async (req: OptionalAuthRequest, res, next
     }
     const data = sessions.map((session) => ({
       ...session,
-      isFavorite: req.user ? favoritesSet.has(session.id) : false
+      isFavorite: req.user ? favoritesSet.has(session.id) : false,
+      speakers: session.speakers.map((link) => link.speaker)
     }));
     return res.json({ data, page, limit });
   } catch (error) {

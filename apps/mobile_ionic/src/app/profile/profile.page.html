@@ -56,7 +56,7 @@
             <ion-icon slot="start" name="globeOutline" class="action-icon"></ion-icon>
             <ion-label class="action-label">
               <h3>{{ 'PROFILE.LANGUAGE' | translate }}</h3>
-              <p>{{ languageService.getLanguageName(languageService.getCurrentLanguage()) }}</p>
+              <p>{{ languageService.getLanguageFlag(languageService.getCurrentLanguage()) }} {{ languageService.getLanguageName(languageService.getCurrentLanguage()) }}</p>
             </ion-label>
             <ion-icon slot="end" name="chevronForwardOutline" class="chevron-icon"></ion-icon>
           </ion-item>

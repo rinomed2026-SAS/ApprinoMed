@@ -1,4 +1,6 @@
 .agenda-container {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -197,6 +199,21 @@
 .session-room ion-icon {
   color: #c07ab8;
   font-size: 16px;
+}
+
+.session-speakers {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.session-speakers ion-icon {
+  color: #c07ab8;
+  font-size: 16px;
+  flex-shrink: 0;
 }
 
 .loading-state {

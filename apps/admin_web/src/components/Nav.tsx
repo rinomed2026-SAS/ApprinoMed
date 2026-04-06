@@ -10,6 +10,7 @@ const navItems = [
   { path: '/tourism', label: 'Turismo', icon: '🗺️' },
   { path: '/event-info', label: 'Info Evento', icon: 'ℹ️' },
   { path: '/questions', label: 'Q&A', icon: '💬' },
+  { path: '/surveys', label: 'Encuestas', icon: '⭐' },
   { path: '/leads', label: 'Leads', icon: '✉️' },
   { path: '/users', label: 'Usuarios', icon: '👤' },
   { path: '/community', label: 'Comunidad', icon: '💜' }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { IonContent, IonIcon, ToastController, AlertController } from '@ionic/angular/standalone';
+import { IonContent, IonIcon, ToastController, AlertController, ViewWillEnter } from '@ionic/angular/standalone';
 import { AuthService } from '../services/auth.service';
 import { StatisticsService, Statistics } from '../services/statistics.service';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
   standalone: true
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, ViewWillEnter {
   activeTab: string = 'sessions';
 
   statistics: Statistics = {
@@ -39,6 +39,11 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.loadUserData();
+  }
+
+  /** Refresh stats every time the user navigates to the home tab */
+  ionViewWillEnter() {
+    this.loadStatistics();
   }
 
   /**

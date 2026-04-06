@@ -206,6 +206,26 @@ $glass-blur: blur(12px);
   }
 }
 
+/* Role Badge */
+.role-badge {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0 4px;
+
+  .role-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 12px;
+    background: #{$accent-magenta-light};
+    color: #{$accent-primary};
+    border: 1px solid rgba(192, 122, 184, 0.25);
+  }
+}
+
 /* Achievement Section */
 .achievement-section {
   display: flex;
@@ -373,6 +393,24 @@ $glass-blur: blur(12px);
   }
 }
 
+/* Survey required note */
+.survey-required-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #{$text-secondary};
+  margin: 12px 0 0;
+  text-align: center;
+
+  ion-icon {
+    font-size: 16px;
+    color: #{$accent-primary};
+    flex-shrink: 0;
+  }
+}
+
 /* GLASS BUTTON BASE */
 .glass-button {
   &.retry {
@@ -418,5 +456,150 @@ $glass-blur: blur(12px);
     padding: 16px max(16px, env(safe-area-inset-right))
              max(16px, env(safe-area-inset-bottom))
              max(16px, env(safe-area-inset-left));
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   SATISFACTION SURVEY FORM
+   ═══════════════════════════════════════════════════ */
+
+.survey-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 32px;
+}
+
+.survey-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 24px 16px 8px;
+
+  .survey-icon {
+    font-size: 48px;
+    color: #{$accent-primary};
+    filter: drop-shadow(0 4px 12px rgba(192, 122, 184, 0.3));
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #{$text-primary};
+    margin: 0;
+  }
+
+  p {
+    font-size: 13px;
+    color: #{$text-secondary};
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.rating-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  background: $glass-bg;
+  border: $glass-border;
+  border-radius: 16px;
+  backdrop-filter: $glass-blur;
+}
+
+.rating-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #{$text-primary};
+  margin: 0;
+}
+
+.star-row {
+  display: flex;
+  gap: 8px;
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  transition: transform 150ms ease;
+
+  ion-icon {
+    font-size: 32px;
+    color: #{$accent-primary};
+  }
+
+  &:active {
+    transform: scale(1.2);
+  }
+}
+
+.toggle-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: $glass-bg;
+  border: $glass-border;
+  border-radius: 16px;
+  backdrop-filter: $glass-blur;
+}
+
+.recommend-toggle {
+  --track-background: rgba(255, 255, 255, 0.12);
+  --track-background-checked: rgba(192, 122, 184, 0.4);
+  --handle-background: rgba(255, 255, 255, 0.6);
+  --handle-background-checked: #{$accent-primary};
+}
+
+.comments-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  background: $glass-bg;
+  border: $glass-border;
+  border-radius: 16px;
+  backdrop-filter: $glass-blur;
+}
+
+.survey-textarea {
+  --background: rgba(255, 255, 255, 0.04);
+  --color: #{$text-primary};
+  --placeholder-color: #{$text-secondary};
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.survey-submit-btn {
+  --color: #{$bg-darker};
+  border-radius: 14px;
+  text-transform: none;
+  font-weight: 600;
+  font-size: 15px;
+  height: 52px;
+  margin-top: 8px;
+
+  &.primary {
+    --background: #{$accent-primary};
+
+    &:hover {
+      --background: #d8a3d8;
+      box-shadow: 0 8px 24px rgba(192, 122, 184, 0.3);
+    }
+
+    &:disabled {
+      --background: rgba(192, 122, 184, 0.4);
+      opacity: 0.5;
+    }
   }
 }

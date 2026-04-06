@@ -45,4 +45,8 @@ export class LanguageService {
   getLanguageName(code: string): string {
     return this.availableLanguages.find(l => l.code === code)?.name || code;
   }
+
+  getLanguageFlag(code: string): string {
+    return this.availableLanguages.find(l => l.code === code)?.flag || '🌐';
+  }
 }

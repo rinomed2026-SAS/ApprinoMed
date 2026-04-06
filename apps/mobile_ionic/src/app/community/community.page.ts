@@ -73,6 +73,9 @@ export class CommunityPage implements OnInit {
   sendError: string | null = null;
   userName = 'Asistente';
 
+  // Caption personalizado solo para la app (no se incluye en la imagen ni en Instagram)
+  appCaption = '';
+
   // Galería
   galleryItems: CommunityGalleryItem[] = [];
   isLoadingGallery = false;
@@ -416,6 +419,7 @@ export class CommunityPage implements OnInit {
       originalImageUrl: this.previewDataUrl,
       composedImageUrl: this.composedDataUrl ?? undefined,
       allowGallery: this.allowGallery,
+      appCaption: this.appCaption || undefined,
     }).subscribe({
       next: () => {
         this.ngZone.run(() => {
@@ -477,6 +481,7 @@ export class CommunityPage implements OnInit {
     this.composedDataUrl = null;
     this.uploadError = null;
     this.allowGallery = false;
+    this.appCaption = '';
     this.sendSuccess = false;
     this.sendError = null;
     this.currentView = 'hero';

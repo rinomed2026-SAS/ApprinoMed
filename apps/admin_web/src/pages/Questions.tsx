@@ -4,6 +4,7 @@ import { apiFetch } from '../api';
 type AdminQuestion = {
   id: string;
   text: string;
+  anonymous?: boolean;
   createdAt: string;
   user: { name: string; email: string };
   session: { title: string; day: string; startTime: string };
@@ -13,22 +14,37 @@ export function Questions() {
   const [questions, setQuestions] = useState<AdminQuestion[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [deleting, setDeleting] = useState<string | null>(null);
 
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const response = await apiFetch('/v1/admin/questions');
-        if (!response.ok) throw new Error('No se pudieron cargar las preguntas');
-        const body = await response.json();
-        setQuestions(body.data ?? []);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Error desconocido');
-      } finally {
-        setLoading(false);
-      }
-    };
-    load();
-  }, []);
+  const load = async () => {
+    setLoading(true);
+    try {
+      const response = await apiFetch('/v1/admin/questions');
+      if (!response.ok) throw new Error('No se pudieron cargar las preguntas');
+      const body = await response.json();
+      setQuestions(body.data ?? []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error desconocido');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const deleteQuestion = async (id: string) => {
+    if (!window.confirm('¿Eliminar esta pregunta? Esta acción no se puede deshacer.')) return;
+    setDeleting(id);
+    try {
+      const response = await apiFetch(`/v1/admin/questions/${id}`, { method: 'DELETE' });
+      if (!response.ok) throw new Error('No se pudo eliminar');
+      setQuestions((prev) => prev.filter((q) => q.id !== id));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error al eliminar');
+    } finally {
+      setDeleting(null);
+    }
+  };
 
   const formatDate = (iso: string) =>
     new Date(iso).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' });
@@ -53,6 +69,9 @@ export function Questions() {
         >
           Exportar CSV
         </a>
+        <button className="btn secondary" onClick={load} disabled={loading}>
+          {loading ? 'Cargando…' : '↻ Recargar'}
+        </button>
       </div>
 
       {error && <div className="alert error">{error}</div>}
@@ -70,7 +89,10 @@ export function Questions() {
                   <div className="qa-user">{q.user.name}</div>
                   <div className="qa-meta">{q.user.email}</div>
                 </div>
-                <div className="qa-badge">Sesión</div>
+                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                  {q.anonymous && <div className="qa-badge qa-badge--anon">🕶️ Anónimo</div>}
+                  <div className="qa-badge">Sesión</div>
+                </div>
               </div>
 
               <div className="qa-session">{q.session.title}</div>
@@ -80,6 +102,13 @@ export function Questions() {
 
               <div className="qa-footer">
                 <span className="qa-meta">Enviada: {formatDate(q.createdAt)}</span>
+                <button
+                  className="btn btn-sm danger"
+                  disabled={deleting === q.id}
+                  onClick={() => deleteQuestion(q.id)}
+                >
+                  {deleting === q.id ? '⏳' : '🗑️'} Eliminar
+                </button>
               </div>
             </article>
           ))}

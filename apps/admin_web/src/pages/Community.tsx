@@ -8,6 +8,7 @@ type CommunitySubmission = {
   userName: string;
   originalImageUrl: string;
   composedImageUrl: string | null;
+  appCaption: string | null;
   allowGallery: boolean;
   status: SubmissionStatus;
   createdAt: string;
@@ -34,6 +35,7 @@ export function Community() {
   const [error, setError] = useState('');
   const [filter, setFilter] = useState<FilterStatus>('ALL');
   const [updating, setUpdating] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
   const [lightbox, setLightbox] = useState<string | null>(null);
 
   const load = useCallback(async () => {
@@ -70,6 +72,22 @@ export function Community() {
       setError(err instanceof Error ? err.message : 'Error al actualizar');
     } finally {
       setUpdating(null);
+    }
+  };
+
+  const deleteSubmission = async (id: string) => {
+    if (!window.confirm('¿Eliminar esta publicación? Esta acción no se puede deshacer.')) return;
+    setDeleting(id);
+    try {
+      const response = await apiFetch(`/v1/community/submissions/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('No se pudo eliminar');
+      setSubmissions((prev) => prev.filter((s) => s.id !== id));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error al eliminar');
+    } finally {
+      setDeleting(null);
     }
   };
 
@@ -161,6 +179,12 @@ export function Community() {
                   )}
                 </div>
 
+                {sub.appCaption && (
+                  <p className="community-card__caption">
+                    <em>💬 {sub.appCaption}</em>
+                  </p>
+                )}
+
                 {/* Acciones */}
                 {sub.status === 'PENDING' && (
                   <div className="community-card__actions">
@@ -202,6 +226,17 @@ export function Community() {
                     </button>
                   </div>
                 )}
+
+                {/* Botón eliminar */}
+                <div className="community-card__actions" style={{ marginTop: 6 }}>
+                  <button
+                    className="btn btn-sm danger"
+                    disabled={deleting === sub.id}
+                    onClick={() => deleteSubmission(sub.id)}
+                  >
+                    {deleting === sub.id ? '⏳' : '🗑️'} Eliminar
+                  </button>
+                </div>
               </div>
             </article>
           ))}

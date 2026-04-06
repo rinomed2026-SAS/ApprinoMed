@@ -13,7 +13,8 @@ import {
   IonButton,
   IonIcon,
   IonTextarea,
-  IonAvatar
+  IonAvatar,
+  IonToggle
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SessionsService } from '../services/sessions.service';
@@ -51,13 +52,15 @@ import { SESSIONS_SEED, SessionSeed } from '../data/sessions.seed';
     IonButton,
     IonIcon,
     IonTextarea,
-    IonAvatar
+    IonAvatar,
+    IonToggle
   ]
 })
 export class SessionDetailPage {
   session: (Session & { speakers: SpeakerLite[] }) | null = null;
   questions: Question[] = [];
   questionText = '';
+  isAnonymous = false;
   notFound = false;
   private userId = localStorage.getItem('userEmail') || 'guest@example.com';
   counterFormatter = (currentLength: number, maxLength?: number) => `${currentLength}/${maxLength ?? 280}`;
@@ -132,17 +135,19 @@ export class SessionDetailPage {
       return;
     }
     const sessionId = this.session.id;
-    this.questionsService.create(sessionId, text).subscribe({
+    this.questionsService.create(sessionId, text, this.isAnonymous).subscribe({
       next: async (res) => {
         const created: Question = res.data || {
           id: crypto.randomUUID(),
           sessionId,
           text,
+          anonymous: this.isAnonymous,
           createdAt: new Date().toISOString(),
           userId: this.userId
         } as Question;
         this.questions = [created, ...this.questions];
         this.questionText = '';
+        this.isAnonymous = false;
         await this.presentToast(this.translate.instant('SESSION_DETAIL.QUESTION_SENT'));
       },
       error: async () => {
@@ -150,11 +155,13 @@ export class SessionDetailPage {
           id: crypto.randomUUID(),
           sessionId,
           text,
+          anonymous: this.isAnonymous,
           createdAt: new Date().toISOString(),
           userId: this.userId
         } as Question;
         this.questions = [fallback, ...this.questions];
         this.questionText = '';
+        this.isAnonymous = false;
         await this.presentToast(this.translate.instant('SESSION_DETAIL.QUESTION_SENT'));
       }
     });

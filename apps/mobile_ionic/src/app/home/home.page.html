@@ -36,19 +36,19 @@
     <section class="statistics-section">
       <div class="stats-container">
         <!-- Total Sesiones -->
-        <div class="stat-card" [class.active]="activeTab === 'sessions'">
+        <div class="stat-card" [class.active]="activeTab === 'sessions'" (click)="navigateTab('agenda')">
           <div class="stat-number">{{ statistics.totalSessions }}</div>
             <div class="stat-label">{{ 'HOME.TOTAL_SESSIONS' | translate }}</div>
         </div>
 
         <!-- Sesiones en Mi Agenda -->
-        <div class="stat-card" [class.active]="activeTab === 'favorites'">
+        <div class="stat-card" [class.active]="activeTab === 'favorites'" (click)="navigateTab('favorites')">
           <div class="stat-number">{{ statistics.favoriteCount }}</div>
             <div class="stat-label">{{ 'HOME.MY_FAVORITES' | translate }}</div>
         </div>
 
         <!-- Preguntas Enviadas -->
-        <div class="stat-card" [class.active]="activeTab === 'questions'">
+        <div class="stat-card" [class.active]="activeTab === 'questions'" (click)="navigateTab('my-questions')">
           <div class="stat-number">{{ statistics.questionCount }}</div>
             <div class="stat-label">{{ 'HOME.MY_QUESTIONS' | translate }}</div>
         </div>

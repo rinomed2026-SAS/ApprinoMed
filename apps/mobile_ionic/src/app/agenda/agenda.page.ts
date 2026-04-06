@@ -17,11 +17,11 @@ import { debounceTime } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { timeOutline, locationOutline, starOutline, star, calendarOutline } from 'ionicons/icons';
+import { timeOutline, locationOutline, starOutline, star, calendarOutline, peopleOutline } from 'ionicons/icons';
 import { SessionsService } from '../services/sessions.service';
 import { FavoritesService } from '../services/favorites.service';
 
-addIcons({ timeOutline, locationOutline, starOutline, star, calendarOutline });
+addIcons({ timeOutline, locationOutline, starOutline, star, calendarOutline, peopleOutline });
 
 @Component({
   selector: 'app-agenda',
@@ -159,6 +159,11 @@ export class AgendaPage {
 
   openSession(session: Session) {
     this.router.navigate(['/tabs/sessions', session.id]);
+  }
+
+  getSpeakerNames(session: Session): string {
+    if (!session.speakers?.length) return '';
+    return session.speakers.map(s => s.name).join(', ');
   }
 
   trackBySessionId(_index: number, session: Session) {

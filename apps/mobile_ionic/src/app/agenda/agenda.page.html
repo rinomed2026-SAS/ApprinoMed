@@ -53,6 +53,11 @@
             <ion-chip>{{ session.level }}</ion-chip>
           </div>
 
+          <div class="session-speakers" *ngIf="session.speakers?.length">
+            <ion-icon name="people-outline"></ion-icon>
+            <span>{{ getSpeakerNames(session) }}</span>
+          </div>
+
           <div class="session-room">
             <ion-icon name="location-outline"></ion-icon>
             <span>{{ 'AGENDA.ROOM' | translate }}: {{ session.room }}</span>

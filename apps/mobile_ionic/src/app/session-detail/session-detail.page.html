@@ -80,6 +80,10 @@
           [counterFormatter]="counterFormatter"
           [(ngModel)]="questionText"
         ></ion-textarea>
+        <div class="qa-anonymous-row">
+          <ion-toggle [(ngModel)]="isAnonymous" color="tertiary" class="anonymous-toggle"></ion-toggle>
+          <span class="anonymous-label">{{ 'SESSION_DETAIL.ANONYMOUS' | translate }}</span>
+        </div>
         <ion-button expand="block" shape="round" (click)="sendQuestion()">{{ 'SESSION_DETAIL.SEND_QUESTION' | translate }}</ion-button>
       </div>
 
@@ -87,7 +91,10 @@
         <div class="qa-card" *ngFor="let q of questions; trackBy: trackByQuestionId">
           <div class="qa-text">{{ q.text }}</div>
           <div class="qa-meta">
-            <span>{{ q.createdAt | date:'MMM d · HH:mm' }}</span>
+            <span>
+              {{ q.createdAt | date:'MMM d · HH:mm' }}
+              <span class="anonymous-badge" *ngIf="q.anonymous">{{ 'SESSION_DETAIL.ANONYMOUS' | translate }}</span>
+            </span>
             <button class="qa-delete" (click)="confirmDelete(q, $event)">
               <ion-icon name="trash-outline"></ion-icon>
             </button>

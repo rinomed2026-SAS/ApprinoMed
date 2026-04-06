@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'MY_QUESTIONS.TITLE' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="my-questions-content bg-detail">
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="mq-loading">
+    <ion-spinner name="circular" color="primary"></ion-spinner>
+    <p>{{ 'MY_QUESTIONS.LOADING' | translate }}</p>
+  </div>
+
+  <!-- Empty -->
+  <div *ngIf="!isLoading && isEmpty" class="mq-empty">
+    <ion-icon name="chatbubble-ellipses-outline" class="mq-empty__icon"></ion-icon>
+    <h3>{{ 'MY_QUESTIONS.EMPTY_TITLE' | translate }}</h3>
+    <p>{{ 'MY_QUESTIONS.EMPTY_TEXT' | translate }}</p>
+  </div>
+
+  <!-- Questions list -->
+  <div *ngIf="!isLoading && !isEmpty" class="mq-list">
+    <p class="mq-count">{{ questions.length }} {{ 'MY_QUESTIONS.COUNT' | translate }}</p>
+
+    <div class="mq-card" *ngFor="let q of questions">
+      <!-- Session info -->
+      <div class="mq-card__session" (click)="goToSession(q.sessionId)">
+        <span class="mq-card__session-title">{{ q.session?.title || 'Sesión' }}</span>
+        <ion-icon name="chevron-forward-outline" class="mq-card__chevron"></ion-icon>
+      </div>
+
+      <div class="mq-card__session-meta" *ngIf="q.session">
+        <ion-icon name="time-outline"></ion-icon>
+        <span>{{ formatSessionTime(q.session) }}</span>
+        <span *ngIf="q.session.room"> · {{ q.session.room }}</span>
+      </div>
+
+      <!-- Question text -->
+      <p class="mq-card__text">{{ q.text }}</p>
+
+      <!-- Footer -->
+      <div class="mq-card__footer">
+        <div class="mq-card__meta">
+          <span *ngIf="q.anonymous" class="mq-badge mq-badge--anon">
+            <ion-icon name="eye-off-outline"></ion-icon>
+            {{ 'MY_QUESTIONS.ANONYMOUS' | translate }}
+          </span>
+          <span class="mq-card__date">{{ formatDate(q.createdAt) }}</span>
+        </div>
+        <button class="mq-card__delete" (click)="confirmDelete(q)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</ion-content>

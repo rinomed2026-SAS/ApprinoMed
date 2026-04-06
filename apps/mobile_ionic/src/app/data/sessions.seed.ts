@@ -1,6 +1,6 @@
 import { Session } from '../services/types';
 
-export type SessionSeed = Session & { speakers: string[] };
+export type SessionSeed = Omit<Session, 'speakers'> & { speakers: string[] };
 
 export const SESSIONS_SEED: SessionSeed[] = [
   { id: 's1', day: '2026-04-17', startTime: '08:30', endTime: '09:15', title: 'Functional Rhinology Update', topic: 'Rhinology', level: 'Conference', room: 'Auditorium A', description: 'Advances in functional nasal surgery.', speakers: ['Dr. Ruiz'], isFavorite: true },

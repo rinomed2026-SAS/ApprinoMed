@@ -56,6 +56,10 @@ export const routes: Routes = [
         loadComponent: () => import('./questions/questions.page').then((m) => m.QuestionsPage)
       },
       {
+        path: 'my-questions',
+        loadComponent: () => import('./my-questions/my-questions.page').then((m) => m.MyQuestionsPage)
+      },
+      {
         path: 'certificate',
         loadComponent: () => import('./certificate/certificate.page').then((m) => m.CertificatePage)
       },

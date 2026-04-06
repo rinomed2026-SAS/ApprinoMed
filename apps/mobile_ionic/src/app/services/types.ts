@@ -11,6 +11,7 @@ export type Session = {
   level: string;
   description: string;
   isFavorite?: boolean;
+  speakers?: { id: string; name: string; specialty?: string; country?: string }[];
 };
 
 export type Speaker = {
@@ -76,6 +77,7 @@ export type Question = {
   id: string;
   sessionId: string;
   text: string;
+  anonymous?: boolean;
   createdAt: string;
   userId?: string;
 };
@@ -97,6 +99,8 @@ export type Certificate = {
   userId: string;
   certificateId: string;
   userName: string;
+  userRole?: string;
+  certificateType?: string;
   eventName: string;
   eventDates: string;
   academicHours: number;
