@@ -28,20 +28,30 @@ communityRouter.get('/gallery', async (_req, res, next) => {
 communityRouter.post('/submissions', requireAuth, async (req: AuthRequest, res, next) => {
   try {
     const { userName, originalImageUrl, composedImageUrl, allowGallery, appCaption } = req.body as {
-      userName: string;
+      userName?: string;
       originalImageUrl: string;
       composedImageUrl?: string;
       allowGallery: boolean;
       appCaption?: string;
     };
 
-    if (!userName || !originalImageUrl) {
-      return res.status(400).json({ message: 'userName y originalImageUrl son requeridos.' });
+    // Resolve userName: prefer body, fallback to authenticated user profile
+    let resolvedUserName = userName;
+    if (!resolvedUserName && req.userId) {
+      const user = await prisma.user.findUnique({ where: { id: req.userId }, select: { name: true } });
+      resolvedUserName = user?.name || 'Asistente';
+    }
+
+    if (!resolvedUserName || !originalImageUrl) {
+      return res.status(400).json({
+        message: 'userName es requerido y debe ser un string no vacío.',
+        received: { userName: resolvedUserName, hasImage: !!originalImageUrl },
+      });
     }
 
     const submission = await prisma.communitySubmission.create({
       data: {
-        userName,
+        userName: resolvedUserName,
         originalImageUrl,
         composedImageUrl: composedImageUrl ?? null,
         appCaption: appCaption ?? null,
