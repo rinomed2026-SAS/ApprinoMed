@@ -1,10 +1,184 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title>Privacidad</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/profile" text="" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'LEGAL.TITLE' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <p>Consulta la política de privacidad en el siguiente enlace:</p>
-  <ion-button expand="block" (click)="open()">Abrir Política</ion-button>
+<ion-content [fullscreen]="true" class="legal-content">
+
+  <!-- Segment Tabs -->
+  <div class="segment-container">
+    <div class="segment-tabs">
+      <button class="segment-tab" [class.active]="activeTab === 'privacy'" (click)="activeTab = 'privacy'">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+        {{ 'LEGAL.PRIVACY_TAB' | translate }}
+      </button>
+      <button class="segment-tab" [class.active]="activeTab === 'terms'" (click)="activeTab = 'terms'">
+        <ion-icon name="document-text-outline"></ion-icon>
+        {{ 'LEGAL.TERMS_TAB' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════ PRIVACY POLICY ═══════════════ -->
+  <div class="legal-body" *ngIf="activeTab === 'privacy'">
+
+    <div class="legal-card glass-card">
+      <p class="legal-updated">{{ 'LEGAL.LAST_UPDATED' | translate }}: 7 de abril, 2026</p>
+
+      <p class="legal-intro">{{ 'LEGAL.PRIVACY_INTRO' | translate }}</p>
+
+      <!-- 1. Información que recopilamos -->
+      <h2 class="legal-heading">1. {{ 'LEGAL.P_SECTION_1' | translate }}</h2>
+
+      <h3 class="legal-subheading">1.1 {{ 'LEGAL.P_S1_1_TITLE' | translate }}</h3>
+      <ul class="legal-list">
+        <li><strong>{{ 'LEGAL.P_NAME' | translate }}:</strong> {{ 'LEGAL.P_NAME_DESC' | translate }}</li>
+        <li><strong>{{ 'LEGAL.P_EMAIL' | translate }}:</strong> {{ 'LEGAL.P_EMAIL_DESC' | translate }}</li>
+        <li><strong>{{ 'LEGAL.P_PASSWORD' | translate }}:</strong> {{ 'LEGAL.P_PASSWORD_DESC' | translate }}</li>
+        <li><strong>{{ 'LEGAL.P_ROLE' | translate }}:</strong> {{ 'LEGAL.P_ROLE_DESC' | translate }}</li>
+      </ul>
+
+      <h3 class="legal-subheading">1.2 {{ 'LEGAL.P_S1_2_TITLE' | translate }}</h3>
+      <ul class="legal-list">
+        <li>{{ 'LEGAL.P_USAGE_1' | translate }}</li>
+        <li>{{ 'LEGAL.P_USAGE_2' | translate }}</li>
+        <li>{{ 'LEGAL.P_USAGE_3' | translate }}</li>
+        <li>{{ 'LEGAL.P_USAGE_4' | translate }}</li>
+      </ul>
+
+      <h3 class="legal-subheading">1.3 {{ 'LEGAL.P_S1_3_TITLE' | translate }}</h3>
+      <div class="legal-highlight">
+        <p>❌ {{ 'LEGAL.P_NO_1' | translate }}</p>
+        <p>❌ {{ 'LEGAL.P_NO_2' | translate }}</p>
+        <p>❌ {{ 'LEGAL.P_NO_3' | translate }}</p>
+        <p>❌ {{ 'LEGAL.P_NO_4' | translate }}</p>
+        <p>❌ {{ 'LEGAL.P_NO_5' | translate }}</p>
+      </div>
+
+      <!-- 2. Cómo usamos la información -->
+      <h2 class="legal-heading">2. {{ 'LEGAL.P_SECTION_2' | translate }}</h2>
+      <ul class="legal-list">
+        <li>{{ 'LEGAL.P_USE_1' | translate }}</li>
+        <li>{{ 'LEGAL.P_USE_2' | translate }}</li>
+        <li>{{ 'LEGAL.P_USE_3' | translate }}</li>
+        <li>{{ 'LEGAL.P_USE_4' | translate }}</li>
+        <li>{{ 'LEGAL.P_USE_5' | translate }}</li>
+      </ul>
+
+      <!-- 3. Compartir información -->
+      <h2 class="legal-heading">3. {{ 'LEGAL.P_SECTION_3' | translate }}</h2>
+      <p>{{ 'LEGAL.P_SHARE_INTRO' | translate }}</p>
+      <ul class="legal-list">
+        <li><strong>{{ 'LEGAL.P_SHARE_1_TITLE' | translate }}:</strong> {{ 'LEGAL.P_SHARE_1_DESC' | translate }}</li>
+        <li><strong>{{ 'LEGAL.P_SHARE_2_TITLE' | translate }}:</strong> {{ 'LEGAL.P_SHARE_2_DESC' | translate }}</li>
+      </ul>
+      <div class="legal-highlight">
+        <p>❌ {{ 'LEGAL.P_NO_SHARE_1' | translate }}</p>
+        <p>❌ {{ 'LEGAL.P_NO_SHARE_2' | translate }}</p>
+        <p>❌ {{ 'LEGAL.P_NO_SHARE_3' | translate }}</p>
+      </div>
+
+      <!-- 4. Seguridad -->
+      <h2 class="legal-heading">4. {{ 'LEGAL.P_SECTION_4' | translate }}</h2>
+      <ul class="legal-list">
+        <li>{{ 'LEGAL.P_SEC_1' | translate }}</li>
+        <li>{{ 'LEGAL.P_SEC_2' | translate }}</li>
+        <li>{{ 'LEGAL.P_SEC_3' | translate }}</li>
+      </ul>
+
+      <!-- 5. Retención -->
+      <h2 class="legal-heading">5. {{ 'LEGAL.P_SECTION_5' | translate }}</h2>
+      <p>{{ 'LEGAL.P_RETENTION_TEXT' | translate }}</p>
+
+      <!-- 6. Tus derechos -->
+      <h2 class="legal-heading">6. {{ 'LEGAL.P_SECTION_6' | translate }}</h2>
+      <ul class="legal-list">
+        <li>{{ 'LEGAL.P_RIGHT_1' | translate }}</li>
+        <li>{{ 'LEGAL.P_RIGHT_2' | translate }}</li>
+        <li>{{ 'LEGAL.P_RIGHT_3' | translate }}</li>
+        <li>{{ 'LEGAL.P_RIGHT_4' | translate }}</li>
+      </ul>
+
+      <!-- 7. Contacto -->
+      <h2 class="legal-heading">7. {{ 'LEGAL.P_SECTION_7' | translate }}</h2>
+      <div class="contact-box">
+        <p><strong>Email:</strong> privacy&#64;rinomed2026.com</p>
+        <p><strong>Web:</strong> rinomed2026.com</p>
+        <p><strong>{{ 'LEGAL.P_LOCATION' | translate }}:</strong> Medellín, Colombia</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ TERMS OF USE ═══════════════ -->
+  <div class="legal-body" *ngIf="activeTab === 'terms'">
+
+    <div class="legal-card glass-card">
+      <p class="legal-updated">{{ 'LEGAL.LAST_UPDATED' | translate }}: 7 de abril, 2026</p>
+
+      <p class="legal-intro">{{ 'LEGAL.TERMS_INTRO' | translate }}</p>
+
+      <!-- 1. Aceptación -->
+      <h2 class="legal-heading">1. {{ 'LEGAL.T_SECTION_1' | translate }}</h2>
+      <p>{{ 'LEGAL.T_ACCEPT_TEXT' | translate }}</p>
+
+      <!-- 2. Uso de la app -->
+      <h2 class="legal-heading">2. {{ 'LEGAL.T_SECTION_2' | translate }}</h2>
+      <ul class="legal-list">
+        <li>{{ 'LEGAL.T_USE_1' | translate }}</li>
+        <li>{{ 'LEGAL.T_USE_2' | translate }}</li>
+        <li>{{ 'LEGAL.T_USE_3' | translate }}</li>
+        <li>{{ 'LEGAL.T_USE_4' | translate }}</li>
+      </ul>
+
+      <!-- 3. Cuenta -->
+      <h2 class="legal-heading">3. {{ 'LEGAL.T_SECTION_3' | translate }}</h2>
+      <p>{{ 'LEGAL.T_ACCOUNT_TEXT' | translate }}</p>
+
+      <!-- 4. Contenido del usuario -->
+      <h2 class="legal-heading">4. {{ 'LEGAL.T_SECTION_4' | translate }}</h2>
+      <p>{{ 'LEGAL.T_CONTENT_INTRO' | translate }}</p>
+      <ul class="legal-list">
+        <li>{{ 'LEGAL.T_CONTENT_1' | translate }}</li>
+        <li>{{ 'LEGAL.T_CONTENT_2' | translate }}</li>
+        <li>{{ 'LEGAL.T_CONTENT_3' | translate }}</li>
+      </ul>
+
+      <!-- 5. Comunidad -->
+      <h2 class="legal-heading">5. {{ 'LEGAL.T_SECTION_5' | translate }}</h2>
+      <p>{{ 'LEGAL.T_COMMUNITY_TEXT' | translate }}</p>
+
+      <!-- 6. Certificados -->
+      <h2 class="legal-heading">6. {{ 'LEGAL.T_SECTION_6' | translate }}</h2>
+      <p>{{ 'LEGAL.T_CERT_TEXT' | translate }}</p>
+
+      <!-- 7. Propiedad intelectual -->
+      <h2 class="legal-heading">7. {{ 'LEGAL.T_SECTION_7' | translate }}</h2>
+      <p>{{ 'LEGAL.T_IP_TEXT' | translate }}</p>
+
+      <!-- 8. Limitación de responsabilidad -->
+      <h2 class="legal-heading">8. {{ 'LEGAL.T_SECTION_8' | translate }}</h2>
+      <p>{{ 'LEGAL.T_LIABILITY_TEXT' | translate }}</p>
+
+      <!-- 9. Modificaciones -->
+      <h2 class="legal-heading">9. {{ 'LEGAL.T_SECTION_9' | translate }}</h2>
+      <p>{{ 'LEGAL.T_CHANGES_TEXT' | translate }}</p>
+
+      <!-- 10. Ley aplicable -->
+      <h2 class="legal-heading">10. {{ 'LEGAL.T_SECTION_10' | translate }}</h2>
+      <p>{{ 'LEGAL.T_LAW_TEXT' | translate }}</p>
+
+      <!-- 11. Contacto -->
+      <h2 class="legal-heading">11. {{ 'LEGAL.T_SECTION_11' | translate }}</h2>
+      <div class="contact-box">
+        <p><strong>Email:</strong> legal&#64;rinomed2026.com</p>
+        <p><strong>Web:</strong> rinomed2026.com</p>
+        <p><strong>{{ 'LEGAL.P_LOCATION' | translate }}:</strong> Medellín, Colombia</p>
+      </div>
+    </div>
+  </div>
+
 </ion-content>

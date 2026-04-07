@@ -1,9 +1,167 @@
-ion-content {
-  --background: #1c1c1c;
-  color: #ffffff;
+$bg-detail: #1c1c1c;
+$text-primary: #ffffff;
+$accent-primary: #c07ab8;
+
+:host {
+  display: block;
 }
 
-ion-button {
-  --background: #c07ab8;
-  --color: #1c1c1c;
+ion-toolbar {
+  --background: transparent;
+  --border-width: 0;
+}
+
+ion-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.legal-content {
+  --background: #{$bg-detail};
+  color: #{$text-primary};
+  --padding-top: 0;
+  --padding-bottom: 24px;
+}
+
+/* ─── Segment Tabs ─── */
+.segment-container {
+  padding: 12px 16px 4px;
+}
+
+.segment-tabs {
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 4px;
+}
+
+.segment-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 11px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  cursor: pointer;
+
+  ion-icon {
+    font-size: 1.1rem;
+  }
+
+  &.active {
+    background: rgba(192, 122, 184, 0.25);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(192, 122, 184, 0.2);
+  }
+}
+
+/* ─── Legal Card ─── */
+.legal-body {
+  padding: 8px 16px 16px;
+}
+
+.legal-card {
+  padding: 20px 18px 24px;
+  border-radius: 16px;
+}
+
+.legal-updated {
+  text-align: center;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 16px;
+}
+
+.legal-intro {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 20px;
+}
+
+/* ─── Headings ─── */
+.legal-heading {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 24px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(192, 122, 184, 0.25);
+}
+
+.legal-subheading {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 16px 0 8px;
+}
+
+/* ─── Lists ─── */
+.legal-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 12px;
+
+  li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 8px;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.8);
+
+    &::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #c07ab8;
+      font-weight: 700;
+    }
+
+    strong {
+      color: #ffffff;
+    }
+  }
+}
+
+/* ─── Highlight Box ─── */
+.legal-highlight {
+  background: rgba(192, 122, 184, 0.08);
+  border-left: 3px solid rgba(192, 122, 184, 0.5);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 12px 0;
+
+  p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 4px 0;
+  }
+}
+
+/* ─── Contact Box ─── */
+.contact-box {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 12px;
+
+  p {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 6px 0;
+
+    strong {
+      color: #ffffff;
+    }
+  }
 }

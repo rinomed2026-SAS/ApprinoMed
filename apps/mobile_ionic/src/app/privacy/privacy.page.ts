@@ -1,17 +1,28 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/angular/standalone';
-import { environment } from '../../environments/environment';
+import { CommonModule } from '@angular/common';
+import {
+  IonHeader, IonToolbar, IonTitle, IonContent,
+  IonButtons, IonBackButton, IonIcon
+} from '@ionic/angular/standalone';
+import { TranslateModule } from '@ngx-translate/core';
+import { addIcons } from 'ionicons';
+import { shieldCheckmarkOutline, documentTextOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-privacy',
   templateUrl: './privacy.page.html',
   styleUrls: ['./privacy.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton]
+  imports: [
+    CommonModule,
+    TranslateModule,
+    IonHeader, IonToolbar, IonTitle, IonContent,
+    IonButtons, IonBackButton, IonIcon
+  ]
 })
 export class PrivacyPage {
-  url = 'https://rinomed2026.com/privacy.html';
+  activeTab: 'privacy' | 'terms' = 'privacy';
 
-  open() {
-    window.open(this.url, '_blank');
+  constructor() {
+    addIcons({ shieldCheckmarkOutline, documentTextOutline });
   }
 }
