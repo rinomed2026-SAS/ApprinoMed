@@ -29,7 +29,8 @@
               type="email"
               class="form-input"
               [placeholder]="'AUTH.EMAIL' | translate"
-              autocomplete="email"
+              autocomplete="off"
+              data-form-type="other"
               [class.error]="isFieldInvalid('email')"
             />
           </div>
@@ -49,7 +50,8 @@
               [type]="showPassword ? 'text' : 'password'"
               class="form-input"
               [placeholder]="'AUTH.PASSWORD' | translate"
-              autocomplete="current-password"
+              autocomplete="off"
+              data-form-type="other"
               [class.error]="isFieldInvalid('password')"
             />
             <button
