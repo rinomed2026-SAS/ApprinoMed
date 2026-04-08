@@ -4,7 +4,6 @@ import {
   IonHeader, IonToolbar, IonTitle, IonContent,
   IonButtons, IonBackButton, IonIcon
 } from '@ionic/angular/standalone';
-import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { shieldCheckmarkOutline, documentTextOutline } from 'ionicons/icons';
 
@@ -14,7 +13,6 @@ import { shieldCheckmarkOutline, documentTextOutline } from 'ionicons/icons';
   styleUrls: ['./privacy.page.scss'],
   imports: [
     CommonModule,
-    TranslateModule,
     IonHeader, IonToolbar, IonTitle, IonContent,
     IonButtons, IonBackButton, IonIcon
   ]
