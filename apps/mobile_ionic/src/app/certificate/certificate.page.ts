@@ -83,19 +83,6 @@ export class CertificatePage {
   errorMessage = '';
   userName = 'Guest';
 
-  fallbackCertificate: Certificate = {
-    id: '1',
-    userId: 'user-001',
-    certificateId: 'DEMO-2026-XXXX',
-    userName: 'Demo User (Awaiting Certificate Generation)',
-    eventName: 'International Congress of Rhinology and Otolaryngology',
-    eventDates: 'April 17–18, 2026',
-    academicHours: 16,
-    issuedAt: new Date().toISOString(),
-    userRole: 'ASSISTANT',
-    certificateType: 'Certificado de Asistencia'
-  };
-
   constructor(
     private authService: AuthService,
     private certificateService: CertificateService,
@@ -210,15 +197,15 @@ export class CertificatePage {
             this.certificate = cached;
             this.certificate.userName = this.userName;
           } else {
-            this.certificate = { ...this.fallbackCertificate };
-            this.certificate.userName = this.userName;
+            this.hasError = true;
+            this.errorMessage = this.translate.instant('SURVEY.CERT_UNAVAILABLE');
           }
           this.isLoading = false;
         }
       );
     } catch (error) {
-      this.certificate = { ...this.fallbackCertificate };
-      this.certificate.userName = this.userName;
+      this.hasError = true;
+      this.errorMessage = this.translate.instant('SURVEY.CERT_UNAVAILABLE');
       this.isLoading = false;
     }
 
@@ -226,8 +213,8 @@ export class CertificatePage {
       if (this.isLoading) {
         this.isLoading = false;
         if (!this.certificate) {
-          this.certificate = { ...this.fallbackCertificate };
-          this.certificate.userName = this.userName;
+          this.hasError = true;
+          this.errorMessage = this.translate.instant('SURVEY.CERT_UNAVAILABLE');
         }
       }
     }, 6000);

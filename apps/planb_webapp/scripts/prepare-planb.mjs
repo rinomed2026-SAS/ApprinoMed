@@ -96,13 +96,20 @@ async function main() {
   await mkdir(distDir, { recursive: true });
   await cp(sourceDir, distDir, { recursive: true });
 
+  // Copy public/ static files (privacy.html, etc.) to dist/
+  const publicDir = path.resolve(root, 'public');
+  if (existsSync(publicDir)) {
+    await cp(publicDir, distDir, { recursive: true });
+    console.log('Copied public/ static files to dist/');
+  }
+
   // Clean up duplicate files before writing anything
   const duplicatesRemoved = await removeDuplicateFiles(distDir);
   if (duplicatesRemoved > 0) {
     console.log(`Cleaned ${duplicatesRemoved} duplicate file(s)/folder(s)`);
   }
 
-  const redirects = '/* /index.html 200\n';
+  const redirects = '/privacy.html /privacy.html 200\n/* /index.html 200\n';
   const headers = [
     '/index.html',
     '  Cache-Control: no-cache, no-store, must-revalidate',

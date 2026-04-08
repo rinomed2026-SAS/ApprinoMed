@@ -250,6 +250,7 @@
     "DOWNLOADING": "Downloading…",
     "CERT_DOWNLOADED": "Certificate downloaded successfully",
     "CERT_DOWNLOAD_ERROR": "Failed to download certificate",
+    "CERT_UNAVAILABLE": "Your certificate is not available yet. Please try again later.",
     "COMPLETE_TO_DOWNLOAD": "Complete the satisfaction survey to download your certificate",
     "ROLE_ASSISTANT": "Attendee",
     "ROLE_PROFESSOR": "Speaker",

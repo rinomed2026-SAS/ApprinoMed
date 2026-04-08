@@ -6,6 +6,12 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Serve privacy.html as a static page (not SPA)
+[[redirects]]
+  from = "/privacy.html"
+  to = "/privacy.html"
+  status = 200
+
 # SPA fallback — serves index.html for all routes (Angular/Ionic routing)
 [[redirects]]
   from = "/*"
