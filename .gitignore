@@ -129,3 +129,4 @@ pnpm-store/
 *.ntvs*
 *.njsproj
 *.suo
+infra/
