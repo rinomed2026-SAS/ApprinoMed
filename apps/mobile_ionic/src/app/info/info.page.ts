@@ -1,6 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   IonHeader,
@@ -32,7 +33,9 @@ import {
   personOutline,
   peopleOutline,
   cardOutline,
-  closeOutline
+  closeOutline,
+  chevronForwardOutline,
+  documentTextOutline
 } from 'ionicons/icons';
 import { InfoService } from '../services/info.service';
 import { StorageService } from '../services/storage.service';
@@ -196,7 +199,8 @@ export class InfoPage {
     private storage: StorageService,
     private authService: AuthService,
     private ngZone: NgZone,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private router: Router
   ) {
     addIcons({
       'location-outline': locationOutline,
@@ -212,7 +216,9 @@ export class InfoPage {
       'person-outline': personOutline,
       'people-outline': peopleOutline,
       'card-outline': cardOutline,
-      'close-outline': closeOutline
+      'close-outline': closeOutline,
+      'chevron-forward-outline': chevronForwardOutline,
+      'document-text-outline': documentTextOutline
     });
     
     // Subscribe to current user
@@ -271,6 +277,10 @@ export class InfoPage {
   openMaps(url?: string) {
     if (!url) return;
     this.ngZone.run(() => window.open(url, '_blank'));
+  }
+
+  openPrograma() {
+    this.router.navigate(['/tabs/programa']);
   }
 
   openWebsite(url?: string) {

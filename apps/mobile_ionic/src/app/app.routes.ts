@@ -72,6 +72,10 @@ export const routes: Routes = [
         loadComponent: () => import('./privacy/privacy.page').then((m) => m.PrivacyPage)
       },
       {
+        path: 'programa',
+        loadComponent: () => import('./programa/programa.page').then((m) => m.ProgramaPage)
+      },
+      {
         path: 'community',
         loadComponent: () => import('./community/community.page').then((m) => m.CommunityPage)
       },
