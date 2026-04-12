@@ -9,7 +9,7 @@ type User = {
   createdAt: string;
 };
 
-const roleOptions = ['ADMIN', 'STAFF', 'PROFESSOR', 'ASSISTANT'];
+const roleOptions = ['ADMIN', 'COMMITTEE', 'SPEAKER', 'STAFF', 'SPONSOR', 'ASSISTANT', 'ASSISTANT_SURGICAL', 'ASSISTANT_VIRTUAL'];
 
 export function Users() {
   const [users, setUsers] = useState<User[]>([]);

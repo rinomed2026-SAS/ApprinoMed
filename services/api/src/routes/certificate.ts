@@ -17,29 +17,63 @@ type CertConfig = {
 };
 
 const CERT_CONFIG: Record<string, CertConfig> = {
+  /* ── 🧬 Académicos ─────────────────────────────────────────────── */
   ASSISTANT: {
-    titleEs: 'Certificado de Asistencia',
-    titleEn: 'Certificate of Attendance',
+    titleEs: 'Certificado de Asistente al Congreso',
+    titleEn: 'Congress Attendance Certificate',
     subtitleEs: 'por su asistencia al',
     subtitleEn: 'for attending the',
     hours: 16,
     color: [0.75, 0.48, 0.72] // magenta
   },
-  PROFESSOR: {
-    titleEs: 'Certificado de Ponente',
+  ASSISTANT_SURGICAL: {
+    titleEs: 'Certificado de Asistente con Entrenamiento Quirúrgico',
+    titleEn: 'Surgical Training Attendance Certificate',
+    subtitleEs: 'por su asistencia con entrenamiento quirúrgico al',
+    subtitleEn: 'for attending with surgical training the',
+    hours: 24,
+    color: [0.80, 0.30, 0.35] // red
+  },
+  ASSISTANT_VIRTUAL: {
+    titleEs: 'Certificado de Asistente Virtual',
+    titleEn: 'Virtual Attendance Certificate',
+    subtitleEs: 'por su asistencia virtual al',
+    subtitleEn: 'for virtually attending the',
+    hours: 12,
+    color: [0.45, 0.65, 0.85] // light blue
+  },
+  SPEAKER: {
+    titleEs: 'Certificado de Conferencista',
     titleEn: 'Speaker Certificate',
-    subtitleEs: 'por su participación como ponente en el',
+    subtitleEs: 'por su participación como conferencista en el',
     subtitleEn: 'for participating as a speaker at the',
     hours: 20,
     color: [0.30, 0.52, 0.80] // blue
   },
+  /* ── 🏛️ Institucionales ────────────────────────────────────────── */
+  COMMITTEE: {
+    titleEs: 'Certificado de Miembro del Comité Organizador',
+    titleEn: 'Organizing Committee Member Certificate',
+    subtitleEs: 'por su labor como miembro del comité organizador del',
+    subtitleEn: 'for serving as organizing committee member of the',
+    hours: 24,
+    color: [0.85, 0.62, 0.20] // gold
+  },
   STAFF: {
-    titleEs: 'Certificado de Organización',
-    titleEn: 'Organizer Certificate',
-    subtitleEs: 'por su labor en la organización del',
-    subtitleEn: 'for organizing the',
+    titleEs: 'Certificado de Staff Logístico',
+    titleEn: 'Logistics Staff Certificate',
+    subtitleEs: 'por su labor logística en el',
+    subtitleEn: 'for logistics support at the',
     hours: 24,
     color: [0.28, 0.68, 0.42] // green
+  },
+  SPONSOR: {
+    titleEs: 'Certificado de Patrocinador Oficial',
+    titleEn: 'Official Sponsor Certificate',
+    subtitleEs: 'por su patrocinio oficial del',
+    subtitleEn: 'for officially sponsoring the',
+    hours: 0,
+    color: [0.55, 0.35, 0.75] // purple
   },
   ADMIN: {
     titleEs: 'Certificado de Dirección',

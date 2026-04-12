@@ -1,4 +1,4 @@
-export type Role = 'ASSISTANT' | 'PROFESSOR' | 'STAFF' | 'ADMIN';
+export type Role = 'ASSISTANT' | 'ASSISTANT_SURGICAL' | 'ASSISTANT_VIRTUAL' | 'SPEAKER' | 'COMMITTEE' | 'STAFF' | 'SPONSOR' | 'ADMIN';
 
 export type Session = {
   id: string;

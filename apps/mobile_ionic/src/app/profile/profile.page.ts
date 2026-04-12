@@ -135,9 +135,13 @@ export class ProfilePage {
 
   getRoleLabel(role: string): string {
     const roleMap: { [key: string]: string } = {
-      ASSISTANT: 'Attendee',
-      PROFESSOR: 'Speaker',
+      ASSISTANT: 'Asistente',
+      ASSISTANT_SURGICAL: 'Asist. Quirúrgico',
+      ASSISTANT_VIRTUAL: 'Asist. Virtual',
+      SPEAKER: 'Conferencista',
+      COMMITTEE: 'Comité Organizador',
       STAFF: 'Staff',
+      SPONSOR: 'Patrocinador',
       ADMIN: 'Admin'
     };
     return roleMap[role] || role;
@@ -150,8 +154,12 @@ export class ProfilePage {
   getRoleColor(role: string): string {
     const colorMap: { [key: string]: string } = {
       ASSISTANT: '#8a4a8a',
-      PROFESSOR: '#c07ab8',
-      STAFF: '#a86ba8',
+      ASSISTANT_SURGICAL: '#cc4d59',
+      ASSISTANT_VIRTUAL: '#73a6d9',
+      SPEAKER: '#4d85cc',
+      COMMITTEE: '#d99e33',
+      STAFF: '#47ae6b',
+      SPONSOR: '#8c59bf',
       ADMIN: '#d8a3d8'
     };
     return colorMap[role] || '#c07ab8';

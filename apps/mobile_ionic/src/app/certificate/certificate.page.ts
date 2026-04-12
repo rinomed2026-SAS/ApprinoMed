@@ -275,8 +275,12 @@ export class CertificatePage {
   getRoleLabel(role: string): string {
     const labels: Record<string, string> = {
       ASSISTANT: this.translate.instant('SURVEY.ROLE_ASSISTANT'),
-      PROFESSOR: this.translate.instant('SURVEY.ROLE_PROFESSOR'),
+      ASSISTANT_SURGICAL: this.translate.instant('SURVEY.ROLE_ASSISTANT_SURGICAL'),
+      ASSISTANT_VIRTUAL: this.translate.instant('SURVEY.ROLE_ASSISTANT_VIRTUAL'),
+      SPEAKER: this.translate.instant('SURVEY.ROLE_SPEAKER'),
+      COMMITTEE: this.translate.instant('SURVEY.ROLE_COMMITTEE'),
       STAFF: this.translate.instant('SURVEY.ROLE_STAFF'),
+      SPONSOR: this.translate.instant('SURVEY.ROLE_SPONSOR'),
       ADMIN: this.translate.instant('SURVEY.ROLE_ADMIN')
     };
     return labels[role] || role;

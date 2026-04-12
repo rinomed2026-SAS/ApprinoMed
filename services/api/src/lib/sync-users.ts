@@ -48,8 +48,12 @@ function getFromAliases(row: RowMap, aliases: string[]): string {
 function parseRole(value: string): Role {
   const normalized = normalizeHeader(value);
   if (normalized === 'admin' || normalized === 'administrador') return 'ADMIN';
-  if (normalized === 'staff') return 'STAFF';
-  if (normalized === 'professor' || normalized === 'profesor') return 'PROFESSOR';
+  if (normalized === 'staff' || normalized === 'stafflogistico') return 'STAFF';
+  if (normalized === 'speaker' || normalized === 'conferencista' || normalized === 'professor' || normalized === 'profesor' || normalized === 'ponente') return 'SPEAKER';
+  if (normalized === 'committee' || normalized === 'comite' || normalized === 'comiteorganizador') return 'COMMITTEE';
+  if (normalized === 'sponsor' || normalized === 'patrocinador' || normalized === 'patrocinadoroficial') return 'SPONSOR';
+  if (normalized === 'assistantsurgical' || normalized === 'asistentequirurgico' || normalized === 'entrenamientoquirurgico') return 'ASSISTANT_SURGICAL';
+  if (normalized === 'assistantvirtual' || normalized === 'asistentevirtual' || normalized === 'virtual') return 'ASSISTANT_VIRTUAL';
   return 'ASSISTANT';
 }
 
