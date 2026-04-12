@@ -14,14 +14,7 @@
 
 <ion-content [fullscreen]="true" class="programa-content">
 
-  <!-- Loading state -->
-  <div *ngIf="isLoading" class="loading-container">
-    <ion-spinner name="crescent" color="primary"></ion-spinner>
-    <p>Cargando programa…</p>
-  </div>
-
-  <!-- Native: Show card with buttons (PDF can't be embedded in native webview easily) -->
-  <div *ngIf="isNative && !isLoading" class="native-container">
+  <div class="native-container">
     <div class="programa-hero">
       <div class="hero-icon">
         <ion-icon name="document-text-outline"></ion-icon>
@@ -38,7 +31,7 @@
           <ion-icon name="document-text-outline"></ion-icon>
           <div>
             <span class="info-label">Formato</span>
-            <span class="info-value">PDF · Programa completo</span>
+            <span class="info-value">PDF · Programa completo (9 páginas)</span>
           </div>
         </div>
       </div>
@@ -56,7 +49,7 @@
 
     <!-- Quick schedule summary -->
     <div class="schedule-summary">
-      <h3>Resumen</h3>
+      <h3>Resumen del Programa</h3>
       
       <div class="day-card">
         <div class="day-header">
@@ -73,12 +66,16 @@
             <span class="event">Inauguración</span>
           </div>
           <div class="schedule-item highlight">
-            <span class="time">8:30 – 17:30</span>
-            <span class="event">Conferencias y Paneles Académicos</span>
+            <span class="time">8:30 – 12:30</span>
+            <span class="event">Conferencias Magistrales</span>
           </div>
           <div class="schedule-item">
             <span class="time">12:30 – 14:00</span>
             <span class="event">Almuerzo</span>
+          </div>
+          <div class="schedule-item highlight">
+            <span class="time">14:00 – 17:30</span>
+            <span class="event">Paneles Académicos y Mesas de Trabajo</span>
           </div>
           <div class="schedule-item social">
             <span class="time">20:00</span>
@@ -95,7 +92,7 @@
         <div class="day-items">
           <div class="schedule-item highlight">
             <span class="time">8:00 – 12:30</span>
-            <span class="event">Conferencias y Mesas de Trabajo</span>
+            <span class="event">Conferencias y Casos Clínicos</span>
           </div>
           <div class="schedule-item">
             <span class="time">12:30 – 14:00</span>
@@ -112,28 +109,8 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Web/PWA: Embed PDF in iframe -->
-  <div *ngIf="!isNative && !isLoading && !pdfError" class="pdf-wrapper">
-    <iframe
-      *ngIf="pdfUrl"
-      [src]="pdfUrl"
-      class="pdf-viewer"
-      (load)="onPdfLoad()"
-      (error)="onPdfError()">
-    </iframe>
-  </div>
-
-  <!-- Error state -->
-  <div *ngIf="pdfError" class="error-container">
-    <ion-icon name="document-text-outline"></ion-icon>
-    <h3>No se pudo cargar el programa</h3>
-    <p>Puedes descargarlo directamente</p>
-    <ion-button class="glass-button primary" (click)="downloadPdf()">
-      <ion-icon slot="start" name="download-outline"></ion-icon>
-      Descargar PDF
-    </ion-button>
+    <p class="footer-note">Toca "Ver Programa Completo" para ver el detalle con todos los conferencistas y temas.</p>
   </div>
 
 </ion-content>
