@@ -73,21 +73,29 @@ export class HomePage implements OnInit, ViewWillEnter {
   }
 
   /**
-   * Carga estadísticas del usuario desde la API
+   * Carga estadísticas del usuario desde la API, con cache local
    */
   private loadStatistics() {
+    // Cargar cache local inmediatamente para no mostrar 0
+    try {
+      const cached = localStorage.getItem('rinomed_stats');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        this.statistics = { ...this.statistics, ...parsed };
+      }
+    } catch { /* ignore parse errors */ }
+
     this.statisticsService.get().subscribe({
       next: (response) => {
         this.statistics = response.data;
+        // Guardar en cache local para persistencia
+        try {
+          localStorage.setItem('rinomed_stats', JSON.stringify(response.data));
+        } catch { /* ignore storage errors */ }
       },
-      error: async (error) => {
-        const toast = await this.toastController.create({
-          message: 'Error loading statistics',
-          duration: 2000,
-          position: 'bottom',
-          cssClass: 'rinomed-toast'
-        });
-        await toast.present();
+      error: () => {
+        // Si falla la API, mantener los datos del cache (ya cargados arriba)
+        console.warn('Could not load statistics from API, using cached data');
       }
     });
   }

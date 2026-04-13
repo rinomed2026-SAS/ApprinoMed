@@ -11,6 +11,7 @@ const config: CapacitorConfig = {
       'https://rinomed2026.com',
       'https://adminweb-production-d7b5.up.railway.app',
       'https://maps.google.com',
+      'https://maps.apple.com',
       'https://wa.me'
     ]
   },

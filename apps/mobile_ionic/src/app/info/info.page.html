@@ -73,9 +73,16 @@
             <ion-button 
               expand="block" 
               class="glass-button primary"
-              (click)="openMaps(eventInfo?.mapsUrl)">
+              (click)="openAppleMaps(eventInfo?.mapsUrl)">
               <ion-icon slot="start" name="map-outline"></ion-icon>
-              {{ 'INFO.OPEN_IN_MAPS' | translate }}
+              Apple Maps
+            </ion-button>
+            <ion-button 
+              expand="block" 
+              class="glass-button secondary"
+              (click)="openGoogleMaps(eventInfo?.mapsUrl)">
+              <ion-icon slot="start" name="globe-outline"></ion-icon>
+              Google Maps
             </ion-button>
           </ion-card-content>
         </ion-card>

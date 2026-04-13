@@ -13,7 +13,7 @@ import {
 } from '@ionic/angular/standalone';
 import { FavoritesService } from '../services/favorites.service';
 import { Session } from '../services/types';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { star, starOutline, locationOutline } from 'ionicons/icons';
 import { ToastController } from '@ionic/angular';
@@ -23,7 +23,7 @@ import { ToastController } from '@ionic/angular';
   templateUrl: './favorites.page.html',
   styleUrls: ['./favorites.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslateModule, IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, IonChip, IonButton]
+  imports: [CommonModule, FormsModule, TranslateModule, RouterModule, IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, IonChip, IonButton]
 })
 export class FavoritesPage {
   sessions: Session[] = [];

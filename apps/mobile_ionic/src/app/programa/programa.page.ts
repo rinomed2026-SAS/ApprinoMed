@@ -16,8 +16,9 @@ import {
   documentTextOutline,
   openOutline
 } from 'ionicons/icons';
-import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
+import { Browser } from '@capacitor/browser';
+import { ToastController } from '@ionic/angular';
 
 const PDF_ASSET_PATH = 'assets/docs/programa-rinomed-2026.pdf';
 
@@ -40,29 +41,76 @@ const PDF_ASSET_PATH = 'assets/docs/programa-rinomed-2026.pdf';
 })
 export class ProgramaPage {
   private isNative = Capacitor.isNativePlatform();
+  opening = false;
 
-  constructor() {
+  constructor(private toastCtrl: ToastController) {
     addIcons({ downloadOutline, documentTextOutline, openOutline });
   }
 
   async openPdf() {
-    if (this.isNative) {
-      const baseUrl = window.location.origin;
-      await Browser.open({ url: `${baseUrl}/${PDF_ASSET_PATH}` });
-    } else {
-      window.open(PDF_ASSET_PATH, '_blank');
+    if (this.opening) return;
+    this.opening = true;
+    try {
+      if (this.isNative) {
+        // En iOS nativo, construir la URL completa del servidor Capacitor
+        // y abrirla en el in-app browser que SÍ puede renderizar PDFs
+        const serverUrl = Capacitor.convertFileSrc('');
+        // convertFileSrc devuelve algo como 'capacitor://localhost/'
+        // Construimos la URL completa al asset
+        const fullUrl = `${window.location.origin}/${PDF_ASSET_PATH}`;
+        await Browser.open({ url: fullUrl });
+      } else {
+        window.open(PDF_ASSET_PATH, '_blank');
+      }
+    } catch (err) {
+      console.error('openPdf error', err);
+      const toast = await this.toastCtrl.create({
+        message: 'No se pudo abrir el programa. Intenta descargarlo.',
+        duration: 2500,
+        position: 'bottom'
+      });
+      await toast.present();
+    } finally {
+      this.opening = false;
     }
   }
 
   async downloadPdf() {
-    if (this.isNative) {
-      const baseUrl = window.location.origin;
-      await Browser.open({ url: `${baseUrl}/${PDF_ASSET_PATH}` });
-    } else {
-      const link = document.createElement('a');
-      link.href = PDF_ASSET_PATH;
-      link.download = 'Programa-RINOMED-2026.pdf';
-      link.click();
+    if (this.opening) return;
+    this.opening = true;
+    try {
+      if (this.isNative) {
+        // En iOS nativo, intentar Web Share API para compartir/guardar el PDF
+        try {
+          const resp = await fetch(PDF_ASSET_PATH);
+          if (!resp.ok) throw new Error('fetch failed');
+          const blob = await resp.blob();
+          const file = new File([blob], 'Programa-RINOMED-2026.pdf', { type: 'application/pdf' });
+          if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({ files: [file], title: 'Programa RINOMED 2026' });
+            return;
+          }
+        } catch { /* share not available, fallback */ }
+
+        // Fallback: abrir en in-app browser (muestra el PDF con opción de compartir)
+        const fullUrl = `${window.location.origin}/${PDF_ASSET_PATH}`;
+        await Browser.open({ url: fullUrl });
+      } else {
+        const link = document.createElement('a');
+        link.href = PDF_ASSET_PATH;
+        link.download = 'Programa-RINOMED-2026.pdf';
+        link.click();
+      }
+    } catch (err) {
+      console.error('downloadPdf error', err);
+      const toast = await this.toastCtrl.create({
+        message: 'No se pudo descargar el programa.',
+        duration: 2500,
+        position: 'bottom'
+      });
+      await toast.present();
+    } finally {
+      this.opening = false;
     }
   }
 }

@@ -130,37 +130,62 @@ export class CommunityPage implements OnInit {
   // ─────────────────────────────────────────────
 
   triggerFileInput() {
-    this.fileInputRef.nativeElement.click();
+    try {
+      this.uploadError = null;
+      this.fileInputRef.nativeElement.value = ''; // Reset para permitir re-selección
+      this.fileInputRef.nativeElement.click();
+    } catch (err) {
+      console.error('Error opening file picker:', err);
+      this.uploadError =
+        'No se pudo abrir el selector de imágenes. Por favor, selecciona una foto de tu galería.';
+      this.showToast(
+        'No se pudo acceder a la cámara. Intenta seleccionar una imagen de tu galería.'
+      );
+    }
   }
 
   onFileSelected(event: Event) {
-    this.uploadError = null;
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
+    try {
+      this.uploadError = null;
+      const input = event.target as HTMLInputElement;
+      const file = input.files?.[0];
 
-    if (!file) return;
+      if (!file) return;
 
-    // Validación de tipo
-    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-      this.uploadError = 'Solo se permiten imágenes JPG, PNG o WebP.';
-      return;
-    }
+      // Validación de tipo
+      if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+        this.uploadError = 'Solo se permiten imágenes JPG, PNG o WebP.';
+        return;
+      }
 
-    // Validación de tamaño
-    if (file.size > MAX_FILE_SIZE_BYTES) {
-      this.uploadError = 'La imagen no debe superar 8 MB.';
-      return;
-    }
+      // Validación de tamaño (8 MB)
+      if (file.size > MAX_FILE_SIZE_BYTES) {
+        this.uploadError = 'La imagen no debe superar 8 MB. Intenta con otra foto más pequeña.';
+        return;
+      }
 
-    this.selectedFile = file;
-    const reader = new FileReader();
-    reader.onload = (e) => {
+      this.selectedFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.ngZone.run(() => {
+          this.previewDataUrl = e.target?.result as string;
+          this.composedDataUrl = null; // resetear composición anterior
+        });
+      };
+      reader.onerror = () => {
+        this.ngZone.run(() => {
+          this.uploadError =
+            'No se pudo leer la imagen seleccionada. Por favor intenta con otra foto de tu galería.';
+        });
+      };
+      reader.readAsDataURL(file);
+    } catch (err) {
+      console.error('Error processing selected file:', err);
       this.ngZone.run(() => {
-        this.previewDataUrl = e.target?.result as string;
-        this.composedDataUrl = null; // resetear composición anterior
+        this.uploadError =
+          'Ocurrió un error al procesar la imagen. Por favor selecciona otra foto de tu galería.';
       });
-    };
-    reader.readAsDataURL(file);
+    }
   }
 
   proceedToPreview() {

@@ -37,6 +37,8 @@ import {
   chevronForwardOutline,
   documentTextOutline
 } from 'ionicons/icons';
+import { Browser } from '@capacitor/browser';
+import { Capacitor } from '@capacitor/core';
 import { InfoService } from '../services/info.service';
 import { StorageService } from '../services/storage.service';
 import { AuthService } from '../services/auth.service';
@@ -274,26 +276,60 @@ export class InfoPage {
     this.tab = String(value);
   }
 
-  openMaps(url?: string) {
-    if (!url) return;
-    this.ngZone.run(() => window.open(url, '_blank'));
+  private extractQuery(url?: string): string {
+    if (!url) return 'Centro Convenciones Andino Bogota';
+    try {
+      const match = url.match(/[?&]q=([^&]+)/);
+      if (match) return decodeURIComponent(match[1].replace(/\+/g, ' '));
+    } catch { /* ignore */ }
+    return 'Centro Convenciones Andino Bogota';
+  }
+
+  async openAppleMaps(url?: string) {
+    const query = this.extractQuery(url);
+    const appleMapsUrl = `https://maps.apple.com/?q=${encodeURIComponent(query)}`;
+    try {
+      await Browser.open({ url: appleMapsUrl });
+    } catch (e) {
+      console.error('openAppleMaps error', e);
+      window.open(appleMapsUrl, '_blank');
+    }
+  }
+
+  async openGoogleMaps(url?: string) {
+    const query = this.extractQuery(url);
+    const googleUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+    try {
+      await Browser.open({ url: googleUrl });
+    } catch (e) {
+      console.error('openGoogleMaps error', e);
+      window.open(googleUrl, '_blank');
+    }
   }
 
   openPrograma() {
     this.router.navigate(['/tabs/programa']);
   }
 
-  openWebsite(url?: string) {
+  async openWebsite(url?: string) {
     if (!url) return;
     const fullUrl = url.startsWith('http') ? url : `https://${url}`;
-    this.ngZone.run(() => window.open(fullUrl, '_blank'));
+    try {
+      await Browser.open({ url: fullUrl });
+    } catch {
+      window.open(fullUrl, '_blank');
+    }
   }
 
-  openWhatsApp(phone?: string) {
+  async openWhatsApp(phone?: string) {
     if (!phone) return;
     const digits = phone.replace(/\D/g, '');
     const waUrl = `https://wa.me/${digits}`;
-    this.ngZone.run(() => window.open(waUrl, '_blank'));
+    try {
+      await Browser.open({ url: waUrl });
+    } catch {
+      window.open(waUrl, '_blank');
+    }
   }
 
   callPhone(phone?: string) {

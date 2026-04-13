@@ -47,6 +47,18 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>RINOMED 2026 necesita acceso a la cámara para que puedas tomar una foto y crear tu imagen de la comunidad.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>RINOMED 2026 necesita acceso a tu galería de fotos para seleccionar una imagen y crear tu imagen de la comunidad.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>RINOMED 2026 necesita permiso para guardar tu imagen de la comunidad en tu galería de fotos.</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>maps</string>
+		<string>comgooglemaps</string>
+		<string>https</string>
+	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
