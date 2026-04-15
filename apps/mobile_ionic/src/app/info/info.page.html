@@ -163,7 +163,7 @@
               <ion-icon name="sparkles-outline"></ion-icon>
             </div>
             <h2 class="party-title">{{ 'INFO.PARTY_TITLE' | translate }}</h2>
-            <p class="party-subtitle">{{ closingEventTitle || ('INFO.PARTY_SUBTITLE' | translate) }}</p>
+            <p class="party-subtitle">{{ partyEventTitle || ('INFO.PARTY_SUBTITLE' | translate) }}</p>
           </div>
           <ion-card-content>
             <div class="party-details">
@@ -171,14 +171,14 @@
                 <ion-icon name="time-outline"></ion-icon>
                 <div>
                   <span class="detail-label">{{ 'INFO.PARTY_DATE_LABEL' | translate }}</span>
-                  <span class="detail-value">{{ closingEventDateTime || ('INFO.PARTY_DATE_VALUE' | translate) }}</span>
+                  <span class="detail-value">{{ partyEventDateTime || ('INFO.PARTY_DATE_VALUE' | translate) }}</span>
                 </div>
               </div>
               <div class="party-detail-item">
                 <ion-icon name="location-outline"></ion-icon>
                 <div>
                   <span class="detail-label">{{ 'INFO.PARTY_LOCATION_LABEL' | translate }}</span>
-                  <span class="detail-value">{{ closingEventLocation || ('INFO.PARTY_LOCATION_VALUE' | translate) }}</span>
+                  <span class="detail-value">{{ partyEventLocation || ('INFO.PARTY_LOCATION_VALUE' | translate) }}</span>
                 </div>
               </div>
               <div class="party-detail-item">
@@ -201,8 +201,10 @@
               </div>
               <div class="price-amount">
                 <span class="currency">USD</span>
-                <span class="value">{{ partyPrice }}</span>
+                <span class="value">{{ partySinglePrice }}</span>
               </div>
+              <p class="price-includes">{{ 'INFO.PARTY_PRICE_SINGLE' | translate:{ price: partySinglePrice } }}</p>
+              <p class="price-includes">{{ 'INFO.PARTY_PRICE_COUPLE' | translate:{ price: partyCouplePrice } }}</p>
               <p class="price-includes">{{ 'INFO.PARTY_PRICE_INCLUDES' | translate }}</p>
             </div>
 
@@ -258,15 +260,15 @@
         <div class="price-summary">
           <div class="summary-row">
             <span>{{ 'INFO.PARTY_SUMMARY_MAIN' | translate }}</span>
-            <span>USD ${{ partyPrice }}</span>
+            <span>USD ${{ partySinglePrice }}</span>
           </div>
           <div class="summary-row" *ngIf="partyForm.companionName">
             <span>{{ 'INFO.PARTY_SUMMARY_COMPANION' | translate }}</span>
-            <span>USD ${{ partyPrice }}</span>
+            <span>USD ${{ getCompanionPrice() }}</span>
           </div>
           <div class="summary-total">
             <span>{{ 'INFO.PARTY_SUMMARY_TOTAL' | translate }}</span>
-            <span>USD ${{ partyForm.companionName ? partyPrice * 2 : partyPrice }}</span>
+            <span>USD ${{ getPartyTotal() }}</span>
           </div>
         </div>
       </div>

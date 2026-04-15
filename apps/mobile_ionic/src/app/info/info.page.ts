@@ -82,10 +82,11 @@ export class InfoPage {
     participantName: '',
     companionName: ''
   };
-  partyPrice = 150;
-  closingEventTitle = '';
-  closingEventDateTime = '';
-  closingEventLocation = '';
+  partySinglePrice = 70;
+  partyCouplePrice = 120;
+  partyEventTitle = '';
+  partyEventDateTime = '';
+  partyEventLocation = '';
 
   fallbackEventInfo: EventInfo = {
     id: 1,
@@ -275,22 +276,20 @@ export class InfoPage {
       }
     });
 
-    this.loadClosingEventFromAgendaDay2();
+    this.loadPartyEventFromAgendaDay2();
   }
 
-  private loadClosingEventFromAgendaDay2() {
+  private loadPartyEventFromAgendaDay2() {
     this.sessionsService.list('2026-04-18', undefined, 1, 50).subscribe({
       next: (response) => {
         const sessions = response.data || [];
-        const closing =
-          sessions.find((session) => this.isClosingSession(session)) ||
-          sessions[sessions.length - 1];
+        const partySession = sessions.find((session) => this.isPartySession(session));
 
-        if (!closing) return;
+        if (!partySession) return;
 
-        this.closingEventTitle = closing.title || '';
-        this.closingEventDateTime = `${this.formatSessionDay(closing.day)} · ${closing.startTime} - ${closing.endTime}`;
-        this.closingEventLocation = closing.room || '';
+        this.partyEventTitle = partySession.title || '';
+        this.partyEventDateTime = `${this.formatSessionDay(partySession.day)} · ${partySession.startTime} - ${partySession.endTime}`;
+        this.partyEventLocation = partySession.room || '';
       },
       error: () => {
       }
@@ -308,9 +307,17 @@ export class InfoPage {
     }).format(parsed);
   }
 
-  private isClosingSession(session: Session): boolean {
+  private isPartySession(session: Session): boolean {
     const text = `${session.title || ''} ${session.topic || ''} ${session.description || ''}`.toLowerCase();
-    return text.includes('cierre') || text.includes('closing') || text.includes('clausura');
+    return text.includes('fiesta') || text.includes('party') || text.includes('la chula');
+  }
+
+  getCompanionPrice(): number {
+    return Math.max(this.partyCouplePrice - this.partySinglePrice, 0);
+  }
+
+  getPartyTotal(): number {
+    return this.partyForm.companionName ? this.partyCouplePrice : this.partySinglePrice;
   }
 
   setTab(value?: string | number | null) {
