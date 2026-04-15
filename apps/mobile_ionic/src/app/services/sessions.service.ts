@@ -6,10 +6,12 @@ import { Session } from './types';
 export class SessionsService {
   constructor(private api: ApiService) {}
 
-  list(day?: string, query?: string) {
+  list(day?: string, query?: string, page?: number, limit?: number) {
     const params = new URLSearchParams();
     if (day) params.append('day', day);
     if (query) params.append('query', query);
+    if (page) params.append('page', String(page));
+    if (limit) params.append('limit', String(limit));
     return this.api.get<{ data: Session[] }>(`/v1/sessions?${params.toString()}`);
   }
 

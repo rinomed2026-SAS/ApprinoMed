@@ -40,9 +40,10 @@ import {
 import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
 import { InfoService } from '../services/info.service';
+import { SessionsService } from '../services/sessions.service';
 import { StorageService } from '../services/storage.service';
 import { AuthService } from '../services/auth.service';
-import { EventInfo, Hotel, Tourism, UserProfile } from '../services/types';
+import { EventInfo, Hotel, Tourism, UserProfile, Session } from '../services/types';
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -82,6 +83,9 @@ export class InfoPage {
     companionName: ''
   };
   partyPrice = 150;
+  closingEventTitle = '';
+  closingEventDateTime = '';
+  closingEventLocation = '';
 
   fallbackEventInfo: EventInfo = {
     id: 1,
@@ -198,6 +202,7 @@ export class InfoPage {
 
   constructor(
     private infoService: InfoService,
+    private sessionsService: SessionsService,
     private storage: StorageService,
     private authService: AuthService,
     private ngZone: NgZone,
@@ -269,6 +274,43 @@ export class InfoPage {
         this.tourism = stored || this.fallbackTourism;
       }
     });
+
+    this.loadClosingEventFromAgendaDay2();
+  }
+
+  private loadClosingEventFromAgendaDay2() {
+    this.sessionsService.list('2026-04-18', undefined, 1, 50).subscribe({
+      next: (response) => {
+        const sessions = response.data || [];
+        const closing =
+          sessions.find((session) => this.isClosingSession(session)) ||
+          sessions[sessions.length - 1];
+
+        if (!closing) return;
+
+        this.closingEventTitle = closing.title || '';
+        this.closingEventDateTime = `${this.formatSessionDay(closing.day)} · ${closing.startTime} - ${closing.endTime}`;
+        this.closingEventLocation = closing.room || '';
+      },
+      error: () => {
+      }
+    });
+  }
+
+  private formatSessionDay(day: string): string {
+    const datePart = day.split('T')[0];
+    const parsed = new Date(`${datePart}T00:00:00`);
+    if (Number.isNaN(parsed.getTime())) return datePart;
+    return new Intl.DateTimeFormat('es-CO', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(parsed);
+  }
+
+  private isClosingSession(session: Session): boolean {
+    const text = `${session.title || ''} ${session.topic || ''} ${session.description || ''}`.toLowerCase();
+    return text.includes('cierre') || text.includes('closing') || text.includes('clausura');
   }
 
   setTab(value?: string | number | null) {

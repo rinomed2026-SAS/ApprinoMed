@@ -67,7 +67,7 @@ export class AgendaPage {
 
   loadSessions() {
     this.isLoading = true;
-    this.sessionsService.list().subscribe({
+    this.sessionsService.list(undefined, undefined, 1, 50).subscribe({
       next: (response) => {
         this.allSessions = response.data;
         this.loadFavorites();

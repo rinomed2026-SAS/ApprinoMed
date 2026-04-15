@@ -163,7 +163,7 @@
               <ion-icon name="sparkles-outline"></ion-icon>
             </div>
             <h2 class="party-title">{{ 'INFO.PARTY_TITLE' | translate }}</h2>
-            <p class="party-subtitle">{{ 'INFO.PARTY_SUBTITLE' | translate }}</p>
+            <p class="party-subtitle">{{ closingEventTitle || ('INFO.PARTY_SUBTITLE' | translate) }}</p>
           </div>
           <ion-card-content>
             <div class="party-details">
@@ -171,14 +171,14 @@
                 <ion-icon name="time-outline"></ion-icon>
                 <div>
                   <span class="detail-label">{{ 'INFO.PARTY_DATE_LABEL' | translate }}</span>
-                  <span class="detail-value">{{ 'INFO.PARTY_DATE_VALUE' | translate }}</span>
+                  <span class="detail-value">{{ closingEventDateTime || ('INFO.PARTY_DATE_VALUE' | translate) }}</span>
                 </div>
               </div>
               <div class="party-detail-item">
                 <ion-icon name="location-outline"></ion-icon>
                 <div>
                   <span class="detail-label">{{ 'INFO.PARTY_LOCATION_LABEL' | translate }}</span>
-                  <span class="detail-value">{{ 'INFO.PARTY_LOCATION_VALUE' | translate }}</span>
+                  <span class="detail-value">{{ closingEventLocation || ('INFO.PARTY_LOCATION_VALUE' | translate) }}</span>
                 </div>
               </div>
               <div class="party-detail-item">
