@@ -118,62 +118,21 @@
 
   <!-- Success State -->
   <div *ngIf="certificate && !isLoading && !hasError && !showSurvey" class="certificate-container">
+
     <!-- Availability Badge -->
     <div class="availability-badge">
       <ion-icon name="checkmarkCircleOutline"></ion-icon>
       <span>{{ 'SURVEY.CERT_AVAILABLE' | translate }}</span>
     </div>
 
-    <!-- Certificate Preview Card -->
-    <div class="certificate-preview">
-      <div class="certificate-inner">
-        <div class="certificate-decoration"></div>
-
-        <div class="certificate-header">
-          <p class="event-identifier">RINOMED 2026</p>
-        </div>
-
-        <div class="certificate-body">
-          <h1 class="certificate-title">{{ certificate.certificateType || ('SURVEY.CERT_TITLE' | translate) }}</h1>
-
-          <div class="recipient-section">
-            <p class="recipient-label">{{ 'SURVEY.CERT_AWARDED_TO' | translate }}</p>
-            <h2 class="recipient-name">{{ certificate.userName }}</h2>
-          </div>
-
-          <div class="role-badge" *ngIf="certificate.userRole">
-            <span class="role-tag">{{ getRoleLabel(certificate.userRole) }}</span>
-          </div>
-
-          <div class="achievement-section">
-            <p class="achievement-text">{{ 'SURVEY.CERT_PARTICIPATED' | translate }}</p>
-            <p class="event-name">{{ certificate.eventName }}</p>
-          </div>
-
-          <div class="details-section">
-            <div class="detail-item">
-              <span class="detail-label">{{ 'SURVEY.CERT_DATES' | translate }}</span>
-              <span class="detail-value">{{ certificate.eventDates }}</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-label">{{ 'SURVEY.CERT_HOURS' | translate }}</span>
-              <span class="detail-value">{{ certificate.academicHours }} {{ 'SURVEY.HOURS' | translate }}</span>
-            </div>
-          </div>
-
-          <div class="certificate-id-section">
-            <p class="id-label">{{ 'SURVEY.CERT_ID' | translate }}</p>
-            <p class="id-value">{{ certificate.certificateId }}</p>
-          </div>
-
-          <div class="issue-date">
-            <p>{{ 'SURVEY.CERT_ISSUED' | translate }} {{ getFormattedDate(certificate.issuedAt) }}</p>
-          </div>
-
-          <div class="certificate-footer-line"></div>
-        </div>
-      </div>
+    <!-- Professional Informational Note -->
+    <div class="certificate-info-message" style="margin: 2rem 0;">
+      <p class="page-description" style="margin: 0;">
+        La emisión de certificados oficiales se encuentra habilitada para RINOMED 2026, encuentro internacional de referencia en rinoplastia y cirugía facial. Cada certificado se genera automáticamente con la plantilla institucional según el rol del participante y queda disponible para su descarga en la aplicación móvil.
+      </p>
     </div>
+
+    <!-- Certificate Preview Card removed as requested -->
 
     <!-- Information Note -->
     <div class="info-note">
